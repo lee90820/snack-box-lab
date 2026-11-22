@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>과자 상자 디자인 연구소</title>
+<style id="pageStyle">@page{size:A4;margin:12mm}</style>
+<style>
+:root{
+  --bg:#FFFBF2; --card:#FFFFFF; --sky:#E1F3FF; --sky2:#B9E2FF; --skyD:#2A86D1;
+  --mint:#3CC8A8; --mintL:#E2F8F1; --mintD:#15937A; --orange:#FF9A3C; --orangeL:#FFF0E0; --orangeD:#C56A12;
+  --yellow:#FFD84D; --yellowL:#FFF7D6;
+  --ink:#24323F; --ink2:#526273; --muted:#8696A5; --line:#E9E1D2; --red:#D9534F; --redL:#FDECEC;
+  --ax-a:#E8743B; --ax-b:#3A7BEA; --ax-c:#1F9D62;
+  --f-fb:#FFC58A; --f-side:#9ED3F5; --f-tb:#9BE3C8;
+  --r:18px; --sh:0 6px 22px rgba(120,95,40,.09);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Nanum Gothic",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit;font-size:inherit;color:var(--ink)}
+h1,h2,h3,h4{margin:0;line-height:1.35}
+.wrap{max-width:1260px;margin:0 auto;padding:0 18px 48px}
+header.top{background:linear-gradient(120deg,#DDF1FF 0%,#E4F9F1 55%,#FFF1DC 100%);border-bottom:1px solid var(--line)}
+.top-in{max-width:1260px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{width:56px;height:56px;border-radius:16px;background:#fff;display:grid;place-items:center;font-size:30px;box-shadow:var(--sh);flex:none}
+.title h1{font-size:25px;letter-spacing:-.5px}
+.title p{margin:0;color:var(--ink2);font-size:15px}
+.top-btns{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:none;border-radius:14px;padding:11px 20px;font-weight:800;background:var(--sky);color:var(--skyD);transition:transform .08s,box-shadow .15s,background .15s;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{box-shadow:0 4px 14px rgba(42,134,209,.18)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
+.btn.primary{background:var(--mint);color:#fff}
+.btn.primary:hover{background:var(--mintD)}
+.btn.orange{background:var(--orange);color:#fff}
+.btn.orange:hover{background:var(--orangeD)}
+.btn.white{background:#fff;color:var(--ink2);border:1.5px solid var(--line)}
+.btn.danger{background:var(--redL);color:var(--red)}
+.btn.small{padding:7px 13px;min-height:40px;font-size:15px;border-radius:12px}
+.btn.big{padding:15px 28px;font-size:19px;min-height:58px}
+.progress{position:sticky;top:0;z-index:20;background:rgba(255,251,242,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.progress-in{max-width:1260px;margin:0 auto;padding:10px 18px}
+.steps{display:flex;gap:6px}
+.stepbtn{flex:1;background:#fff;border-radius:14px;padding:6px;display:flex;align-items:center;gap:8px;justify-content:center;color:var(--muted);font-weight:800;font-size:15px;border:2px solid var(--line);min-height:52px;line-height:1.25}
+.stepbtn .num{width:28px;height:28px;border-radius:50%;background:#DDD5C6;color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+.stepbtn.done .num{background:var(--mint)}
+.stepbtn.cur{border-color:var(--skyD);color:var(--ink);background:var(--sky)}
+.stepbtn.cur .num{background:var(--skyD)}
+@media (max-width:760px){.stepbtn .nm{display:none}}
+.bar{height:8px;border-radius:8px;background:#EEE6D8;margin-top:8px;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--skyD),var(--mint),var(--orange));border-radius:8px;transition:width .4s}
+section.step{display:none;padding-top:22px;animation:fade .35s}
+section.step.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:22px;margin-bottom:18px;border:1px solid #F2EBDD}
+.card h2{font-size:22px;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3{font-size:19px;margin-bottom:8px}
+.steptitle{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.steptitle .tag{background:var(--skyD);color:#fff;border-radius:10px;padding:4px 12px;font-weight:900;font-size:15px}
+.steptitle h2{font-size:26px}
+.grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.grid2>*{min-width:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:920px){.grid2,.grid3{grid-template-columns:1fr}}
+.muted{color:var(--muted)} .ink2{color:var(--ink2)} .center{text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.mt{margin-top:14px}
+.small{font-size:14.5px}
+.note{background:var(--yellowL);border-left:6px solid var(--yellow);border-radius:12px;padding:12px 16px;margin:12px 0}
+.note.mint{background:var(--mintL);border-color:var(--mint)}
+.note.sky{background:var(--sky);border-color:var(--skyD)}
+.note.red{background:var(--redL);border-color:var(--red)}
+.note.orange{background:var(--orangeL);border-color:var(--orange)}
+textarea{width:100%;min-height:92px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;resize:vertical;background:#FFFEFB;line-height:1.55}
+input[type=text]{width:100%;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#FFFEFB}
+textarea:focus,input:focus,select:focus{outline:3px solid var(--sky2);border-color:var(--skyD)}
+.lbl{font-weight:800;margin:14px 0 6px;display:block}
+.story{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:center}
+@media (max-width:780px){.story{grid-template-columns:1fr}}
+.story p{margin:6px 0}
+.bigq{font-size:28px;font-weight:900;text-align:center;padding:24px 14px;line-height:1.42;background:linear-gradient(120deg,var(--sky),var(--mintL),var(--orangeL));border-radius:var(--r);margin-bottom:18px;letter-spacing:-.5px;word-break:keep-all}
+@media (max-width:600px){.bigq{font-size:21px}}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.pillar{border-radius:14px;padding:10px 12px;font-size:15px}
+.pillar b{display:block;font-size:16px}
+@media (max-width:640px){.pillars{grid-template-columns:1fr}}
+canvas.view{width:100%;display:block;border-radius:16px;background:radial-gradient(ellipse at 50% 35%,#FFFFFF 0%,#EEF7FF 70%,#E1F0FC 100%);cursor:grab;touch-action:none}
+canvas.view:active{cursor:grabbing}
+.viewbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.legend3d{display:flex;gap:10px;font-size:14px;font-weight:700;color:var(--ink2);flex-wrap:wrap}
+.legend3d span{display:flex;align-items:center;gap:5px}
+.dot{width:14px;height:14px;border-radius:4px;display:inline-block;flex:none}
+.ctl{margin:6px 0 10px}
+.ctl .head{display:flex;align-items:center;gap:8px;font-weight:800}
+.ctl .head .val{margin-left:auto;display:flex;align-items:center;gap:4px}
+.num-in{width:92px;border:2px solid var(--line);border-radius:10px;padding:6px 8px;text-align:right;font-weight:800;font-size:17px;background:#fff}
+input[type=range]{width:100%;height:34px;accent-color:var(--mint);cursor:pointer}
+.err{color:var(--red);font-size:14px;font-weight:700}
+.calc{border:2px dashed var(--orange);border-radius:16px;padding:14px;background:#FFFCF7}
+.calc .r{display:grid;grid-template-columns:150px 1fr 120px;gap:8px;align-items:center;margin:8px 0}
+.calc .r label{font-weight:800}
+.calc .r input{border:2px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;width:100%}
+.calc .r .unit{display:flex;align-items:center;gap:4px;font-weight:800}
+.calc .r .unit input{text-align:right;font-weight:800}
+@media (max-width:560px){.calc .r{grid-template-columns:1fr}}
+.fb{font-weight:800;margin-top:6px;min-height:1.2em}
+.fb.ok{color:var(--mintD)} .fb.no{color:var(--orangeD)}
+.autobox{border-radius:16px;padding:12px 14px;background:var(--sky);margin-top:12px}
+.switch{display:flex;align-items:center;gap:10px;font-weight:800}
+.switch input{width:52px;height:28px;appearance:none;-webkit-appearance:none;background:#CBD6DF;border-radius:20px;position:relative;cursor:pointer;transition:.2s;flex:none}
+.switch input::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch input:checked{background:var(--mint)}
+.switch input:checked::after{left:27px}
+.switch input:disabled{opacity:.5;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat{background:#fff;border-radius:12px;padding:8px 10px;text-align:center}
+.stat b{display:block;font-size:21px}
+.stat span{font-size:13px;color:var(--muted);font-weight:800}
+.badge{display:inline-block;border-radius:8px;padding:2px 8px;font-size:13px;font-weight:800;background:var(--mint);color:#fff;white-space:nowrap}
+.badge.o{background:var(--orange)} .badge.g{background:#ECE6DA;color:var(--ink2)} .badge.r{background:var(--redL);color:var(--red)} .badge.s{background:var(--sky);color:var(--skyD)}
+.tbl-wrap{overflow-x:auto}
+table.data{width:100%;border-collapse:separate;border-spacing:0;font-size:16px}
+table.data th{background:var(--sky);padding:9px 8px;font-weight:800;text-align:center;white-space:nowrap}
+table.data th:first-child{border-top-left-radius:12px} table.data th:last-child{border-top-right-radius:12px}
+table.data td{padding:8px;text-align:center;border-bottom:1px solid #F0E9DC;white-space:nowrap}
+table.data td.l{text-align:left;white-space:normal;min-width:120px}
+table.data tr.best td{background:var(--mintL);font-weight:800}
+table.data tr.bad td{color:var(--muted)}
+.xbtn{border:none;background:var(--redL);color:var(--red);border-radius:10px;width:38px;height:38px;font-weight:900}
+.chart-box{overflow-x:auto}
+.chart-box svg{display:block;max-width:100%}
+.legend{display:flex;gap:16px;font-size:14px;font-weight:700;color:var(--ink2);margin:6px 0 2px;flex-wrap:wrap}
+.legend span{display:flex;gap:6px;align-items:center}
+.q{border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:14px;background:#fff}
+.q .qt{font-weight:800;font-size:18px;margin-bottom:8px}
+.q .qt b{color:var(--skyD);margin-right:6px}
+.reveal{border:3px solid var(--mint);background:linear-gradient(135deg,#F2FFFA,#FFFFFF);border-radius:var(--r);padding:20px;margin-top:10px}
+.cmp2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmpbox{border-radius:16px;padding:14px;background:#fff;border:2px solid var(--line)}
+.cmpbox.win{border-color:var(--mint);background:var(--mintL)}
+.cmpbox .k{font-weight:800;color:var(--ink2);font-size:15px}
+.cmpbox .v{font-size:26px;font-weight:900}
+@media (max-width:640px){.cmp2{grid-template-columns:1fr}}
+.conds{list-style:none;padding:0;margin:8px 0}
+.conds li{display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;margin-bottom:5px;font-weight:700;background:#F8F5EE}
+.conds li.ok{background:var(--mintL)} .conds li.no{background:var(--redL)}
+.condrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:#FBF8F1;border-radius:12px;padding:8px;margin:6px 0}
+select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weight:700;min-height:44px;background:#fff}
+.chk{display:flex;align-items:center;gap:8px;font-weight:800;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--mint)}
+.opt{border:2px solid var(--line);border-radius:16px;padding:14px;margin:10px 0;background:#fff}
+.opt.on{border-color:var(--mint)}
+.final{border:3px solid var(--orange);border-radius:var(--r);padding:18px;background:linear-gradient(135deg,#FFF7EC,#FFFFFF)}
+.netwrap svg{display:block;max-width:100%;margin:0 auto}
+.netwrap{background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px;overflow:auto}
+#report{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:26px;margin-top:10px}
+.rp h1{font-size:23px;text-align:center;margin-bottom:2px}
+.rp .sub{text-align:center;color:var(--ink2);margin-bottom:12px}
+.rp h3{font-size:16px;background:var(--sky);border-radius:8px;padding:5px 10px;margin:14px 0 7px}
+.rp p{margin:4px 0}
+.rp .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.rp table.data{font-size:13.5px}
+.rp table.data td,.rp table.data th{padding:4px 5px}
+.rp .ans{border:1.5px solid var(--line);border-radius:10px;padding:7px 10px;min-height:34px;white-space:pre-wrap;margin-bottom:6px}
+.rp img{max-width:100%}
+.rp .qlab{font-weight:800;font-size:14px;margin-top:6px}
+.namebox{display:flex;gap:18px;justify-content:flex-end;font-size:14px;color:var(--ink2)}
+.namebox span{border-bottom:1px solid var(--ink2);min-width:120px;display:inline-block}
+.modal-bg{position:fixed;inset:0;background:rgba(30,40,50,.45);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:22px;max-width:900px;width:100%;max-height:90vh;overflow:auto;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative}
+.modal h2{font-size:23px;margin-bottom:10px;padding-right:50px}
+.modal h3{font-size:18px;margin:18px 0 6px;color:var(--skyD)}
+.modal ul{margin:4px 0;padding-left:22px}
+.mclose{position:absolute;right:14px;top:14px;border:none;background:var(--sky);color:var(--skyD);width:44px;height:44px;border-radius:12px;font-size:22px;font-weight:900}
+.setgrid{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center;background:#FBF8F1;border-radius:14px;padding:14px}
+.setgrid label{font-weight:700}
+.setgrid input[type=number]{width:110px;border:2px solid var(--line);border-radius:10px;padding:6px 8px;text-align:right;font-weight:800}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:14px;font-weight:700;opacity:0;transition:.3s;z-index:300;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.navbtm{display:flex;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap}
+.savedot{font-size:13px;color:var(--muted);font-weight:700}
+#printArea{display:none}
+@media print{
+  body{background:#fff}
+  body > *:not(#printArea){display:none !important}
+  #printArea{display:block !important}
+  #printArea.report{font-size:12px}
+  #printArea .rp h3,#printArea table.data th,#printArea tr.best td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printArea .blk{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="logo" aria-hidden="true">📦</div>
+    <div class="title">
+      <h1>과자 상자 디자인 연구소</h1>
+      <p>과자를 충분히 담으면서 포장재를 절약하는 상자를 만들어라!</p>
+    </div>
+    <div class="top-btns">
+      <span class="savedot" id="saveDot">💾 자동 저장</span>
+      <button class="btn white small" id="btnFile">📁 파일 저장·불러오기</button>
+      <button class="btn white small" id="btnTeacher">👩‍🏫 교사용 안내</button>
+      <button class="btn danger small" id="btnReset">↺ 처음부터</button>
+    </div>
+  </div>
+</header>
+
+<nav class="progress" aria-label="탐구 단계">
+  <div class="progress-in">
+    <div class="steps" id="stepsNav"></div>
+    <div class="bar"><i id="barFill"></i></div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- STEP 1 -->
+<section class="step" id="s1">
+  <div class="steptitle"><span class="tag">STEP 1</span><h2>과자 회사의 고민</h2></div>
+  <div class="note sky" id="resumeBox" style="display:none">
+    <b>👋 다시 왔네요!</b> 이 브라우저에 지난번 탐구 기록이 남아 있어요.
+    <div class="row mt"><button class="btn primary small" id="btnResume">이어서 탐구하기</button>
+      <button class="btn white small" id="btnFresh">처음부터 새로 하기</button></div>
+  </div>
+  <div class="card">
+    <div class="story">
+      <div>
+        <h2>🍪 여러분은 과자 회사의 포장 디자이너입니다!</h2>
+        <p>우리 회사에서는 새로운 과자를 출시하려고 합니다.</p>
+        <p>과자를 충분히 담으면서도 <b>포장재를 최대한 적게</b> 사용하고 싶습니다.</p>
+        <p>그런데 포장재를 절약하는 것만큼 <b>소비자들이 편리하게 사용하는 것</b>도 중요하다고 합니다.</p>
+        <p><b>여러분이 직접 과자 상자를 설계해 보세요!</b></p>
+        <div class="pillars">
+          <div class="pillar" style="background:var(--mintL)"><b>① 경제성</b>필요한 부피를 확보하면서 겉넓이를 줄일 수 있나요?</div>
+          <div class="pillar" style="background:var(--sky)"><b>② 실용성</b>과자를 담기 알맞고, 손으로 잡거나 쓰기 편한가요?</div>
+          <div class="pillar" style="background:var(--orangeL)"><b>③ 디자인</b>과자의 특징이 잘 드러나고 매력적인가요?</div>
+        </div>
+      </div>
+      <canvas class="view" id="cvIntro" style="height:250px" aria-label="돌아가는 과자 상자"></canvas>
+    </div>
+  </div>
+  <div class="bigq">🤔 과자를 충분히 담으면서 포장재를 적게 사용하려면<br>어떤 모양의 상자가 좋을까요?</div>
+  <div class="card">
+    <label class="lbl" for="pred" style="margin-top:0">나의 생각과 그렇게 생각한 이유를 써 보세요.</label>
+    <textarea id="pred" style="min-height:130px"></textarea>
+    <div class="err" id="predErr"></div>
+    <div class="row mt"><span class="muted small">내가 쓴 생각은 마지막 STEP 5에서 다시 볼 수 있어요.</span><span class="sp"></span>
+      <button class="btn primary big" id="btnPredGo">생각 저장하고 실험 시작하기 →</button></div>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="s2">
+  <div class="steptitle"><span class="tag">STEP 2</span><h2>상자 디자인 실험실</h2><span class="muted" id="s2sub"></span></div>
+  <div class="grid2">
+    <div>
+      <div class="card">
+        <canvas class="view" id="cvLab" style="height:430px" tabindex="0" aria-label="3D 상자. 끌어서 돌리고, 휠이나 두 손가락으로 확대·축소해요"></canvas>
+        <div class="viewbtns">
+          <button class="btn white small" data-view="lab:iso">↺ 기본 시점</button>
+          <button class="btn white small" data-view="lab:front">정면</button>
+          <button class="btn white small" data-view="lab:side">측면</button>
+          <button class="btn white small" data-view="lab:top">위</button>
+          <span class="sp"></span>
+          <button class="btn white small" data-zoom="lab:-" aria-label="축소">－</button>
+          <button class="btn white small" data-zoom="lab:+" aria-label="확대">＋</button>
+        </div>
+        <div class="legend3d mt">
+          <span><i class="dot" style="background:var(--f-fb)"></i>앞·뒤 면</span>
+          <span><i class="dot" style="background:var(--f-side)"></i>왼쪽·오른쪽 옆면</span>
+          <span><i class="dot" style="background:var(--f-tb)"></i>위·아래 면</span>
+        </div>
+        <p class="muted small" style="margin:6px 0 0">🖐 끌면 돌아가고, 마우스 휠이나 두 손가락으로 확대·축소해요. 점선은 뒤쪽에 숨은 모서리예요. 화면의 상자는 실제 길이의 비율 그대로예요.</p>
+        <div class="row mt"><button class="btn orange" id="btnUnfold">📐 상자 펼쳐 보기</button><span class="muted small">마주 보는 면은 같은 색이에요.</span></div>
+        <div class="netwrap mt" id="netBox" style="display:none"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>📏 상자 크기 정하기 <span class="muted small" id="rangeInfo"></span></h3>
+        <div id="labCtl"></div>
+        <div class="err" id="labErr"></div>
+        <div class="note orange small" id="bigWarn" style="display:none"></div>
+      </div>
+      <div class="card">
+        <h3>✏️ 직접 계산하기</h3>
+        <div class="calc" id="calcLab"></div>
+        <div class="autobox" id="autoBox"></div>
+        <div class="row mt"><span class="sp"></span><button class="btn primary big" id="btnSave">＋ 실험 기록에 추가하기</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="row"><h2 style="margin:0">📋 내 실험 기록</h2><span class="sp"></span><span class="badge g" id="countBadge"></span></div>
+    <div class="tbl-wrap mt"><table class="data" id="tblLab"></table></div>
+  </div>
+  <div class="navbtm"><button class="btn white" data-go="1">← 이전 단계</button><button class="btn primary big" data-go="3">데이터 분석하러 가기 →</button></div>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="s3">
+  <div class="steptitle"><span class="tag">STEP 3</span><h2>데이터 분석 연구소</h2><span class="muted">내가 모은 데이터를 근거로 판단해요.</span></div>
+  <div class="note red" id="fewNotice" style="display:none"></div>
+  <div class="card">
+    <div class="row"><h2 style="margin:0">📊 상자 데이터 표</h2><span class="sp"></span>
+      <label class="small" for="sortSel" style="font-weight:800">정렬</label>
+      <select class="sel" id="sortSel"><option value="id">저장한 순서</option><option value="v">부피 순</option><option value="s">겉넓이 순</option></select></div>
+    <div class="tbl-wrap mt"><table class="data" id="tblData"></table></div>
+    <p class="muted small" style="margin:8px 0 0" id="condText"></p>
+  </div>
+  <div class="card">
+    <h2>📈 겉넓이 비교 막대그래프</h2>
+    <div class="legend"><span><i class="dot" style="background:#5DB3EA"></i>부피 조건을 만족한 상자</span><span><svg width="14" height="14"><defs><pattern id="hlg" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" fill="#D9D3C7"/><line x1="0" y1="0" x2="0" y2="4" stroke="#fff" stroke-width="1.6"/></pattern></defs><rect width="14" height="14" rx="3" fill="url(#hlg)"/></svg>조건을 만족하지 못한 상자 (최적 후보에서 빠져요)</span></div>
+    <div class="chart-box" id="chart"></div>
+  </div>
+  <div class="card">
+    <h2>🔍 탐구 질문</h2>
+    <p class="ink2" style="margin-top:0">표와 그래프의 숫자를 근거로 내 생각을 써 보세요.</p>
+    <div id="questions"></div>
+    <div class="center mt">
+      <button class="btn orange big" id="btnOpt">🏆 최적의 상자 확인하기</button>
+      <div class="err mt" id="optErr"></div>
+    </div>
+    <div class="reveal" id="optBox" style="display:none"></div>
+  </div>
+  <div class="navbtm"><button class="btn white" data-go="2">← 실험실로 돌아가기</button><button class="btn primary big" data-go="4">진짜 과자 상자 디자인하기 →</button></div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="s4">
+  <div class="steptitle"><span class="tag">STEP 4</span><h2>진짜 과자 상자 디자인하기 ⭐</h2></div>
+  <div class="card">
+    <h2>① 여러 가지 모양의 과자 상자</h2>
+    <canvas class="view" id="cvGallery" style="height:300px" aria-label="세 가지 모양의 상자"></canvas>
+    <p class="muted small" style="margin:6px 0 0">세 상자는 같은 비율로 그려져 있어요. 끌어서 함께 돌려 보세요.</p>
+    <div class="bigq mt" style="font-size:23px;margin-bottom:10px">포장재를 가장 적게 사용하는 상자가<br>실제로도 가장 좋은 과자 상자일까요?</div>
+    <label class="lbl" for="s4q" style="margin-top:0">나의 생각</label>
+    <textarea id="s4q"></textarea>
+  </div>
+  <div class="card">
+    <h2>② 내가 만들 과자 정하기</h2>
+    <label class="lbl" for="snName" style="margin-top:0">과자 이름</label><input type="text" id="snName" maxlength="20">
+    <label class="lbl" for="snFeat">과자의 특징</label><textarea id="snFeat" style="min-height:70px"></textarea>
+    <label class="lbl" for="snPrio">과자를 포장할 때 중요하게 생각하는 점</label><textarea id="snPrio" style="min-height:70px"></textarea>
+  </div>
+  <div class="card">
+    <h2>③ 상자 설계 조건 선택</h2>
+    <div class="opt on"><label class="chk"><input type="checkbox" id="cA"> A. 포장재 절약 — 상자의 겉넓이를 최대한 작게 설계하기</label></div>
+    <div class="opt" id="optB"><label class="chk"><input type="checkbox" id="cB"> B. 손으로 잡기 편리함</label>
+      <div id="gripCtl" class="mt"></div></div>
+    <div class="opt" id="optC"><label class="chk"><input type="checkbox" id="cC"> C. 과자의 형태에 맞추기</label>
+      <div id="shapeCtl" class="mt"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h2>④ 나만의 상자 설계하기</h2>
+      <canvas class="view" id="cvDesign" style="height:400px" tabindex="0" aria-label="내가 설계한 상자 3D"></canvas>
+      <div class="viewbtns">
+        <button class="btn white small" data-view="des:iso">↺ 기본 시점</button>
+        <button class="btn white small" data-view="des:front">정면</button>
+        <button class="btn white small" data-view="des:side">측면</button>
+        <button class="btn white small" data-view="des:top">위</button><span class="sp"></span>
+        <button class="btn white small" data-zoom="des:-" aria-label="축소">－</button>
+        <button class="btn white small" data-zoom="des:+" aria-label="확대">＋</button>
+      </div>
+      <label class="lbl" for="s4use">🖐 3D 상자를 이리저리 돌려 보며 예상해 보세요. 이 상자를 손으로 잡거나 과자를 넣고 꺼낼 때 어떨까요?</label>
+      <textarea id="s4use"></textarea>
+      <p class="muted small" style="margin:4px 0 0">잡기 편한 정도는 사람마다 달라서 정답이 없어요. 상자의 모양과 길이를 근거로 내 생각을 써요.</p>
+    </div>
+    <div class="card">
+      <div class="row"><b>실험 기록에서 불러오기</b><select class="sel" id="loadRec"></select></div>
+      <div id="desCtl" class="mt"></div>
+      <div class="err" id="desErr"></div>
+      <div class="autobox" id="desLive"></div>
+      <ul class="conds" id="desConds"></ul>
+      <div class="row"><span class="sp"></span><button class="btn orange big" id="btnChoose">✅ 이 상자로 최종 선택하기</button></div>
+    </div>
+  </div>
+  <div class="card" id="finCalcCard" style="display:none">
+    <h2>⑥ 최종 계산 검증</h2>
+    <p class="ink2" style="margin-top:0">최종 상자를 확정하기 전에 부피와 겉넓이를 직접 계산해요. (이때는 자동 계산 도우미가 잠시 숨겨져요.)</p>
+    <div id="finInfo" style="font-weight:800;margin-bottom:6px"></div>
+    <div class="calc" id="calcFin"></div>
+    <div class="row mt"><button class="btn white" id="btnFinCancel">취소</button></div>
+  </div>
+  <div class="card" id="finCard" style="display:none">
+    <h2>⑤ 포장재 사용량 비교</h2>
+    <div id="finCompare"></div>
+    <h3 class="mt">⑦ 최종 선택 이유 작성하기</h3>
+    <label class="ink2" for="reason">여러 상자 중에서 이 상자를 최종적으로 선택한 이유는 무엇인가요?</label>
+    <textarea id="reason" class="mt"></textarea>
+  </div>
+  <div class="navbtm"><button class="btn white" data-go="3">← 이전 단계</button><button class="btn primary big" data-go="5">탐구 결과 정리하기 →</button></div>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="s5">
+  <div class="steptitle"><span class="tag">STEP 5</span><h2>나의 탐구 결과 정리하기</h2></div>
+  <div class="card">
+    <h2>📚 나의 탐구 내용</h2>
+    <h3>① 처음 예상한 내용</h3><div class="note sky" id="r5pred"></div>
+    <h3 class="mt">② 직접 설계한 상자들의 데이터</h3><div class="tbl-wrap"><table class="data" id="r5tbl"></table></div>
+    <h3 class="mt">③ 겉넓이 비교 그래프</h3><div class="chart-box" id="r5chart"></div>
+    <div class="grid2 mt">
+      <div><h3>④ 최종 선택한 상자의 3D 모형</h3><canvas class="view" id="cvFinal" style="height:300px"></canvas></div>
+      <div><h3>⑤ 최종 상자의 가로·세로·높이</h3><div id="r5dims"></div>
+        <h3 class="mt">⑥ 부피와 겉넓이 계산식</h3><div id="r5calc"></div>
+        <h3 class="mt">⑦ 최종 상자를 선택한 이유</h3><div class="note mint" id="r5reason"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>💭 탐구 성찰</h2>
+    <label class="lbl" for="rf1" style="margin-top:0">탐구를 통해 새롭게 발견한 수학적 사실은 무엇인가요?</label><textarea id="rf1"></textarea>
+    <label class="lbl" for="rf2">실제로 사용하기 좋은 상자를 만들기 위해 어떤 점을 고려했나요?</label><textarea id="rf2"></textarea>
+    <label class="lbl" for="rf3">처음 예상과 비교했을 때 생각이 어떻게 달라졌나요?</label><textarea id="rf3"></textarea>
+    <label class="lbl" for="rf4">내가 설계한 상자를 실제로 사용한다면 어떤 점이 편리하거나 불편할 것이라고 예상하나요?</label><textarea id="rf4"></textarea>
+    <div class="card mt" style="background:#FBF8F1;box-shadow:none">
+      <h3>📄 나의 수학 탐구 보고서</h3>
+      <p class="ink2 small" style="margin-top:0">지금까지 저장된 나의 탐구 내용으로 A4 보고서를 만들어요. 위의 답을 고치면 보고서에도 바로 반영돼요.</p>
+      <div class="row"><button class="btn white big" id="btnReportView">🔍 보고서 미리보기</button><button class="btn white big" id="btnReportPrint">🖨️ 보고서 인쇄하기</button><button class="btn primary big" id="btnReportPdf">📥 PDF 파일로 저장하기</button></div>
+      <div id="pdfStatus" class="note" style="display:none" role="status" aria-live="polite"></div>
+    </div>
+    <div id="report" style="display:none"></div>
+  </div>
+
+  <div class="navbtm"><button class="btn white" data-go="4">← 이전 단계</button><button class="btn white" data-go="1">처음 화면 보기</button></div>
+</section>
+</main>
+
+<!-- modals -->
+<div class="modal-bg" id="mdTeacher" role="dialog" aria-modal="true" aria-labelledby="tTitle"><div class="modal">
+  <button class="mclose" data-close aria-label="닫기">×</button>
+  <h2 id="tTitle">👩‍🏫 교사용 안내</h2>
+  <h3>⚙ 탐구 조건 설정</h3>
+  <div class="setgrid">
+    <label for="stVmin">최소 부피 (㎤)</label><input type="number" id="stVmin" min="1" step="1">
+    <label class="chk" for="stVmaxOn"><input type="checkbox" id="stVmaxOn"> 최대 부피 설정하기 (㎤)</label><input type="number" id="stVmax" min="1" step="1">
+    <label for="stLmin">길이 최솟값 (cm)</label><input type="number" id="stLmin" min="1" max="60" step="1">
+    <label for="stLmax">길이 최댓값 (cm)</label><input type="number" id="stLmax" min="1" max="60" step="1">
+    <label for="stNeed">자동 계산 도우미를 열기 전 직접 계산할 상자 수</label><input type="number" id="stNeed" min="0" max="10" step="1">
+    <label class="chk" for="stAuto"><input type="checkbox" id="stAuto"> 자동 계산 도우미 허용</label><span></span>
+    <label class="chk" for="stUnlock"><input type="checkbox" id="stUnlock"> 수업 시연 모드 (‘최적의 상자 확인하기’ 잠금 해제)</label><span></span>
+  </div>
+  <div class="row mt"><button class="btn primary" id="btnSetSave">설정 적용</button><button class="btn white" id="btnSetDef">기본값으로</button><span class="err" id="setErr"></span></div>
+  <div class="note mint mt" id="setOpt"></div>
+  <h3>📅 추천 수업 구성</h3>
+  <ul>
+    <li><b>1차시 — 상자의 부피와 겉넓이 탐구</b>: 탐구 문제 예상 → 다양한 직육면체 설계 → 부피와 겉넓이 직접 계산 → 실험 데이터 수집 (STEP 1~2)</li>
+    <li><b>2차시 — 가장 경제적인 상자 찾기</b>: 데이터 표와 그래프 분석 → 최소 겉넓이 탐색 → 수학적 관계 발견 (STEP 3)</li>
+    <li><b>3차시 — 실제 과자 상자 설계하기</b>: 실생활 조건 탐색 → 사용 편의성 고려 → 나만의 상자 설계 → 최종 계산 검증 (STEP 4)</li>
+    <li><b>4차시 — 탐구 결과 정리하기</b>: 처음 예상 돌아보기 → 데이터와 최종 설계 정리 → 탐구 성찰 → 탐구 보고서 인쇄 (STEP 5)</li>
+  </ul>
+  <h3>💬 교사용 탐구 발문</h3>
+  <ul>
+    <li>“부피가 800㎤ 이상인 상자 중 종이를 가장 적게 사용하는 상자는 무엇일까요?”</li>
+    <li>“상자의 길이가 달라지면 부피와 겉넓이는 어떻게 변할까요?”</li>
+    <li>“부피가 비슷한 두 상자의 겉넓이가 다른 이유는 무엇일까요?”</li>
+    <li>“겉넓이가 작은 상자가 언제나 사용하기 편할까요?”</li>
+    <li>“실제 과자 상자를 만들 때 수학적 계산 외에 어떤 점을 고려해야 할까요?”</li>
+  </ul>
+  <h3>🔒 개인정보와 저장</h3>
+  <ul>
+    <li>이름 등 개인정보를 수집하지 않습니다. 기록은 이 기기의 브라우저(localStorage)에만 저장되며 서버로 전송되지 않습니다.</li>
+    <li>[파일 저장·불러오기]로 학생 기록을 JSON 파일로 내보내 두면, 브라우저 기록이 지워져도 복원할 수 있습니다.</li>
+    <li>교사 설정은 학생 기록과 따로 저장되어 [처음부터]를 눌러도 유지됩니다.</li>
+  </ul>
+</div></div>
+
+<div class="modal-bg" id="mdFile" role="dialog" aria-modal="true" aria-labelledby="fTitle"><div class="modal" style="max-width:560px">
+  <button class="mclose" data-close aria-label="닫기">×</button>
+  <h2 id="fTitle">📁 파일로 저장·불러오기</h2>
+  <p class="ink2">탐구 기록을 파일(JSON)로 저장해 두면, 브라우저 기록이 지워지거나 다른 컴퓨터에서도 이어서 할 수 있어요.</p>
+  <div class="row"><button class="btn primary" id="btnExport">📥 내 탐구 기록 파일로 저장</button>
+    <button class="btn white" id="btnImport">📤 파일에서 불러오기</button>
+    <input type="file" id="fileIn" accept=".json,application/json" style="display:none"></div>
+  <div class="err mt" id="fileErr"></div>
+</div></div>
+
+<div class="modal-bg" id="mdMethod" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="modal" style="max-width:720px">
+  <button class="mclose" data-close aria-label="닫기">×</button>
+  <h2 id="mTitle">📖 계산 방법 살펴보기</h2>
+  <p class="ink2">아래는 <b>가로 2cm, 세로 3cm, 높이 4cm</b>인 상자의 예시예요. 같은 방법으로 내 상자를 계산해 보세요.</p>
+  <h3>부피 = 가로 × 세로 × 높이</h3>
+  <p>1㎤ 쌓기나무를 가로로 2개, 세로로 3줄 놓으면 한 층에 2 × 3 = 6개. 이것을 4층 쌓으면 6 × 4 = <b>24개</b> → 부피는 <b>24㎤</b>예요.</p>
+  <h3>겉넓이 = (가로×세로 + 세로×높이 + 가로×높이) × 2</h3>
+  <p>직육면체에는 모양과 크기가 같은 면이 <b>2개씩 3쌍</b> 있어요.</p>
+  <ul>
+    <li>위·아래 면: 가로 × 세로 = 2 × 3 = 6㎠</li>
+    <li>왼쪽·오른쪽 옆면: 세로 × 높이 = 3 × 4 = 12㎠</li>
+    <li>앞·뒤 면: 가로 × 높이 = 2 × 4 = 8㎠</li>
+  </ul>
+  <p>세 면의 넓이를 더하면 6 + 12 + 8 = 26㎠, 같은 면이 2개씩이므로 26 × 2 = <b>52㎠</b>예요.</p>
+  <p class="note">💡 [상자 펼쳐 보기]로 전개도를 보면 여섯 면이 한눈에 보여요. 같은 색 면이 몇 개씩 있는지 세어 보세요.</p>
+</div></div>
+
+<div class="modal-bg" id="mdConfirm" role="dialog" aria-modal="true"><div class="modal" style="max-width:460px">
+  <h2 id="cfMsg"></h2><p class="ink2" id="cfSub"></p>
+  <div class="row mt" style="justify-content:flex-end"><button class="btn white" id="cfNo">취소</button><button class="btn danger" id="cfYes">네, 할게요</button></div>
+</div></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="printArea"></div>
+
+<script>
+"use strict";
+/* =========================================================
+   설정 · 수학
+   ========================================================= */
+const SET_KEY='snackBoxLab2.settings', KEY='snackBoxLab2.data';
+const DEF_SET=()=>({vmin:800, vmaxOn:false, vmax:2000, lmin:2, lmax:30, need:3, autoAllowed:true, unlock:false});
+let T=DEF_SET();
+const VOL=(a,b,c)=>a*b*c;
+const SA=(a,b,c)=>(a*b+b*c+a*c)*2;
+const isNat=x=>Number.isInteger(x)&&x>=1;
+const clamp=(x,lo,hi)=>Math.min(hi,Math.max(lo,x));
+const keyOf=(a,b,c)=>[a,b,c].sort((x,y)=>x-y).join('×');
+function volCond(a,b,c){ const v=VOL(a,b,c); return v>=T.vmin && (!T.vmaxOn || v<=T.vmax); }
+function inRange(a,b,c){ return [a,b,c].every(x=>isNat(x)&&x>=T.lmin&&x<=T.lmax); }
+function basicOK(a,b,c){ return inRange(a,b,c)&&volCond(a,b,c); }
+function whyBad(a,b,c){ const v=VOL(a,b,c), r=[];
+  if(v<T.vmin) r.push('부피 부족'); if(T.vmaxOn&&v>T.vmax) r.push('부피 초과'); if(!inRange(a,b,c)) r.push('길이 범위 밖'); return r.join(', '); }
+/** 기본 조건 최적 상자 (회전하여 같은 상자는 하나로) */
+function optimumBasic(){
+  let best=Infinity, list=[];
+  for(let a=T.lmin;a<=T.lmax;a++) for(let b=a;b<=T.lmax;b++) for(let c=b;c<=T.lmax;c++){
+    if(!volCond(a,b,c)) continue; const s=SA(a,b,c);
+    if(s<best){best=s;list=[[a,b,c]];} else if(s===best) list.push([a,b,c]); }
+  return list.length? {S:best, boxes:list} : null;
+}
+function nearBasic(n){ const L=[];
+  for(let a=T.lmin;a<=T.lmax;a++) for(let b=a;b<=T.lmax;b++) for(let c=b;c<=T.lmax;c++) if(volCond(a,b,c)) L.push({t:[a,b,c],S:SA(a,b,c),V:VOL(a,b,c)});
+  L.sort((p,q)=>p.S-q.S||p.V-q.V); return L.slice(0,n); }
+/** 학생 조건까지 반영한 최적 상자 (방향이 중요하므로 순서 있는 조합) */
+function optimumMine(){
+  let best=Infinity, list=[];
+  for(let a=T.lmin;a<=T.lmax;a++) for(let b=T.lmin;b<=T.lmax;b++) for(let c=T.lmin;c<=T.lmax;c++){
+    if(!volCond(a,b,c)) continue; if(!myConds({a,b,c}).every(x=>x.ok)) continue;
+    const s=SA(a,b,c); if(s<best){best=s;list=[[a,b,c]];} else if(s===best) list.push([a,b,c]); }
+  return list.length? {S:best, boxes:list} : null;
+}
+const DIMN={a:'가로',b:'세로',c:'높이',max:'가장 긴 변'};
+const OPN={'>=':'이상','<=':'이하','=':'과 같게'};
+function myConds(d){
+  const out=[], s4=S.s4;
+  if(s4.cB){ const g=s4.grip, w=d[g.dim];
+    let ok=w<=g.max, t=`손에 닿는 폭(${DIMN[g.dim]}) ${g.max}cm 이하`;
+    if(g.minOn){ ok=ok&&w>=g.min; t=`손에 닿는 폭(${DIMN[g.dim]}) ${g.min}cm 이상 ${g.max}cm 이하`; }
+    out.push({t:t+` → 지금 ${w}cm`, ok}); }
+  if(s4.cC){ s4.shapes.forEach(r=>{ if(!isFinite(r.val)||r.val<=0) return;
+    const v = r.dim==='max'? Math.max(d.a,d.b,d.c) : d[r.dim];
+    const ok = r.op==='>='? v>=r.val : r.op==='<='? v<=r.val : v===r.val;
+    out.push({t:`${r.memo?r.memo+': ':''}${DIMN[r.dim]} ${r.val}cm ${OPN[r.op]}`, ok}); }); }
+  return out;
+}
+/** 학생 입력 숫자 해석: 쉼표·공백·단위 허용 */
+function parseAns(s){ if(s==null) return NaN; const t=String(s).replace(/[,\s]/g,'').replace(/(㎤|㎠|cm3|cm2|cm|㎝)$/i,''); if(!/^\d+(\.\d+)?$/.test(t)) return NaN; return Number(t); }
+
+/* =========================================================
+   3D 렌더러 (Canvas 2D, 외부 라이브러리 없음)
+   x=가로(a), y=높이(c, 위), z=세로(b, 앞쪽)
+   ========================================================= */
+const FACE_COL={1:'#9ED3F5', 2:'#9BE3C8', 4:'#FFC58A'};  // x면=옆면, y면=위·아래, z면=앞·뒤
+const AXC={1:'#E8743B',2:'#1F9D62',4:'#3A7BEA'}, AXN={1:'가로',2:'높이',4:'세로'};
+const VIEWS={iso:{yaw:-0.62,pitch:0.42}, front:{yaw:0,pitch:0.001}, side:{yaw:-Math.PI/2,pitch:0.001}, top:{yaw:0,pitch:1.5}};
+class BoxView{
+  constructor(canvas,opt={}){
+    this.c=canvas; this.ctx=canvas.getContext('2d');
+    this.opt=Object.assign({refDiag:24,labels:true,names:false},opt);
+    this.yaw=VIEWS.iso.yaw; this.pitch=VIEWS.iso.pitch; this.zoom=1; this.items=[]; this.raf=0; this.spin=!!opt.spin; this.W=0; this.H=0; this.dpr=1;
+    if(opt.static){ this.W=opt.w; this.H=opt.h; this.dpr=2; canvas.width=opt.w*2; canvas.height=opt.h*2; return; }
+    const pts=new Map(); let pinch=0;
+    canvas.addEventListener('pointerdown',e=>{ pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); try{canvas.setPointerCapture(e.pointerId);}catch(_){} this.spin=false; if(pts.size===2) pinch=this._dist(pts); });
+    canvas.addEventListener('pointermove',e=>{ if(!pts.has(e.pointerId)) return; const p=pts.get(e.pointerId);
+      if(pts.size===1){ this.rotate((e.clientX-p.x)*0.011,(e.clientY-p.y)*0.011); }
+      pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+      if(pts.size===2){ const d=this._dist(pts); if(pinch>0){ this.setZoom(this.zoom*d/pinch); } pinch=d; } });
+    const end=e=>{ pts.delete(e.pointerId); pinch=pts.size===2?this._dist(pts):0; };
+    ['pointerup','pointercancel','lostpointercapture'].forEach(t=>canvas.addEventListener(t,end));
+    canvas.addEventListener('wheel',e=>{ e.preventDefault(); this.setZoom(this.zoom*Math.exp(-e.deltaY*0.0015)); },{passive:false});
+    canvas.addEventListener('keydown',e=>{ const m={ArrowLeft:[-.15,0],ArrowRight:[.15,0],ArrowUp:[0,-.15],ArrowDown:[0,.15]}[e.key];
+      if(m){e.preventDefault();this.rotate(...m);} if(e.key==='+'||e.key==='=') this.setZoom(this.zoom*1.15); if(e.key==='-') this.setZoom(this.zoom/1.15); });
+    if('ResizeObserver' in window) new ResizeObserver(()=>this.resize()).observe(canvas);
+    window.addEventListener('resize',()=>this.resize()); this.resize();
+  }
+  _dist(m){ const a=[...m.values()]; return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1; }
+  rotate(dy,dp){ this.yaw+=dy; this.pitch=clamp(this.pitch+dp,-1.5,1.5); this.kick(); }
+  setZoom(z){ this.zoom=clamp(z,0.4,3.5); this.kick(); }
+  setView(v){ const t=VIEWS[v]||VIEWS.iso; this.yaw=t.yaw; this.pitch=t.pitch; if(v==='iso') this.zoom=1; this.spin=false; this.kick(); }
+  resize(){ if(this.opt.static) return; const r=this.c.getBoundingClientRect(); if(r.width<4||r.height<4) return;
+    const dpr=Math.min(window.devicePixelRatio||1,2); const w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+    if(this.c.width!==w||this.c.height!==h){ this.c.width=w; this.c.height=h; } this.dpr=dpr; this.W=r.width; this.H=r.height; this.kick(); }
+  set(list,instant){ const old=this.items;
+    this.items=list.map((t,i)=>{ const o=old[i]; return Object.assign({},t,{cur:(o&&!instant)?o.cur.slice():[t.a,t.b,t.c]}); });
+    if(this.opt.static){ this.draw(); } else this.kick(); }
+  kick(){ if(!this.opt.static && !this.raf) this.raf=requestAnimationFrame(()=>this.frame()); }
+  frame(){ this.raf=0; let mv=false;
+    for(const it of this.items){ const tg=[it.a,it.b,it.c]; for(let k=0;k<3;k++){ const d=tg[k]-it.cur[k]; if(Math.abs(d)>1e-3*Math.max(1,tg[k])){ it.cur[k]+=d*0.2; mv=true; } else it.cur[k]=tg[k]; } }
+    if(this.spin){ this.yaw+=0.008; mv=true; }
+    if(this.W>0) this.draw(); if(mv && this.c.offsetParent!==null) this.kick(); }
+  draw(){ const ctx=this.ctx,W=this.W,H=this.H; if(!W) return;
+    ctx.setTransform(this.dpr,0,0,this.dpr,0,0); ctx.clearRect(0,0,W,H);
+    const n=this.items.length; if(!n) return;
+    const nameH=this.opt.names?46:0, cw=W/n, ch=H-nameH;
+    let md=this.opt.refDiag; for(const it of this.items) md=Math.max(md,Math.hypot(...it.cur));
+    const scale=Math.min(cw,ch)*0.8/md*this.zoom;
+    this.items.forEach((it,i)=>this.drawBox(it,cw*(i+0.5),ch/2,scale,md,i));
+    if(this.opt.names){ ctx.textAlign='center'; this.items.forEach((it,i)=>{ const x=cw*(i+0.5);
+      ctx.fillStyle='#24323F'; ctx.font='800 16px sans-serif'; ctx.fillText(it.name||'',x,H-25);
+      ctx.fillStyle='#526273'; ctx.font='700 14px sans-serif'; ctx.fillText(it.sub||'',x,H-6); }); } }
+  drawBox(it,ox,oy,scale,md,idx){
+    const ctx=this.ctx,[a,b,c]=it.cur,hx=a/2,hy=c/2,hz=b/2;
+    const cy=Math.cos(this.yaw),sy=Math.sin(this.yaw),cp=Math.cos(this.pitch),sp=Math.sin(this.pitch);
+    const rot=(x,y,z)=>{ const x1=x*cy+z*sy,z1=-x*sy+z*cy; return [x1,y*cp-z1*sp,y*sp+z1*cp]; };
+    const Dw=md*3.4/this.zoom+md;
+    const proj=r=>{ const f=Dw/(Dw-r[2]); return [ox+r[0]*scale*f, oy-r[1]*scale*f]; };
+    const P=[]; for(let i=0;i<8;i++) P.push(proj(rot(i&1?hx:-hx,i&2?hy:-hy,i&4?hz:-hz)));
+    const ext={1:hx,2:hy,4:hz}, faces={}, L=[-0.35,0.85,0.55], Lm=Math.hypot(...L);
+    for(const bit of [1,2,4]) for(const side of [0,1]){
+      const nW=[bit===1?1:0,bit===2?1:0,bit===4?1:0].map(v=>v*(side?1:-1)), nR=rot(...nW), cen=nR.map(v=>v*ext[bit]);
+      const vis=nR[0]*(-cen[0])+nR[1]*(-cen[1])+nR[2]*(Dw-cen[2])>1e-9;
+      const idx=[]; for(let i=0;i<8;i++) if(((i&bit)?1:0)===side) idx.push(i);
+      const mx=idx.reduce((s,i)=>s+P[i][0],0)/4, my=idx.reduce((s,i)=>s+P[i][1],0)/4;
+      idx.sort((p,q)=>Math.atan2(P[p][1]-my,P[p][0]-mx)-Math.atan2(P[q][1]-my,P[q][0]-mx));
+      faces[bit+'_'+side]={vis,idx,bit,shade:0.72+0.28*Math.max(0,(nR[0]*L[0]+nR[1]*L[1]+nR[2]*L[2])/Lm)};
+    }
+    const edges=[]; for(let i=0;i<8;i++) for(const bit of [1,2,4]) if(!(i&bit)){ const o=[1,2,4].filter(x=>x!==bit);
+      edges.push({i,j:i|bit,bit,vis:faces[o[0]+'_'+((i&o[0])?1:0)].vis||faces[o[1]+'_'+((i&o[1])?1:0)].vis}); }
+    ctx.save(); ctx.setLineDash([5,5]); ctx.strokeStyle='rgba(70,90,110,.5)'; ctx.lineWidth=1.3;
+    for(const e of edges) if(!e.vis){ ctx.beginPath(); ctx.moveTo(...P[e.i]); ctx.lineTo(...P[e.j]); ctx.stroke(); } ctx.restore();
+    for(const k in faces){ const f=faces[k]; if(!f.vis) continue; const base=hex(it.color||FACE_COL[f.bit]);
+      ctx.beginPath(); f.idx.forEach((v,n)=>n?ctx.lineTo(...P[v]):ctx.moveTo(...P[v])); ctx.closePath();
+      ctx.fillStyle=`rgba(${base.map(x=>Math.min(255,x*f.shade)|0).join(',')},0.95)`; ctx.fill(); }
+    const hlF=it.hl&&faces[it.hl];
+    ctx.strokeStyle='rgba(50,60,75,.8)'; ctx.lineWidth=1.6; ctx.setLineDash([]);
+    for(const e of edges) if(e.vis){ ctx.beginPath(); ctx.moveTo(...P[e.i]); ctx.lineTo(...P[e.j]); ctx.stroke(); }
+    if(hlF){ ctx.save(); ctx.beginPath(); hlF.idx.forEach((v,n)=>n?ctx.lineTo(...P[v]):ctx.moveTo(...P[v])); ctx.closePath();
+      if(hlF.vis){ ctx.fillStyle='rgba(232,116,59,.25)'; ctx.fill(); ctx.strokeStyle='#E8743B'; ctx.lineWidth=5; ctx.lineJoin='round'; ctx.stroke(); }
+      else { ctx.setLineDash([7,5]); ctx.strokeStyle='#E8743B'; ctx.lineWidth=3; ctx.stroke(); } ctx.restore(); }
+    if(this.opt.labels){ const cen=proj(rot(0,0,0)), tgt={1:it.a,2:it.c,4:it.b}, n=this.items.length;
+      const fs=Math.round(clamp(Math.min(this.W/n,this.H)/25,12,16));
+      for(const bit of [1,2,4]){ const cand=edges.filter(e=>e.bit===bit&&e.vis); if(!cand.length) continue;
+        let best=null,bs=-Infinity; for(const e of cand){ const mx=(P[e.i][0]+P[e.j][0])/2,my=(P[e.i][1]+P[e.j][1])/2;
+          const sc=bit===2? Math.abs(mx-cen[0])+(mx>cen[0]?.5:0) : my+Math.abs(mx-cen[0])*.15; if(sc>bs){bs=sc;best={e,mx,my};} }
+        const e=best.e; ctx.save(); ctx.strokeStyle=AXC[bit]; ctx.lineWidth=4; ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(...P[e.i]); ctx.lineTo(...P[e.j]); ctx.stroke(); ctx.restore();
+        let dx=best.mx-cen[0],dy=best.my-cen[1]; const m=Math.hypot(dx,dy)||1; dx/=m; dy/=m;
+        const txt=AXN[bit]+' '+tgt[bit]+'cm'; ctx.font=`800 ${fs}px sans-serif`; const tw=ctx.measureText(txt).width+14, th=fs+10;
+        let lx=best.mx+dx*(th*.9+6), ly=best.my+dy*(th*.9+6);
+        lx=clamp(lx, this.W/n*idx+tw/2+2, this.W/n*(idx+1)-tw/2-2); ly=clamp(ly,th/2+2,this.H-th/2-2-(this.opt.names?46:0));
+        ctx.fillStyle='rgba(255,255,255,.95)'; rrect(ctx,lx-tw/2,ly-th/2,tw,th,8); ctx.fill(); ctx.strokeStyle=AXC[bit]; ctx.lineWidth=2; ctx.stroke();
+        ctx.fillStyle=AXC[bit]; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(txt,lx,ly+1); ctx.textBaseline='alphabetic'; } }
+  }
+}
+function hex(h){ h=h.replace('#',''); return [0,2,4].map(i=>parseInt(h.substr(i,2),16)); }
+function rrect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function snapshot(list,w,h,opt={}){ const cv=document.createElement('canvas'); const v=new BoxView(cv,Object.assign({static:true,w,h},opt)); v.set(list,true); return cv.toDataURL('image/png'); }
+
+/* =========================================================
+   상태 · 저장
+   ========================================================= */
+const mkCalc=()=>({vf:'',vv:'',sf:'',sv:'',wrong:0,res:null});
+const DEF=()=>({
+  v:2, step:1, pred:'',
+  lab:{a:8,b:6,c:5, calc:mkCalc()}, verified:[], auto:false,
+  boxes:[], seq:0, sortBy:'id', ans:{q1:'',q2:'',q3:'',q4:''}, optShown:false,
+  s4:{q:'', snack:{name:'',feat:'',prio:''}, cA:true, cB:false, grip:{dim:'b',max:8,minOn:false,min:3}, cC:false, shapes:[{dim:'a',op:'>=',val:12,memo:''}],
+      d:{a:10,b:8,c:10}, use:'', fcalc:mkCalc(), finalizing:false, fin:null, reason:''},
+  s5:{r1:'',r2:'',r3:'',r4:''}
+});
+let S=DEF(), hadSaved=false;
+function merge(d,o){ if(!o||typeof o!=='object') return d; for(const k in o){ if(!(k in d)){ d[k]=o[k]; continue; }
+  if(d[k]&&typeof d[k]==='object'&&!Array.isArray(d[k])&&o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])) d[k]=merge(d[k],o[k]); else d[k]=o[k]; } return d; }
+function sanitize(){
+  S.boxes=(Array.isArray(S.boxes)?S.boxes:[]).filter(b=>b&&isNat(b.a)&&isNat(b.b)&&isNat(b.c));
+  S.verified=Array.isArray(S.verified)?S.verified.filter(x=>typeof x==='string'):[];
+  if(!Array.isArray(S.s4.shapes)) S.s4.shapes=[];
+  ['a','b','c'].forEach(k=>{ if(!isNat(S.lab[k])) S.lab[k]=6; if(!isNat(S.s4.d[k])) S.s4.d[k]=8; });
+  if(S.s4.fin && !(isNat(S.s4.fin.a)&&isNat(S.s4.fin.b)&&isNat(S.s4.fin.c))) S.s4.fin=null;
+  S.step=clamp(parseInt(S.step)||1,1,5);
+}
+function load(){
+  try{ const t=localStorage.getItem(SET_KEY); if(t) T=merge(DEF_SET(),JSON.parse(t)); }catch(e){}
+  try{ const raw=localStorage.getItem(KEY); if(!raw) return; S=merge(DEF(),JSON.parse(raw)); sanitize();
+    hadSaved=S.boxes.length>0||!!S.pred.trim(); }catch(e){ S=DEF(); }
+}
+let saveT=0; function save(){ clearTimeout(saveT); saveT=setTimeout(saveNow,250); }
+function saveNow(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); $('#saveDot').textContent='💾 저장됨 '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}); }catch(e){ $('#saveDot').textContent='⚠ 자동 저장 안 됨 — 파일로 저장하세요'; } }
+function saveSet(){ try{ localStorage.setItem(SET_KEY,JSON.stringify(T)); }catch(e){} }
+window.addEventListener('beforeunload',saveNow);
+
+/* =========================================================
+   공통 유틸
+   ========================================================= */
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2600); }
+function openModal(id){ $(id).classList.add('show'); }
+$$('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('.modal-bg').classList.remove('show')));
+$$('.modal-bg').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('show'); }));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') $$('.modal-bg.show').forEach(m=>m.classList.remove('show')); });
+function askConfirm(msg,sub,yes){ $('#cfMsg').textContent=msg; $('#cfSub').textContent=sub||''; openModal('#mdConfirm');
+  $('#cfYes').onclick=()=>{ $('#mdConfirm').classList.remove('show'); yes(); }; $('#cfNo').onclick=()=>$('#mdConfirm').classList.remove('show'); }
+function boxName(n){ let s=''; n++; while(n>0){ const r=(n-1)%26; s=String.fromCharCode(65+r)+s; n=Math.floor((n-1)/26);} return s; }
+function bindText(sel,get,set){ const el=$(sel); el.addEventListener('input',()=>{ set(el.value); save(); }); return ()=>{ el.value=get(); }; }
+const autoAvail=()=>T.autoAllowed && S.verified.length>=T.need;
+const autoOn=()=>autoAvail() && S.auto;
+
+/* =========================================================
+   단계 이동
+   ========================================================= */
+const STEP_NAMES=['과자 회사의 고민','상자 디자인 실험실','데이터 분석 연구소','진짜 과자 상자 디자인하기','나의 탐구 결과 정리하기'];
+function stepDone(n){
+  if(n===1) return !!S.pred.trim();
+  if(n===2) return S.boxes.length>=5;
+  if(n===3) return S.optShown;
+  if(n===4) return !!S.s4.fin;
+  if(n===5) return [S.s5.r1,S.s5.r2,S.s5.r3,S.s5.r4].every(x=>x.trim());
+}
+function renderNav(){ const nav=$('#stepsNav'); nav.innerHTML='';
+  STEP_NAMES.forEach((nm,i)=>{ const n=i+1, b=document.createElement('button');
+    b.className='stepbtn'+(S.step===n?' cur':'')+(stepDone(n)?' done':'');
+    b.innerHTML=`<span class="num">${stepDone(n)&&S.step!==n?'✓':n}</span><span class="nm">${nm}</span>`;
+    b.setAttribute('aria-label',`STEP ${n} ${nm}`); if(S.step===n) b.setAttribute('aria-current','step');
+    b.onclick=()=>go(n); nav.appendChild(b); });
+  const done=[1,2,3,4,5].filter(stepDone).length; $('#barFill').style.width=Math.max(S.step,done)*20+'%'; }
+function go(n){ S.step=n; save();
+  $$('section.step').forEach(s=>s.classList.remove('show')); $('#s'+n).classList.add('show'); renderNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+  ({1:renderS1,2:renderS2,3:renderS3,4:renderS4,5:renderS5})[n]();
+  setTimeout(()=>[vIntro,vLab,vGal,vDes,vFin].forEach(v=>v&&v.resize()),40); }
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
+$$('[data-view]').forEach(b=>b.addEventListener('click',()=>{ const [w,v]=b.dataset.view.split(':'); ({lab:vLab,des:vDes})[w].setView(v); }));
+$$('[data-zoom]').forEach(b=>b.addEventListener('click',()=>{ const [w,v]=b.dataset.zoom.split(':'); const bv=({lab:vLab,des:vDes})[w]; bv.setZoom(bv.zoom*(v==='+'?1.2:1/1.2)); }));
+
+/* =========================================================
+   STEP 1
+   ========================================================= */
+const fillPred=bindText('#pred',()=>S.pred,v=>{S.pred=v; renderNav();});
+function renderS1(){ fillPred(); }
+$('#btnPredGo').onclick=()=>{ if(!S.pred.trim()){ $('#predErr').textContent='나의 생각을 먼저 써 주세요. 정답이 없으니 자유롭게 써도 괜찮아요!'; $('#pred').focus(); return; } $('#predErr').textContent=''; go(2); };
+$('#btnResume').onclick=()=>{ $('#resumeBox').style.display='none'; go(S.step===1?2:S.step); };
+$('#btnFresh').onclick=()=>askConfirm('처음부터 새로 시작할까요?','지금까지의 기록이 모두 지워져요. 필요하면 먼저 [파일 저장·불러오기]로 저장하세요.',resetAll);
+
+/* =========================================================
+   길이 조절 컨트롤 (자연수만)
+   ========================================================= */
+function dimControls(box, obj, onChange, errEl){
+  box.innerHTML='';
+  [['a','가로','var(--ax-a)'],['b','세로','var(--ax-b)'],['c','높이','var(--ax-c)']].forEach(([k,nm,col])=>{
+    const w=document.createElement('div'); w.className='ctl';
+    w.innerHTML=`<div class="head"><i class="dot" style="background:${col}"></i>${nm}<span class="val"><input class="num-in" type="number" inputmode="numeric" min="${T.lmin}" max="${T.lmax}" step="1" value="${obj[k]}" aria-label="${nm}(cm)"> cm</span></div>
+      <input type="range" min="${T.lmin}" max="${T.lmax}" step="1" value="${obj[k]}" aria-label="${nm} 슬라이더">`;
+    box.appendChild(w);
+    const inp=w.querySelector('.num-in'), rg=w.querySelector('input[type=range]');
+    rg.addEventListener('input',()=>{ obj[k]=+rg.value; inp.value=obj[k]; errEl.textContent=''; onChange(); });
+    inp.addEventListener('input',()=>{ const s=inp.value.trim(), v=Number(s);
+      if(s===''){ errEl.textContent=`${nm}에 숫자를 입력해 주세요.`; return; }
+      if(!Number.isInteger(v)){ errEl.textContent=`${nm}는 자연수(1, 2, 3, …)로만 정할 수 있어요.`; return; }
+      if(v<T.lmin||v>T.lmax){ errEl.textContent=`${nm}는 ${T.lmin}cm부터 ${T.lmax}cm까지 정할 수 있어요.`; return; }
+      errEl.textContent=''; obj[k]=v; rg.value=v; onChange(); });
+    inp.addEventListener('blur',()=>{ inp.value=obj[k]; errEl.textContent=''; });
+  });
+}
+function sizeWarn(a,b,c){ const L=Math.max(a,b,c), msgs=[];
+  if(L>=25) msgs.push(`한 변이 ${L}cm로 아주 길어요. 과자 상자로 들고 다니거나 진열하기 불편할 수 있어요.`);
+  return msgs; }
+
+/* =========================================================
+   직접 계산 패널
+   ========================================================= */
+function calcPanel(box, calc, dims, onCorrect, opts={}){
+  box.innerHTML=`
+    <div class="r"><label>부피 계산식</label><input type="text" data-f="vf" aria-label="부피 계산식"><span></span></div>
+    <div class="r"><label>내가 계산한 부피</label><span></span><span class="unit"><input type="text" inputmode="numeric" data-f="vv" aria-label="내가 계산한 부피"> ㎤</span></div>
+    <div class="r"><label>겉넓이 계산식</label><input type="text" data-f="sf" aria-label="겉넓이 계산식"><span></span></div>
+    <div class="r"><label>내가 계산한 겉넓이</label><span></span><span class="unit"><input type="text" inputmode="numeric" data-f="sv" aria-label="내가 계산한 겉넓이"> ㎠</span></div>
+    <div class="row mt"><button class="btn primary" data-chk>계산 결과 확인하기</button>
+      <button class="btn white small" data-method style="display:none">📖 계산 방법 살펴보기</button></div>
+    <div class="fb" data-fb></div>`;
+  box.querySelectorAll('[data-f]').forEach(inp=>{ inp.value=calc[inp.dataset.f]||''; inp.addEventListener('input',()=>{ calc[inp.dataset.f]=inp.value; save(); }); });
+  const fb=box.querySelector('[data-fb]'), mb=box.querySelector('[data-method]');
+  const show=()=>{ mb.style.display=calc.wrong>=2?'':'none';
+    if(!calc.res){ fb.textContent=''; fb.className='fb'; return; }
+    const r=calc.res; if(r.v&&r.s){ fb.className='fb ok'; fb.textContent='🎉 부피와 겉넓이를 모두 정확하게 계산했어요!'; }
+    else { fb.className='fb no'; fb.innerHTML=(r.v?'부피 ✔ · ':'')+(r.s?'겉넓이 ✔ · ':'')+'계산 결과를 다시 확인해 보세요.'; } };
+  box.querySelector('[data-chk]').onclick=()=>{ const d=dims(); const vv=parseAns(calc.vv), sv=parseAns(calc.sv);
+    if(calc.vv.trim()===''||calc.sv.trim()===''){ fb.className='fb no'; fb.textContent='부피와 겉넓이를 모두 입력해 주세요.'; return; }
+    if(!isFinite(vv)||!isFinite(sv)){ fb.className='fb no'; fb.textContent='계산 결과는 숫자로 입력해 주세요.'; return; }
+    calc.res={v:vv===VOL(d.a,d.b,d.c), s:sv===SA(d.a,d.b,d.c)};
+    if(!(calc.res.v&&calc.res.s)) calc.wrong++;
+    save(); show(); if(calc.res.v&&calc.res.s) onCorrect(); };
+  mb.onclick=()=>openModal('#mdMethod');
+  show();
+}
+const calcOK=c=>!!(c.res&&c.res.v&&c.res.s);
+
+/* =========================================================
+   STEP 2
+   ========================================================= */
+let vLab=null;
+function labDims(){ return {a:S.lab.a,b:S.lab.b,c:S.lab.c}; }
+function labChanged(){ S.lab.calc=mkCalc(); save(); renderCalcLab(); updateLab(); }
+function updateLab(){ const d=labDims();
+  vLab.set([{a:d.a,b:d.b,c:d.c,hl:labHL?FACE_KEY[labHL]:null}]);
+  const w=sizeWarn(d.a,d.b,d.c); $('#bigWarn').style.display=w.length?'':'none'; $('#bigWarn').innerHTML=w.map(x=>'⚠ '+x).join('<br>');
+  if($('#netBox').style.display!=='none') $('#netBox').innerHTML=netSVG(d.a,d.b,d.c,labHL);
+  renderAutoBox(); }
+function renderCalcLab(){ calcPanel($('#calcLab'), S.lab.calc, labDims, ()=>{ const k=keyOf(S.lab.a,S.lab.b,S.lab.c);
+  if(!S.verified.includes(k)){ S.verified.push(k); save(); const left=T.need-S.verified.length;
+    if(T.autoAllowed && left===0) toast('🎉 서로 다른 상자 '+T.need+'개를 정확히 계산했어요! 자동 계산 도우미를 켤 수 있어요.'); }
+  renderAutoBox(); }); }
+function renderAutoBox(){ const box=$('#autoBox'), d=labDims(), n=S.verified.length;
+  let h='';
+  if(!T.autoAllowed) h=`<div class="small ink2">🔒 이번 수업에서는 자동 계산 도우미를 쓰지 않아요. 직접 계산해서 확인한 뒤 기록하세요.</div>`;
+  else if(!autoAvail()) h=`<div class="switch"><input type="checkbox" disabled aria-label="자동 계산 도우미"> 🤖 자동 계산 도우미 <span class="badge g">잠김</span></div>
+      <div class="small ink2 mt">서로 다른 상자 <b>${T.need}개</b>의 부피와 겉넓이를 정확하게 계산하면 열려요. (지금 <b>${Math.min(n,T.need)}/${T.need}</b>, 회전해서 같은 상자는 1개로 세요)</div>`;
+  else h=`<label class="switch"><input type="checkbox" id="autoSw" ${S.auto?'checked':''}> 🤖 자동 계산 도우미 ${S.auto?'켜짐':'꺼짐'}</label>
+      ${S.auto?`<div class="stats"><div class="stat"><span>부피</span><b>${VOL(d.a,d.b,d.c)}㎤</b></div><div class="stat"><span>겉넓이</span><b>${SA(d.a,d.b,d.c)}㎠</b></div>
+      <div class="stat"><span>부피 조건</span><b style="font-size:16px">${basicOK(d.a,d.b,d.c)?'✅ 만족':'❌ '+whyBad(d.a,d.b,d.c)}</b></div></div>`:'<div class="small ink2 mt">켜면 크기를 바꿀 때마다 부피와 겉넓이가 바로 보여요. 여러 상자를 빠르게 실험할 때 써요.</div>'}`;
+  if(!autoOn()){ const verifiedNow=calcOK(S.lab.calc)||S.verified.includes(keyOf(d.a,d.b,d.c));
+    if(calcOK(S.lab.calc)) h+=`<div class="small mt" style="font-weight:800">부피 조건(${condTxt()}): ${basicOK(d.a,d.b,d.c)?'✅ 만족':'❌ 만족하지 않음 ('+whyBad(d.a,d.b,d.c)+')'}</div>`;
+    else if(verifiedNow) h+=`<div class="small mt ink2">이 상자는 전에 정확히 계산한 적이 있어요. 다시 계산해서 확인해 보세요.</div>`; }
+  box.innerHTML=h;
+  const sw=$('#autoSw'); if(sw) sw.onchange=()=>{ S.auto=sw.checked; save(); renderAutoBox(); };
+}
+function condTxt(){ return `부피 ${T.vmin}㎤ 이상`+(T.vmaxOn?`, ${T.vmax}㎤ 이하`:''); }
+function renderS2(){
+  $('#s2sub').textContent=`조건: ${condTxt()}, 가로·세로·높이는 ${T.lmin}~${T.lmax}cm 자연수`;
+  $('#rangeInfo').textContent=`(${T.lmin}~${T.lmax}cm 자연수)`;
+  ['a','b','c'].forEach(k=>S.lab[k]=clamp(S.lab[k],T.lmin,T.lmax));
+  dimControls($('#labCtl'),S.lab,labChanged,$('#labErr'));
+  renderCalcLab(); updateLab(); renderLabTable();
+}
+function renderLabTable(){ const t=$('#tblLab'), L=S.boxes;
+  $('#countBadge').textContent=`${L.length}개 저장 (최대 30개)`;
+  if(!L.length){ t.innerHTML='<tr><td class="muted" style="padding:18px">아직 저장한 상자가 없어요. 상자를 만들고 계산한 뒤 [실험 기록에 추가하기]를 눌러요.</td></tr>'; return; }
+  t.innerHTML='<tr><th>상자 이름</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th><th>부피 조건</th><th>내가 쓴 계산식</th><th></th></tr>'+
+    L.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return `<tr class="${ok?'':'bad'}"><td><b>상자 ${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>${VOL(b.a,b.b,b.c)}</td><td><b>${SA(b.a,b.b,b.c)}</b></td>
+      <td>${ok?'<span class="badge">만족</span>':'<span class="badge r">'+whyBad(b.a,b.b,b.c)+'</span>'}</td>
+      <td class="l small">${b.vf||b.sf?`부피: ${esc(b.vf)||'-'}<br>겉넓이: ${esc(b.sf)||'-'}`:(b.auto?'<span class="muted">자동 계산 도우미 사용</span>':'-')}</td>
+      <td><button class="xbtn" data-del="${b.id}" aria-label="상자 ${esc(b.name)} 삭제">✕</button></td></tr>`; }).join('');
+  t.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{ const id=+x.dataset.del, bx=S.boxes.find(b=>b.id===id);
+    askConfirm(`상자 ${bx.name}을(를) 지울까요?`,'지운 기록은 되돌릴 수 없어요.',()=>{ S.boxes=S.boxes.filter(b=>b.id!==id); save(); renderLabTable(); renderNav(); }); });
+}
+$('#btnSave').onclick=()=>{ const d=labDims();
+  if($('#labErr').textContent){ toast('길이 입력을 먼저 고쳐 주세요.'); return; }
+  if(!inRange(d.a,d.b,d.c)){ toast(`길이는 ${T.lmin}~${T.lmax}cm 자연수여야 해요.`); return; }
+  const usedAuto=autoOn();
+  if(!usedAuto && !calcOK(S.lab.calc)){ toast('먼저 부피와 겉넓이를 직접 계산하고 [계산 결과 확인하기]로 확인해 주세요.'); $('#calcLab').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  const dup=S.boxes.find(b=>keyOf(b.a,b.b,b.c)===keyOf(d.a,d.b,d.c));
+  if(dup){ toast(`상자 ${dup.name}을(를) 돌려 놓은 것과 같은 모양이에요! 세 길이가 같으면 같은 상자예요.`); return; }
+  if(S.boxes.length>=30){ toast('기록은 30개까지 저장할 수 있어요. 필요 없는 상자를 지워 주세요.'); return; }
+  const c=S.lab.calc; const b={id:S.seq,name:boxName(S.seq),a:d.a,b:d.b,c:d.c,vf:usedAuto&&!calcOK(c)?'':c.vf.trim(),sf:usedAuto&&!calcOK(c)?'':c.sf.trim(),auto:usedAuto&&!calcOK(c)};
+  S.seq++; S.boxes.push(b); save(); renderLabTable(); renderNav();
+  toast(`상자 ${b.name}을(를) 기록했어요!`);
+};
+$('#btnUnfold').onclick=()=>{ const nb=$('#netBox'), on=nb.style.display==='none'; nb.style.display=on?'':'none';
+  $('#btnUnfold').textContent=on?'📦 다시 접기':'📐 상자 펼쳐 보기'; const d=labDims(); if(!on){ labHL=null; vLab.set([{a:d.a,b:d.b,c:d.c}]); } else nb.innerHTML=netSVG(d.a,d.b,d.c,labHL); };
+
+/* =========================================================
+   상자 펼쳐 보기 (STEP 2 수학 학습용 — 인쇄·제작 기능 없음)
+   배치: [왼쪽 옆면][앞면][오른쪽 옆면][뒷면], 위 면은 앞면 위, 아래 면은 앞면 아래 (1cm = 10단위)
+   ========================================================= */
+function netGeom(a,b,c){
+  const A=a*10,B=b*10,C=c*10;
+  const faces=[
+    {k:'L',nm:'왼쪽 옆면',x:0,y:0,w:B,h:C,pair:'side',dw:['세로',b],dh:['높이',c]},
+    {k:'F',nm:'앞면',x:B,y:0,w:A,h:C,pair:'fb',dw:['가로',a],dh:['높이',c]},
+    {k:'R',nm:'오른쪽 옆면',x:B+A,y:0,w:B,h:C,pair:'side',dw:['세로',b],dh:['높이',c]},
+    {k:'K',nm:'뒷면',x:2*B+A,y:0,w:A,h:C,pair:'fb',dw:['가로',a],dh:['높이',c]},
+    {k:'T',nm:'위 면',x:B,y:-B,w:A,h:B,pair:'tb',dw:['가로',a],dh:['세로',b]},
+    {k:'D',nm:'아래 면',x:B,y:C,w:A,h:B,pair:'tb',dw:['가로',a],dh:['세로',b]}];
+  return {A,B,C,faces,minX:0,minY:-B,W:2*A+2*B,H:C+2*B};
+}
+const PAIR_COL={fb:'#FFC58A',side:'#9ED3F5',tb:'#9BE3C8'};
+const FACE_KEY={F:'4_1',K:'4_0',R:'1_1',L:'1_0',T:'2_1',D:'2_0'};   // 전개도 면 ↔ 3D 면
+const FACE_VIEW={F:{yaw:-0.35,pitch:0.3},K:{yaw:Math.PI-0.4,pitch:0.3},R:{yaw:-1.2,pitch:0.3},L:{yaw:1.2,pitch:0.3},T:{yaw:-0.5,pitch:1.1},D:{yaw:-0.5,pitch:-1.1}};
+const PAIR_NAME={fb:'앞면 ↔ 뒷면',side:'왼쪽 옆면 ↔ 오른쪽 옆면',tb:'위 면 ↔ 아래 면'};
+let labHL=null;
+/** 전개도(SVG): 여섯 면, 마주 보는 면 같은 색, 각 면의 두 길이. 넓이는 표시하지 않음 */
+function netSVG(a,b,c,sel){
+  const g=netGeom(a,b,c), pad=34;
+  const vbW=g.W+pad*2, vbH=g.H+pad*2, ox=-g.minX+pad, oy=-g.minY+pad;
+  const fsz=Math.max(7,Math.min(12,Math.min(g.A,g.B,g.C)*0.18));
+  let h='';
+  g.faces.forEach(f=>{ const on=sel===f.k, cx=f.x+ox+f.w/2, cy=f.y+oy+f.h/2;
+    const t2=`${f.dw[0]} ${f.dw[1]}cm × ${f.dh[0]} ${f.dh[1]}cm`, l1=`${f.dw[0]} ${f.dw[1]}cm`, l2=`× ${f.dh[0]} ${f.dh[1]}cm`, fs2=Math.min(fsz*0.85,f.w/(Math.max(l1.length,l2.length)*0.82),f.h/5.2);
+    h+=`<g data-face="${f.k}" tabindex="0" role="button" aria-label="${f.nm}: ${t2}. 누르면 3D 상자에서 위치를 보여 줘요" style="cursor:pointer">
+      <rect x="${f.x+ox}" y="${f.y+oy}" width="${f.w}" height="${f.h}" fill="${PAIR_COL[f.pair]}" stroke="${on?'#E8743B':'#444'}" stroke-width="${on?3.5:1}"/>
+      <text x="${cx}" y="${cy-fs2*0.9}" font-size="${Math.min(fsz,f.w/(f.nm.length*1.1))}" text-anchor="middle" fill="#24323F" font-weight="800">${f.nm}</text>
+      <text x="${cx}" y="${cy+fs2*0.6}" font-size="${fs2}" text-anchor="middle" fill="#526273" font-weight="700">${l1}</text>
+      <text x="${cx}" y="${cy+fs2*1.8}" font-size="${fs2}" text-anchor="middle" fill="#526273" font-weight="700">${l2}</text></g>`; });
+  if(sel){ const f=g.faces.find(x=>x.k===sel); h+=`<rect x="${f.x+ox}" y="${f.y+oy}" width="${f.w}" height="${f.h}" fill="none" stroke="#E8743B" stroke-width="3.5" pointer-events="none"/>`; }
+  const dim=(x1,y1,x2,y2,txt,col,off)=>{ const vx=x2-x1, vy=y2-y1, L=Math.hypot(vx,vy), nx=-vy/L*off, ny=vx/L*off;
+    const X1=x1+nx+ox,Y1=y1+ny+oy,X2=x2+nx+ox,Y2=y2+ny+oy, mx=(X1+X2)/2, my=(Y1+Y2)/2, ang=Math.abs(vy)>Math.abs(vx)?-90:0, tx=mx+nx/Math.abs(off)*(fsz*0.95), ty=my+ny/Math.abs(off)*(fsz*0.95);
+    return `<line x1="${X1}" y1="${Y1}" x2="${X2}" y2="${Y2}" stroke="${col}" stroke-width="1.6"/>
+      <text x="${tx}" y="${ty}" font-size="${fsz+1}" font-weight="900" fill="${col}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${ang} ${tx} ${ty})" paint-order="stroke" stroke="#fff" stroke-width="3">${txt}</text>`; };
+  h+=dim(g.B,-g.B,g.B+g.A,-g.B,`가로 ${a}cm`,'#E8743B',-12);
+  h+=dim(g.B+g.A,-g.B,g.B+g.A,0,`세로 ${b}cm`,'#3A7BEA',-12);
+  h+=dim(2*g.B+2*g.A,0,2*g.B+2*g.A,g.C,`높이 ${c}cm`,'#1F9D62',-12);
+  const sf=sel&&g.faces.find(x=>x.k===sel);
+  return `<svg viewBox="0 0 ${vbW} ${vbH}" style="width:100%;max-width:${Math.round(vbW*1.6)}px" role="img" aria-label="직육면체의 여섯 면을 펼친 그림" font-family="sans-serif">${h}</svg>
+    <div class="small center" style="margin:6px 0 0;font-weight:700;min-height:1.4em">${sf?`👉 <span style="color:#C55A1E">${sf.nm}</span>은 3D 상자에서 주황색 테두리로 표시된 면이에요. 마주 보는 면: ${PAIR_NAME[sf.pair]}`:'👆 면을 누르면 3D 상자에서 그 면이 어디인지 보여 줘요.'}</div>
+    <p class="muted small center" style="margin:2px 0 0">마주 보는 두 면은 같은 색이에요. 같은 색 면이 몇 개씩 있는지 세어 보고, 각 면의 넓이는 직접 계산해 보세요!</p>`;
+}
+function selectFace(k){ labHL = labHL===k? null : k; const d=labDims();
+  if(labHL){ const v=FACE_VIEW[k]; vLab.yaw=v.yaw; vLab.pitch=v.pitch; vLab.zoom=1; }
+  vLab.set([{a:d.a,b:d.b,c:d.c,hl:labHL?FACE_KEY[labHL]:null}]); $('#netBox').innerHTML=netSVG(d.a,d.b,d.c,labHL); }
+$('#netBox').addEventListener('click',e=>{ const g=e.target.closest('[data-face]'); if(g) selectFace(g.dataset.face); });
+$('#netBox').addEventListener('keydown',e=>{ const g=e.target.closest('[data-face]'); if(g&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); selectFace(g.dataset.face); const n=$(`#netBox [data-face="${g.dataset.face}"]`); n&&n.focus(); } });
+
+/* =========================================================
+   STEP 3
+   ========================================================= */
+const QS=[{k:'q1',t:'부피가 800㎤ 이상인 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?'},
+  {k:'q2',t:'부피가 비슷한 상자들의 겉넓이를 비교하면 어떤 특징이 나타나나요?'},
+  {k:'q3',t:'상자의 가로·세로·높이와 겉넓이 사이에는 어떤 관계가 있을까요?'},
+  {k:'q4',t:'지금까지 만든 상자보다 겉넓이가 더 작은 상자를 만들 수 있을까요?'}];
+function updQS(){ QS[0].t=`부피가 ${T.vmin}㎤ 이상인 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?`; }
+$('#sortSel').onchange=e=>{ S.sortBy=e.target.value; save(); renderS3(); };
+function sortedBoxes(){ const L=S.boxes.slice(); if(S.sortBy==='v') L.sort((p,q)=>VOL(p.a,p.b,p.c)-VOL(q.a,q.b,q.c)); if(S.sortBy==='s') L.sort((p,q)=>SA(p.a,p.b,p.c)-SA(q.a,q.b,q.c)); return L; }
+function myMin(){ const ok=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)); if(!ok.length) return null; return ok.reduce((m,b)=>SA(b.a,b.b,b.c)<SA(m.a,m.b,m.c)?b:m); }
+function dataTable(L,compact){ if(!L.length) return '<tr><td class="muted" style="padding:16px">저장한 상자가 없어요.</td></tr>';
+  return '<tr><th>상자</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th><th>조건 충족</th></tr>'+
+  L.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return `<tr class="${ok?'':'bad'}"><td><b>${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>${VOL(b.a,b.b,b.c)}</td><td><b>${SA(b.a,b.b,b.c)}</b></td><td>${ok?'✅':'❌ '+(compact?'':whyBad(b.a,b.b,b.c))}</td></tr>`; }).join(''); }
+function barChart(L,opt={}){ const n=L.length; if(!n) return '<p class="muted">저장한 상자가 없어요.</p>';
+  const bw=opt.bw||Math.max(30,Math.min(64,560/n)), gap=Math.max(8,bw*.4), pl=56,pr=14,pt=30,pb=44,ch=opt.h||270;
+  const W=Math.max(opt.minW||520, pl+pr+n*(bw+gap)+gap), vals=L.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals);
+  const st=[50,100,200,250,500,1000,2000].find(s=>mx/s<=6)||5000, top=Math.ceil(mx/st)*st, y=v=>pt+ch-v/top*ch;
+  let g=`<defs><pattern id="hb${opt.id||''}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#D9D3C7"/><line x1="0" y1="0" x2="0" y2="6" stroke="#fff" stroke-width="2"/></pattern></defs>`;
+  for(let v=0;v<=top;v+=st) g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#EEE8DC"/><text x="${pl-7}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="#8696A5">${v}</text>`;
+  L.forEach((b,i)=>{ const x=pl+gap+i*(bw+gap), v=vals[i], ok=basicOK(b.a,b.b,b.c), yy=y(v);
+    g+=`<g><title>상자 ${esc(b.name)}: ${b.a}×${b.b}×${b.c}, 부피 ${VOL(b.a,b.b,b.c)}㎤, 겉넓이 ${v}㎠${ok?'':' (조건 미충족)'}</title>
+      <path d="M${x},${y(0)} L${x},${yy+4} Q${x},${yy} ${x+4},${yy} L${x+bw-4},${yy} Q${x+bw},${yy} ${x+bw},${yy+4} L${x+bw},${y(0)} Z" fill="${ok?'#5DB3EA':`url(#hb${opt.id||''})`}"/>
+      <text x="${x+bw/2}" y="${yy-7}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#24323F">${v}</text>
+      <text x="${x+bw/2}" y="${pt+ch+18}" text-anchor="middle" font-size="13" font-weight="700" fill="#526273">${esc(b.name)}</text></g>`; });
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#526273" stroke-width="1.5"/>`;
+  g+=`<text x="${pl+(W-pl-pr)/2}" y="${pt+ch+38}" text-anchor="middle" font-size="13" fill="#526273" font-weight="700">상자 이름</text>`;
+  g+=`<text x="14" y="${pt+ch/2}" text-anchor="middle" font-size="13" fill="#526273" font-weight="700" transform="rotate(-90 14 ${pt+ch/2})">겉넓이(㎠)</text>`;
+  return `<svg viewBox="0 0 ${W} ${pt+ch+pb+4}" width="${W}" role="img" aria-label="상자별 겉넓이 막대그래프" font-family="sans-serif">${g}</svg>`; }
+function renderQuestions(){ updQS(); const box=$('#questions'); box.innerHTML='';
+  QS.forEach((q,i)=>{ const d=document.createElement('div'); d.className='q';
+    d.innerHTML=`<div class="qt"><b>질문 ${i+1}.</b>${q.t}</div><textarea aria-label="질문 ${i+1} 답"></textarea>`;
+    box.appendChild(d); const ta=d.querySelector('textarea'); ta.value=S.ans[q.k]; ta.addEventListener('input',()=>{ S.ans[q.k]=ta.value; save(); }); }); }
+function renderS3(){ const few=$('#fewNotice'), okN=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)).length;
+  if(S.boxes.length<5){ few.style.display=''; few.innerHTML=`지금 저장한 상자는 <b>${S.boxes.length}개</b>예요. 비교하려면 상자를 <b>5개 이상</b> 모아 오면 좋아요. <button class="btn white small" data-goto="2">실험실로 돌아가기</button>`; few.querySelector('[data-goto]').onclick=()=>go(2); } else few.style.display='none';
+  $('#sortSel').value=S.sortBy; $('#tblData').innerHTML=dataTable(sortedBoxes());
+  $('#condText').textContent=`조건: ${condTxt()}, 길이 ${T.lmin}~${T.lmax}cm 자연수. 조건을 만족하지 못한 상자(❌)는 최적의 상자 후보에서 빠져요. 겉넓이를 비교할 때는 부피 조건도 함께 살펴보세요.`;
+  $('#chart').innerHTML=barChart(sortedBoxes(),{id:'m'});
+  renderQuestions(); renderOpt(); }
+$('#btnOpt').onclick=()=>{ const miss=[], okN=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)).length;
+  if(S.boxes.length<5) miss.push(`상자 5개 이상 기록하기 (지금 ${S.boxes.length}개)`);
+  if(okN<2) miss.push(`조건을 만족하는 상자 2개 이상 기록하기 (지금 ${okN}개)`);
+  QS.forEach((q,i)=>{ if(S.ans[q.k].trim().length<2) miss.push(`질문 ${i+1}에 답하기`); });
+  if(miss.length&&!T.unlock){ $('#optErr').innerHTML='먼저 탐구를 마쳐 주세요: '+miss.join(', '); return; }
+  $('#optErr').textContent=''; S.optShown=true; save(); renderNav(); renderOpt(true); };
+let vOpt=null;
+function renderOpt(scroll){ const box=$('#optBox'); if(!S.optShown){ box.style.display='none'; return; } box.style.display='';
+  const o=optimumBasic(), mm=myMin();
+  if(!o){ box.innerHTML='<div class="note red">지금 설정된 조건을 만족하는 상자가 없어요. 선생님께 조건을 확인해 달라고 하세요.</div>'; return; }
+  const ob=o.boxes[0], diff=mm? SA(mm.a,mm.b,mm.c)-o.S : null;
+  const near=nearBasic(6);
+  box.innerHTML=`<h2>🏆 최적의 상자 확인</h2>
+    <div class="cmp2">
+      <div class="cmpbox"><div class="k">📒 내 기록 중 겉넓이가 가장 작은 상자 (조건 충족 상자 중)</div>
+        ${mm?`<div class="v">${SA(mm.a,mm.b,mm.c)}㎠</div><div>상자 ${esc(mm.name)} · ${mm.a}×${mm.b}×${mm.c}cm · 부피 ${VOL(mm.a,mm.b,mm.c)}㎤</div>`:'<div class="v">-</div><div>조건을 만족하는 상자가 아직 없어요.</div>'}</div>
+      <div class="cmpbox win"><div class="k">🎯 설정된 조건 전체에서 실제 최솟값</div><div class="v">${o.S}㎠</div>
+        <div>${o.boxes.map(t=>t.join('×')+'cm').join(', ')} · 부피 ${VOL(...ob)}㎤</div></div>
+    </div>
+    <div class="note ${diff===0?'mint':'orange'}">${mm? (diff===0?'🎉 내가 이미 최적의 상자를 찾았어요!':`내 기록의 최소 겉넓이는 실제 최솟값보다 <b>${diff}㎠</b> 더 커요.`):''}
+      회전해서 같아지는 상자(예: ${ob.join('×')}와 ${[ob[2],ob[0],ob[1]].join('×')})는 같은 상자로 봐요.</div>
+    <div class="grid2"><div><canvas class="view" id="cvOpt" style="height:280px"></canvas></div>
+      <div><h3>겉넓이가 작은 상자 순위 (조건 만족)</h3><div class="tbl-wrap"><table class="data"><tr><th>순위</th><th>세 길이(cm)</th><th>부피(㎤)</th><th>겉넓이(㎠)</th></tr>
+        ${near.map((x,i)=>`<tr class="${x.S===o.S?'best':''}"><td>${i+1}</td><td>${x.t.join(' × ')}</td><td>${x.V}</td><td>${x.S}</td></tr>`).join('')}</table></div>
+        <p class="small ink2">🔎 순위가 높은 상자들의 세 길이를 비교해 보세요. 어떤 공통점이 있나요? 부피가 조건보다 훨씬 커지면 겉넓이는 어떻게 되나요?</p></div></div>`;
+  if(!vOpt||vOpt.c!==$('#cvOpt')) vOpt=new BoxView($('#cvOpt'),{refDiag:20});
+  vOpt.set([{a:ob[0],b:ob[1],c:ob[2]}],true); setTimeout(()=>vOpt.resize(),30);
+  if(scroll) setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),60); }
+
+/* =========================================================
+   STEP 4
+   ========================================================= */
+let vGal=null, vDes=null;
+const fillS4=[bindText('#s4q',()=>S.s4.q,v=>S.s4.q=v), bindText('#snName',()=>S.s4.snack.name,v=>S.s4.snack.name=v),
+  bindText('#snFeat',()=>S.s4.snack.feat,v=>S.s4.snack.feat=v), bindText('#snPrio',()=>S.s4.snack.prio,v=>S.s4.snack.prio=v),
+  bindText('#reason',()=>S.s4.reason,v=>S.s4.reason=v), bindText('#s4use',()=>S.s4.use,v=>S.s4.use=v)];
+['cA','cB','cC'].forEach(k=>$('#'+k).addEventListener('change',e=>{ S.s4[k]=e.target.checked; save(); renderConds(); updateDes(); }));
+function renderConds(){ const s=S.s4; $('#cA').checked=s.cA; $('#cB').checked=s.cB; $('#cC').checked=s.cC;
+  $('#optB').classList.toggle('on',s.cB); $('#optC').classList.toggle('on',s.cC);
+  const g=s.grip, gc=$('#gripCtl');
+  gc.style.display=s.cB?'':'none';
+  gc.innerHTML=`<div class="small ink2">상자를 손으로 감싸 쥘 때 손에 닿는 폭을 정해요. 어느 방향으로 잡을지 고르세요.</div>
+    <div class="condrow">잡는 방향: <select class="sel" id="gDim"><option value="a">가로 폭을 감싸 잡기</option><option value="b">세로 폭을 감싸 잡기</option><option value="c">높이 쪽을 감싸 잡기</option></select>
+      <span id="gNow" class="badge s"></span></div>
+    <div class="condrow">손에 닿는 폭 <input class="num-in" type="number" id="gMax" min="1" max="60" step="1" value="${g.max}" aria-label="최대 폭"> cm 이하
+      <label class="chk small" style="margin-left:8px"><input type="checkbox" id="gMinOn" ${g.minOn?'checked':''}> 그리고</label>
+      <input class="num-in" type="number" id="gMin" min="1" max="60" step="1" value="${g.min}" ${g.minOn?'':'disabled'} aria-label="최소 폭"> cm 이상</div>
+    <div class="small muted">잡기 편한 정도는 사람마다 달라서 웹앱이 정답이나 점수로 판단하지 않아요. 내가 정한 폭 조건을 만족하는지만 알려 줘요. 3D 상자를 돌려 보며 직접 예상해 보세요.</div>`;
+  $('#gDim').value=g.dim;
+  $('#gDim').onchange=e=>{ g.dim=e.target.value; save(); updateDes(); };
+  $('#gMax').oninput=e=>{ const v=Number(e.target.value); if(Number.isInteger(v)&&v>0){ g.max=v; save(); updateDes(); } };
+  $('#gMin').oninput=e=>{ const v=Number(e.target.value); if(Number.isInteger(v)&&v>0){ g.min=v; save(); updateDes(); } };
+  $('#gMinOn').onchange=e=>{ g.minOn=e.target.checked; $('#gMin').disabled=!g.minOn; save(); updateDes(); };
+  const sc=$('#shapeCtl'); sc.style.display=s.cC?'':'none';
+  sc.innerHTML=`<div class="small ink2">과자의 길이, 필요한 포장 높이 등 내 과자에 맞는 조건을 직접 정해요. (최대 4개)</div>
+    ${s.shapes.map((r,i)=>`<div class="condrow" data-i="${i}">
+      <input type="text" data-k="memo" value="${esc(r.memo)}" maxlength="20" style="width:150px" aria-label="조건 이름">
+      <select class="sel" data-k="dim"><option value="a">가로</option><option value="b">세로</option><option value="c">높이</option><option value="max">가장 긴 변</option></select>
+      <span>을(를)</span><input class="num-in" type="number" data-k="val" min="1" max="60" step="1" value="${r.val}" aria-label="길이">cm
+      <select class="sel" data-k="op"><option value=">=">이상</option><option value="<=">이하</option><option value="=">과 같게</option></select>
+      <button class="xbtn" data-rm="${i}" aria-label="조건 삭제">✕</button></div>`).join('')}
+    <button class="btn white small" id="addShape" ${s.shapes.length>=4?'disabled':''}>＋ 조건 추가</button>
+    <div class="small muted mt">첫 칸에는 조건의 이름(무엇 때문에 필요한지)을 써요.</div>`;
+  sc.querySelectorAll('.condrow').forEach(row=>{ const r=s.shapes[+row.dataset.i];
+    row.querySelector('[data-k=dim]').value=r.dim; row.querySelector('[data-k=op]').value=r.op;
+    row.querySelectorAll('[data-k]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{
+      const k=el.dataset.k; if(k==='val'){ const v=Number(el.value); if(!Number.isInteger(v)||v<=0) return; r.val=v; } else r[k]=el.value; save(); updateDes(); })); });
+  sc.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ s.shapes.splice(+b.dataset.rm,1); save(); renderConds(); updateDes(); });
+  const ad=$('#addShape'); if(ad) ad.onclick=()=>{ s.shapes.push({dim:'c',op:'>=',val:5,memo:''}); save(); renderConds(); updateDes(); };
+}
+function desChanged(){ if(S.s4.finalizing){ S.s4.finalizing=false; S.s4.fcalc=mkCalc(); $('#finCalcCard').style.display='none'; } save(); updateDes(); }
+function updateDes(){ const d=S.s4.d, s=S.s4;
+  vDes.set([{a:d.a,b:d.b,c:d.c}]);
+  const g=$('#gNow'); if(g) g.textContent=`지금 손에 닿는 폭: ${d[s.grip.dim]}cm`;
+  const live=$('#desLive'), hide=s.finalizing;
+  live.innerHTML=`<div style="font-weight:800">📦 상자 크기: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm</div>`+
+    (hide?'<div class="small ink2 mt">🙈 최종 계산 검증 중에는 자동 계산 도우미가 숨겨져요.</div>':
+     autoOn()?`<div class="stats"><div class="stat"><span>부피</span><b>${VOL(d.a,d.b,d.c)}㎤</b></div><div class="stat"><span>겉넓이</span><b>${SA(d.a,d.b,d.c)}㎠</b></div><div class="stat"><span>🤖 자동 계산</span><b style="font-size:15px">켜짐</b></div></div>`:
+     `<div class="small ink2 mt">${autoAvail()?'STEP 2에서 자동 계산 도우미를 켜면 부피와 겉넓이가 바로 보여요.':'부피와 겉넓이는 직접 계산해요. (자동 계산 도우미는 STEP 2에서 상자 '+T.need+'개를 정확히 계산하면 열려요)'}</div>`);
+  const conds=[{t:condTxt(),ok:volCond(d.a,d.b,d.c)}].concat(myConds(d));
+  $('#desConds').innerHTML=conds.map((c,i)=>`<li class="${c.ok?'ok':'no'}">${c.ok?'✅':'❌'} ${i===0?'<b>기본</b> ':'<b>내 조건</b> '}${esc(c.t)}</li>`).join('');
+  const w=sizeWarn(d.a,d.b,d.c); $('#desErr').innerHTML=w.map(x=>'⚠ '+x).join('<br>');
+}
+$('#loadRec').onchange=e=>{ const b=S.boxes.find(x=>x.id==e.target.value); if(!b) return; ['a','b','c'].forEach(k=>S.s4.d[k]=clamp(b[k],T.lmin,T.lmax)); e.target.value=''; desChanged(); dimControls($('#desCtl'),S.s4.d,desChanged,$('#desErr')); toast(`상자 ${b.name}을(를) 불러왔어요.`); };
+$('#btnChoose').onclick=()=>{ const d=S.s4.d;
+  if(!inRange(d.a,d.b,d.c)){ toast(`길이는 ${T.lmin}~${T.lmax}cm 자연수여야 해요.`); return; }
+  if(!volCond(d.a,d.b,d.c)){ toast(`이 상자는 기본 조건(${condTxt()})을 만족하지 않아서 최종 상자로 고를 수 없어요.`); return; }
+  const bad=myConds(d).filter(c=>!c.ok);
+  const start=()=>{ S.s4.finalizing=true; S.s4.fcalc=mkCalc(); save(); updateDes(); renderFinCalc(); $('#finCalcCard').scrollIntoView({behavior:'smooth',block:'start'}); };
+  if(bad.length) askConfirm('내가 정한 조건 중 만족하지 않는 것이 있어요.', bad.map(c=>'❌ '+c.t).join(' / ')+' — 그래도 이 상자로 계속할까요?', start); else start(); };
+function renderFinCalc(){ const card=$('#finCalcCard'); if(!S.s4.finalizing){ card.style.display='none'; return; } card.style.display='';
+  const d=S.s4.d; $('#finInfo').textContent=`최종 후보 상자: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm`;
+  calcPanel($('#calcFin'), S.s4.fcalc, ()=>S.s4.d, ()=>{ const c=S.s4.fcalc;
+    S.s4.fin={a:d.a,b:d.b,c:d.c,vf:c.vf.trim(),sf:c.sf.trim(),vv:VOL(d.a,d.b,d.c),sv:SA(d.a,d.b,d.c),conds:myConds(d),at:Date.now()};
+    S.s4.finalizing=false; save(); renderNav(); toast('🎉 최종 상자가 확정되었어요!');
+    setTimeout(()=>{ $('#finCalcCard').style.display='none'; renderFin(); updateDes(); $('#finCard').scrollIntoView({behavior:'smooth',block:'start'}); },700); }); }
+$('#btnFinCancel').onclick=()=>{ S.s4.finalizing=false; save(); renderFinCalc(); updateDes(); };
+function renderFin(){ const f=S.s4.fin, card=$('#finCard'); if(!f){ card.style.display='none'; return; } card.style.display='';
+  const o=optimumBasic(), my=(S.s4.cB||S.s4.cC)? optimumMine():null, mS=f.sv, conds=myConds(f);
+  const changed=['a','b','c'].some(k=>f[k]!==S.s4.d[k]);
+  $('#finCompare').innerHTML=`${changed?'<div class="note orange">설계 화면의 상자가 확정한 최종 상자와 달라요. 최종 상자를 바꾸려면 [이 상자로 최종 선택하기]를 다시 눌러요.</div>':''}
+    <div class="final"><div style="font-size:20px;font-weight:900">✅ 확정된 나의 최종 상자: ${f.a}cm × ${f.b}cm × ${f.c}cm</div>
+      <div class="stats"><div class="stat"><span>부피</span><b>${f.vv}㎤</b></div><div class="stat"><span>나의 상자 겉넓이</span><b>${mS}㎠</b></div><div class="stat"><span>기본 조건</span><b style="font-size:16px">✅ ${condTxt()}</b></div></div></div>
+    <div class="cmp2 mt">
+      <div class="cmpbox"><div class="k">기본 조건에서 가장 경제적인 상자</div>
+        ${o?`<div class="v">${o.S}㎠</div><div>${o.boxes.map(t=>t.join('×')).join(', ')}cm (${condTxt()}, 자연수 길이만 고려)</div><div class="mt"><b>나의 상자와의 차이: ${mS-o.S}㎠</b> ${mS===o.S?'— 같아요!':''}</div>`:'<div>조건을 만족하는 상자가 없어요.</div>'}</div>
+      <div class="cmpbox ${my&&my.S===mS?'win':''}"><div class="k">내가 정한 조건에서 가장 경제적인 상자</div>
+        ${!(S.s4.cB||S.s4.cC)?'<div class="small ink2 mt">내가 추가한 조건(B·C)이 없어서 기본 조건과 같아요.</div>':
+          my?`<div class="v">${my.S}㎠</div><div>${my.boxes.slice(0,3).map(t=>`가로 ${t[0]}×세로 ${t[1]}×높이 ${t[2]}`).join(', ')}${my.boxes.length>3?` 외 ${my.boxes.length-3}가지`:''}</div><div class="mt"><b>나의 상자와의 차이: ${mS-my.S}㎠</b></div>`:
+          '<div class="small mt">⚠ 내가 정한 조건을 모두 만족하는 상자가 없어요. 조건을 다시 살펴보세요.</div>'}</div></div>
+    <h3 class="mt">내가 선택한 조건의 충족 여부</h3>
+    <ul class="conds">${S.s4.cA?`<li class="ok">🎯 A. 포장재 절약을 중요하게 생각함 (겉넓이 ${mS}㎠)</li>`:''}${conds.length?conds.map(c=>`<li class="${c.ok?'ok':'no'}">${c.ok?'✅':'❌'} ${esc(c.t)}</li>`).join(''):'<li>추가 조건 없음</li>'}</ul>
+    <p class="small ink2">💡 가장 좋은 상자는 겉넓이만으로 정해지지 않아요. 내 과자와 사용하는 사람을 생각해 왜 이 상자를 골랐는지 설명해 보세요.</p>`;
+  fillS4[4](); }
+function renderS4(){ fillS4.forEach(f=>f());
+  if(!vGal) vGal=new BoxView($('#cvGallery'),{names:true,labels:false,refDiag:20});
+  vGal.set([{a:9,b:9,c:10,name:'정육면체에 가까운 상자',sub:'9 × 9 × 10cm'},{a:5,b:6,c:27,name:'길쭉한 상자',sub:'5 × 6 × 27cm'},{a:20,b:20,c:2,name:'넓고 납작한 상자',sub:'20 × 20 × 2cm'}],true);
+  if(!vDes) vDes=new BoxView($('#cvDesign'),{refDiag:24});
+  ['a','b','c'].forEach(k=>S.s4.d[k]=clamp(S.s4.d[k],T.lmin,T.lmax));
+  $('#loadRec').innerHTML='<option value="">선택하세요</option>'+S.boxes.map(b=>`<option value="${b.id}">상자 ${esc(b.name)} (${b.a}×${b.b}×${b.c})</option>`).join('');
+  renderConds(); dimControls($('#desCtl'),S.s4.d,desChanged,$('#desErr')); updateDes(); renderFinCalc(); renderFin(); }
+
+/* =========================================================
+   STEP 5 · 보고서
+   ========================================================= */
+let vFin=null;
+const fillS5=[['#rf1','r1'],['#rf2','r2'],['#rf3','r3'],['#rf4','r4']].map(([id,k])=>bindText(id,()=>S.s5[k],v=>{S.s5[k]=v; if(k[0]==='r') renderNav(); refreshReportSoon();}));
+function renderS5(){ fillS5.forEach(f=>f());
+  $('#r5pred').innerHTML=S.pred.trim()?esc(S.pred).replace(/\n/g,'<br>'):'<span class="muted">STEP 1에서 쓴 생각이 없어요.</span>';
+  $('#r5tbl').innerHTML=dataTable(S.boxes); $('#r5chart').innerHTML=barChart(S.boxes,{id:'r5'});
+  const f=S.s4.fin;
+  if(!vFin) vFin=new BoxView($('#cvFinal'),{refDiag:24});
+  if(f){ vFin.set([{a:f.a,b:f.b,c:f.c}]);
+    $('#r5dims').innerHTML=`<div class="stats"><div class="stat"><span>가로</span><b>${f.a}cm</b></div><div class="stat"><span>세로</span><b>${f.b}cm</b></div><div class="stat"><span>높이</span><b>${f.c}cm</b></div></div>`;
+    $('#r5calc').innerHTML=`<div class="note sky" style="margin:4px 0">부피: ${esc(f.vf)||'(식 없음)'} = <b>${f.vv}㎤</b><br>겉넓이: ${esc(f.sf)||'(식 없음)'} = <b>${f.sv}㎠</b></div>`;
+    $('#r5reason').innerHTML=S.s4.reason.trim()?esc(S.s4.reason).replace(/\n/g,'<br>'):'<span class="muted">STEP 4 ⑦에서 선택 이유를 써 주세요.</span>';
+  } else { vFin.set([]); $('#r5dims').innerHTML='<div class="note">아직 최종 상자를 확정하지 않았어요. <button class="btn white small" data-goto4>STEP 4로 가기</button></div>'; const g4=$('[data-goto4]'); if(g4) g4.onclick=()=>go(4); $('#r5calc').innerHTML=''; $('#r5reason').textContent='-'; }
+  if($('#report').style.display!=='none') $('#report').innerHTML=reportHTML();
+}
+function reportHTML(){ const f=S.s4.fin, line=t=>`<div class="ans">${esc(t)||'&nbsp;'}</div>`;
+  const img=f? snapshot([{a:f.a,b:f.b,c:f.c}],320,230,{refDiag:24}):'';
+  const o=optimumBasic();
+  return `<div class="rp"><h1>📦 나의 과자 상자 수학 탐구 보고서</h1><div class="sub">과자를 충분히 담으면서 포장재를 절약하는 상자를 만들어라!</div>
+    <div class="namebox"><div>날짜: ${new Date().toLocaleDateString('ko-KR')}</div><div>이름: <span></span></div></div>
+    <div class="blk"><h3>1. 탐구 주제</h3><p><b>과자를 충분히 담으면서 포장재를 가장 적게 사용하고, 손으로 잡기도 편한 상자를 만들 수 있을까?</b></p><p class="small">조건: ${condTxt()}, 가로·세로·높이 ${T.lmin}~${T.lmax}cm 자연수</p></div>
+    <div class="blk"><h3>2. 처음 예상한 내용과 이유</h3>${line(S.pred)}</div>
+    <div class="blk"><h3>3. 실험 데이터</h3>${S.boxes.length?`<div class="two"><table class="data">${dataTable(S.boxes,true)}</table><div>${barChart(S.boxes,{h:180,bw:24,minW:300,id:'rp'})}</div></div>`:'<p>저장한 상자가 없어요.</p>'}
+      ${o?`<p class="small">설정된 조건에서 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠</p>`:''}</div>
+    <div class="blk"><h3>4. 최종 상자 설계</h3><div class="two"><div>
+      ${f?`<p><b>과자 이름:</b> ${esc(S.s4.snack.name)||'-'}</p><p><b>상자 크기:</b> 가로 ${f.a}cm × 세로 ${f.b}cm × 높이 ${f.c}cm</p>
+      <p><b>부피와 겉넓이 계산식</b></p><p>부피: ${esc(f.vf)||'-'} = ${f.vv}㎤</p><p>겉넓이: ${esc(f.sf)||'-'} = ${f.sv}㎠</p>
+      ${o?`<p class="small">기본 조건 최소 겉넓이(${o.S}㎠)와의 차이: ${f.sv-o.S}㎠</p>`:''}
+      <p class="qlab">사용 편의성 예상</p><p class="small">${esc(S.s4.use)||'-'}</p><p class="qlab">내가 정한 조건</p>${(f.conds&&f.conds.length)?f.conds.map(c=>`<p class="small">${c.ok?'✅':'❌'} ${esc(c.t)}</p>`).join(''):'<p class="small">추가 조건 없음</p>'}`:'<p>아직 최종 상자를 확정하지 않았어요.</p>'}
+      </div><div>${img?`<img src="${img}" alt="최종 상자 3D 모형">`:''}</div></div></div>
+    <div class="blk"><h3>5. 최종 선택 이유</h3>${line(S.s4.reason)}</div>
+    <div class="blk"><h3>6. 탐구 성찰</h3>
+      <p class="qlab">탐구를 통해 새롭게 발견한 수학적 사실</p>${line(S.s5.r1)}
+      <p class="qlab">실제로 사용하기 좋은 상자를 만들기 위해 고려한 점</p>${line(S.s5.r2)}
+      <p class="qlab">처음 예상과 비교했을 때 달라진 생각</p>${line(S.s5.r3)}
+      <p class="qlab">내 상자를 실제로 사용할 때 예상되는 점</p>${line(S.s5.r4)}</div>
+  </div>`; }
+$('#btnReportView').onclick=()=>{ const r=$('#report'), on=r.style.display==='none'; r.style.display=on?'':'none'; $('#btnReportView').textContent=on?'🔼 미리보기 닫기':'🔍 보고서 미리보기'; if(on){ r.innerHTML=reportHTML(); r.scrollIntoView({behavior:'smooth',block:'start'}); } };
+$('#btnReportPdf').onclick=()=>saveReportPDF();
+let repT=0; function refreshReportSoon(){ clearTimeout(repT); repT=setTimeout(()=>{ if($('#report').style.display!=='none') $('#report').innerHTML=reportHTML(); },500); }
+function setPage(css){ $('#pageStyle').textContent=css; }
+$('#btnReportPrint').onclick=()=>{ setPage('@page{size:A4 portrait;margin:12mm}'); const pa=$('#printArea'); pa.className='report'; pa.innerHTML=reportHTML(); setTimeout(()=>window.print(),150); };
+window.addEventListener('afterprint',()=>{ $('#printArea').innerHTML=''; });
+
+/* =========================================================
+   📥 탐구 보고서 PDF 저장 (외부 라이브러리·서버 없이 생성)
+   보고서를 A4 크기 캔버스에 직접 그린 뒤(한글은 기기 글꼴로 그려 깨지지 않음)
+   각 쪽을 이미지로 넣은 PDF 파일을 만들어 다운로드한다.
+   ========================================================= */
+const RFONT='"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Nanum Gothic",sans-serif';
+const RTITLE='나의 과자 상자 수학 탐구 보고서';
+function boxCanvas(list,w,h,opt={}){ const cv=document.createElement('canvas'); const v=new BoxView(cv,Object.assign({static:true,w,h},opt)); v.set(list,true); return cv; }
+function wrapLines(ctx,text,maxW){ const out=[];
+  String(text).split('\n').forEach(par=>{ if(par===''){ out.push(''); return; }
+    const toks=par.match(/\S+|\s+/g)||[]; let line='';
+    for(const t of toks){ const test=line+t;
+      if(ctx.measureText(test).width<=maxW){ line=test; continue; }
+      if(/^\s+$/.test(t)){ out.push(line.trimEnd()); line=''; continue; }
+      if(line.trim()){ out.push(line.trimEnd()); line=''; }
+      if(ctx.measureText(t).width<=maxW){ line=t; continue; }
+      for(const ch of t){ if(ctx.measureText(line+ch).width>maxW&&line){ out.push(line); line=ch; } else line+=ch; } }
+    out.push(line.trimEnd()); });
+  return out; }
+function layoutReport(){
+  const PW=210, PH=297, M=16, CW=PW-2*M, BOT=PH-18, DPI=200, pxmm=DPI/25.4;
+  const C={ink:'#24323F',ink2:'#526273',muted:'#8696A5',mint:'#3CC8A8',mintD:'#15937A',mintL:'#E2F8F1',sky:'#E1F3FF',skyD:'#2A86D1',cream:'#FFF9EE',line:'#E4DCCB',red:'#C0392B'};
+  const pages=[]; let ctx, y;
+  const font=(sz,w=500)=>{ ctx.font=`${w} ${sz}px ${RFONT}`; };
+  const newPage=()=>{ const cv=document.createElement('canvas'); cv.width=Math.round(PW*pxmm); cv.height=Math.round(PH*pxmm);
+    ctx=cv.getContext('2d'); ctx.setTransform(cv.width/PW,0,0,cv.height/PH,0,0); ctx.textBaseline='alphabetic';
+    ctx.fillStyle='#FFFDF8'; ctx.fillRect(0,0,PW,PH); pages.push(cv); y=M;
+    if(pages.length>1){ font(3,700); ctx.fillStyle=C.muted; ctx.textAlign='left'; ctx.fillText(RTITLE,M,M-4); ctx.strokeStyle=C.line; ctx.lineWidth=0.3; ctx.beginPath(); ctx.moveTo(M,M-2.5); ctx.lineTo(PW-M,M-2.5); ctx.stroke(); y=M+2; } };
+  const ensure=h=>{ if(y+h>BOT) newPage(); };
+  const rr=(x,yy,w,h,r)=>{ ctx.beginPath(); ctx.moveTo(x+r,yy); ctx.arcTo(x+w,yy,x+w,yy+h,r); ctx.arcTo(x+w,yy+h,x,yy+h,r); ctx.arcTo(x,yy+h,x,yy,r); ctx.arcTo(x,yy,x+w,yy,r); ctx.closePath(); };
+  const heading=(no,txt,keep=26)=>{ y+=3; ensure(10+keep); ctx.fillStyle=C.sky; rr(M,y,CW,8.5,2); ctx.fill(); ctx.fillStyle=C.mint; rr(M,y,2.2,8.5,1); ctx.fill();
+    font(4.4,800); ctx.fillStyle=C.ink; ctx.textAlign='left'; ctx.fillText(`${no}. ${txt}`,M+5,y+6); y+=12; };
+  const label=(txt,keep=8)=>{ font(3.5,800); ensure(6+keep); ctx.fillStyle=C.ink2; ctx.textAlign='left'; ctx.fillText(txt,M,y+3.6); y+=5.6; };
+  const text=(t,opt={})=>{ const sz=opt.size||3.6, lh=sz*1.65, x=M+(opt.indent||0); font(sz,opt.weight||500);
+    wrapLines(ctx,t,CW-(opt.indent||0)).forEach(l=>{ ensure(lh); font(sz,opt.weight||500); ctx.fillStyle=opt.color||C.ink; ctx.textAlign='left'; ctx.fillText(l,x,y+sz); y+=lh; }); };
+  const answer=(t)=>{ const empty=!String(t||'').trim(), sz=3.6, lh=sz*1.7, pad=2.2; font(sz,500);
+    const lines=wrapLines(ctx, empty?'(아직 작성하지 않았어요)':String(t).trim(), CW-10);
+    ensure(lh+pad*2); ctx.fillStyle=C.cream; ctx.fillRect(M,y,CW,pad); ctx.fillStyle=C.mint; ctx.fillRect(M,y,1.2,pad); y+=pad;
+    lines.forEach(l=>{ ensure(lh+pad); ctx.fillStyle=C.cream; ctx.fillRect(M,y,CW,lh); ctx.fillStyle=C.mint; ctx.fillRect(M,y,1.2,lh);
+      font(sz,500); ctx.fillStyle=empty?C.muted:C.ink; ctx.textAlign='left'; ctx.fillText(l,M+5,y+lh*0.7); y+=lh; });
+    ctx.fillStyle=C.cream; ctx.fillRect(M,y,CW,pad); ctx.fillStyle=C.mint; ctx.fillRect(M,y,1.2,pad); y+=pad+3; };
+  const table=(heads,rows,widths,rowStyle)=>{ const sz=3.3, rh=6.6, ws=widths.map(w=>w*CW/widths.reduce((a,b)=>a+b,0));
+    const head=()=>{ ctx.fillStyle=C.sky; ctx.fillRect(M,y,CW,rh); font(sz,800); ctx.fillStyle=C.ink; ctx.textAlign='center'; let x=M; heads.forEach((h,i)=>{ ctx.fillText(h,x+ws[i]/2,y+rh*0.66); x+=ws[i]; }); y+=rh; };
+    ensure(rh*3); head();
+    rows.forEach((r,ri)=>{ if(y+rh>BOT){ newPage(); head(); } const st=rowStyle?rowStyle(ri):{};
+      if(st.bg){ ctx.fillStyle=st.bg; ctx.fillRect(M,y,CW,rh); }
+      font(sz,st.bold?800:500); ctx.fillStyle=st.color||C.ink; ctx.textAlign='center'; let x=M; r.forEach((c,i)=>{ ctx.fillText(String(c),x+ws[i]/2,y+rh*0.66); x+=ws[i]; });
+      ctx.strokeStyle=C.line; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(M,y+rh); ctx.lineTo(M+CW,y+rh); ctx.stroke(); y+=rh; });
+    y+=3; };
+  const chart=(list)=>{ const H=74; ensure(H+4); const x0=M+12, x1=M+CW-2, top=y+8, bot=y+H-14, ch=bot-top;
+    const vals=list.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals), st=[50,100,200,250,500,1000,2000].find(s=>mx/s<=6)||5000, tp=Math.ceil(mx/st)*st, Y=v=>bot-v/tp*ch;
+    font(2.8,700); ctx.textAlign='left'; ctx.fillStyle='#5DB3EA'; ctx.fillRect(M,y,3.2,3.2); ctx.fillStyle=C.ink2; ctx.fillText('부피 조건 만족',M+4.5,y+2.8);
+    ctx.fillStyle='#D9D3C7'; ctx.fillRect(M+32,y,3.2,3.2); ctx.strokeStyle='#fff'; ctx.lineWidth=0.4; ctx.beginPath(); ctx.moveTo(M+32,y+3.2); ctx.lineTo(M+35.2,y); ctx.stroke(); ctx.fillStyle=C.ink2; ctx.fillText('조건 미충족 (최적 후보에서 제외)',M+36.5,y+2.8);
+    for(let v=0;v<=tp;v+=st){ ctx.strokeStyle='#EEE8DC'; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(x0,Y(v)); ctx.lineTo(x1,Y(v)); ctx.stroke(); font(2.6,500); ctx.fillStyle=C.muted; ctx.textAlign='right'; ctx.fillText(String(v),x0-1.5,Y(v)+0.9); }
+    const n=list.length, slot=(x1-x0)/n, bw=Math.min(14,slot*0.62);
+    list.forEach((b,i)=>{ const cx=x0+slot*(i+0.5), v=vals[i], ok=basicOK(b.a,b.b,b.c), yy=Y(v);
+      ctx.fillStyle=ok?'#5DB3EA':'#D9D3C7'; rr(cx-bw/2,yy,bw,bot-yy,Math.min(1,bw/4)); ctx.fill();
+      if(!ok){ ctx.save(); rr(cx-bw/2,yy,bw,bot-yy,0); ctx.clip(); ctx.strokeStyle='#fff'; ctx.lineWidth=0.5; for(let k=-ch;k<bw+ch;k+=2){ ctx.beginPath(); ctx.moveTo(cx-bw/2+k,bot); ctx.lineTo(cx-bw/2+k+ch,bot-ch); ctx.stroke(); } ctx.restore(); }
+      font(Math.min(2.8,slot*0.32),800); ctx.fillStyle=C.ink; ctx.textAlign='center'; ctx.fillText(String(v),cx,yy-1.2);
+      font(Math.min(2.9,slot*0.4),700); ctx.fillStyle=C.ink2; ctx.fillText(String(b.name),cx,bot+4); });
+    ctx.strokeStyle=C.ink2; ctx.lineWidth=0.35; ctx.beginPath(); ctx.moveTo(x0,bot); ctx.lineTo(x1,bot); ctx.stroke();
+    font(2.9,700); ctx.fillStyle=C.ink2; ctx.textAlign='center'; ctx.fillText('상자 이름',(x0+x1)/2,bot+9);
+    ctx.save(); ctx.translate(M+2,(top+bot)/2); ctx.rotate(-Math.PI/2); ctx.fillText('겉넓이(㎠)',0,0); ctx.restore();
+    y+=H; };
+
+  /* ----- 1쪽 머리 ----- */
+  newPage();
+  const g=ctx.createLinearGradient(M,0,PW-M,0); g.addColorStop(0,'#DDF1FF'); g.addColorStop(1,'#E2F8F1');
+  ctx.fillStyle=g; rr(M,y,CW,26,4); ctx.fill();
+  font(7,900); ctx.fillStyle=C.ink; ctx.textAlign='center'; ctx.fillText(RTITLE,PW/2,y+11);
+  font(3.4,600); ctx.fillStyle=C.ink2; ctx.fillText('과자 상자 디자인 연구소 · 직육면체의 겉넓이와 부피',PW/2,y+18);
+  const d=new Date(); font(3.2,600); ctx.textAlign='left'; ctx.fillText(`날짜: ${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`,M+4,y+23.5);
+  ctx.textAlign='right'; ctx.fillText('이름:                         ',PW-M-4,y+23.5); ctx.strokeStyle=C.ink2; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(PW-M-38,y+24); ctx.lineTo(PW-M-4,y+24); ctx.stroke();
+  y+=31;
+  /* ----- 내용 ----- */
+  const f=S.s4.fin, o=optimumBasic();
+  heading(1,'탐구 주제');
+  text('과자를 충분히 담으면서 포장재를 가장 적게 사용하고, 손으로 잡기도 편한 상자를 만들 수 있을까?',{weight:800});
+  text(`탐구 조건: ${condTxt()}, 가로·세로·높이는 ${T.lmin}~${T.lmax}cm 자연수`,{size:3.2,color:C.ink2}); y+=1;
+  heading(2,'처음 예상한 내용과 이유'); answer(S.pred);
+  heading(3,'내가 실험한 상자들의 데이터',30);
+  if(S.boxes.length){
+    table(['상자','가로(cm)','세로(cm)','높이(cm)','부피(㎤)','겉넓이(㎠)','조건 충족'],
+      S.boxes.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return [b.name,b.a,b.b,b.c,VOL(b.a,b.b,b.c),SA(b.a,b.b,b.c),ok?'만족':'미충족('+whyBad(b.a,b.b,b.c)+')']; }),
+      [1,1,1,1,1.2,1.2,2.2], i=>basicOK(S.boxes[i].a,S.boxes[i].b,S.boxes[i].c)?{}:{color:C.muted});
+    label('겉넓이 비교 그래프',80); chart(S.boxes);
+    if(o) text(`설정된 조건에서 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠`,{size:3.2,color:C.ink2});
+  } else text('(아직 저장한 상자가 없어요)',{color:C.muted});
+  heading(4,'최종 선택한 상자',70);
+  if(f){
+    const IH=60, IW=78; ensure(IH+2); const iy=y;
+    ctx.fillStyle='#EEF7FF'; rr(M,iy,IW,IH,3); ctx.fill();
+    ctx.drawImage(boxCanvas([{a:f.a,b:f.b,c:f.c}],Math.round(IW*3.6),Math.round(IH*3.6),{refDiag:24}),M,iy,IW,IH);
+    const x=M+IW+6, w=CW-IW-6; let yy=iy+4; const kv=(k,v,big)=>{ font(3.2,700); ctx.fillStyle=C.ink2; ctx.textAlign='left'; ctx.fillText(k,x,yy); font(big?4.6:3.6,800); ctx.fillStyle=C.ink;
+      wrapLines(ctx,v,w).forEach((l,i)=>{ ctx.fillText(l,x,yy+5+i*(big?6:5)); yy+= i? (big?6:5):0; }); yy+=big?12:10.5; };
+    if(S.s4.snack.name.trim()) kv('과자 이름',S.s4.snack.name.trim());
+    kv('가로 · 세로 · 높이',`${f.a}cm × ${f.b}cm × ${f.c}cm`,true);
+    kv('부피',`${f.vv}㎤`); kv('겉넓이',`${f.sv}㎠${o?`  (최소 ${o.S}㎠와 차이 ${f.sv-o.S}㎠)`:''}`);
+    y=Math.max(iy+IH,yy-4)+4;
+    label('내가 작성한 계산식');
+    text(`부피: ${f.vf||'(식을 쓰지 않았어요)'} = ${f.vv}㎤`,{indent:2}); text(`겉넓이: ${f.sf||'(식을 쓰지 않았어요)'} = ${f.sv}㎠`,{indent:2}); y+=1;
+    if(f.conds&&f.conds.length){ label('내가 정한 조건'); f.conds.forEach(c=>text(`${c.ok?'[만족]':'[불만족]'} ${c.t}`,{indent:2,size:3.3,color:c.ok?C.mintD:C.red})); y+=1; }
+    label('사용 편의성 예상 (3D 상자를 보고)'); answer(S.s4.use);
+  } else text('(아직 최종 상자를 확정하지 않았어요)',{color:C.muted});
+  heading(5,'최종 상자를 선택한 이유'); answer(S.s4.reason);
+  heading(6,'탐구를 통해 발견한 수학적 사실'); answer(S.s5.r1);
+  heading(7,'탐구 후 달라진 생각과 성찰');
+  label('처음 예상과 비교했을 때 달라진 생각'); answer(S.s5.r3);
+  label('실제로 사용하기 좋은 상자를 만들기 위해 고려한 점'); answer(S.s5.r2);
+  label('내 상자를 실제로 사용할 때 예상되는 점'); answer(S.s5.r4);
+  /* ----- 쪽 번호 ----- */
+  pages.forEach((cv,i)=>{ const c=cv.getContext('2d'); c.setTransform(cv.width/PW,0,0,cv.height/PH,0,0);
+    c.font=`600 2.9px ${RFONT}`; c.fillStyle=C.muted; c.textAlign='left'; c.fillText('과자 상자 디자인 연구소',M,PH-9);
+    c.textAlign='right'; c.fillText(`${i+1} / ${pages.length}`,PW-M,PH-9); });
+  return {pages,PW,PH};
+}
+function b64bytes(d){ const s=atob(d.split(',')[1]); const u=new Uint8Array(s.length); for(let i=0;i<s.length;i++) u[i]=s.charCodeAt(i); return u; }
+/** 최소 PDF 작성기: 각 쪽 = A4(pt)에 꽉 차는 JPEG 한 장 */
+async function buildPDF(cvs,pwMM,phMM,onProg){ const enc=s=>{ const u=new Uint8Array(s.length); for(let i=0;i<s.length;i++) u[i]=s.charCodeAt(i)&255; return u; };
+  const W=(pwMM*72/25.4).toFixed(3), H=(phMM*72/25.4).toFixed(3), chunks=[], offs=[]; let len=0;
+  const push=d=>{ const u=typeof d==='string'?enc(d):d; chunks.push(u); len+=u.length; };
+  const obj=(id,fn)=>{ offs[id]=len; push(`${id} 0 obj\n`); fn(); push('\nendobj\n'); };
+  push('%PDF-1.4\n%âãÏÓ\n');
+  const n=cvs.length, total=3+3*n;
+  obj(1,()=>push('<< /Type /Catalog /Pages 2 0 R >>'));
+  obj(2,()=>push(`<< /Type /Pages /Kids [${cvs.map((_,i)=>`${4+i*3} 0 R`).join(' ')}] /Count ${n} >>`));
+  obj(3,()=>push('<< /Title <FEFF'+Array.from(RTITLE).map(c=>c.charCodeAt(0).toString(16).padStart(4,'0')).join('').toUpperCase()+'> /Producer (Snack Box Lab) >>'));
+  for(let i=0;i<n;i++){ const cv=cvs[i], pid=4+i*3, cid=pid+1, iid=pid+2, jpg=b64bytes(cv.toDataURL('image/jpeg',0.9));
+    obj(pid,()=>push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /XObject << /Im${i} ${iid} 0 R >> >> /Contents ${cid} 0 R >>`));
+    const cs=`q ${W} 0 0 ${H} 0 0 cm /Im${i} Do Q`;
+    obj(cid,()=>{ push(`<< /Length ${cs.length} >>\nstream\n`); push(cs); push('\nendstream'); });
+    obj(iid,()=>{ push(`<< /Type /XObject /Subtype /Image /Width ${cv.width} /Height ${cv.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>\nstream\n`); push(jpg); push('\nendstream'); });
+    if(onProg) await onProg(i+1,n); }
+  const x=len; let xr=`xref\n0 ${total+1}\n0000000000 65535 f \n`; for(let i=1;i<=total;i++) xr+=String(offs[i]).padStart(10,'0')+' 00000 n \n';
+  push(xr); push(`trailer\n<< /Size ${total+1} /Root 1 0 R /Info 3 0 R >>\nstartxref\n${x}\n%%EOF\n`);
+  return new Blob(chunks,{type:'application/pdf'}); }
+const tick=()=>new Promise(r=>setTimeout(r,30));
+let pdfBusy=false;
+async function saveReportPDF(){ if(pdfBusy) return; pdfBusy=true;
+  const btn=$('#btnReportPdf'), st=$('#pdfStatus'), label0='📥 PDF 파일로 저장하기';
+  const show=(cls,html)=>{ st.className='note '+cls; st.style.display=''; st.innerHTML=html; };
+  btn.disabled=true; btn.textContent='⏳ PDF 만드는 중…';
+  try{
+    saveNow();                                   // 방금 입력한 내용까지 반영(기록은 읽기만 함)
+    show('sky','⏳ 보고서를 그리는 중이에요…'); await tick();
+    const {pages,PW,PH}=layoutReport();
+    show('sky',`⏳ PDF를 만드는 중이에요… (0 / ${pages.length}쪽)`); await tick();
+    const blob=await buildPDF(pages,PW,PH,async(i,n)=>{ show('sky',`⏳ PDF를 만드는 중이에요… (${i} / ${n}쪽)`); await tick(); });
+    if(!blob||blob.size<1000) throw new Error('empty');
+    const d=new Date(), p=x=>String(x).padStart(2,'0'), name=`과자상자_수학탐구보고서_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}.pdf`;
+    const url=URL.createObjectURL(blob), a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },60000);
+    show('mint',`✅ 저장이 완료되었어요! <b>${name}</b> (${pages.length}쪽, ${(blob.size/1024/1024).toFixed(1)}MB)<br><span class="small ink2">다운로드 폴더(태블릿은 ‘파일’ 앱이나 다운로드 목록)를 확인하세요. 파일이 보이지 않으면 <a href="${url}" download="${name}" target="_blank" rel="noopener">여기를 눌러 다시 받기</a></span>`);
+    toast('PDF 파일 저장이 완료되었어요!');
+  }catch(e){ console.error(e);
+    const why = e&&/memory|allocation|too large|quota/i.test(String(e.message||e)) ? '기기의 메모리가 부족해요. 다른 탭이나 앱을 닫고 다시 시도해 주세요.'
+      : e&&e.name==='SecurityError' ? '브라우저 보안 설정 때문에 그림을 PDF로 옮기지 못했어요. 다른 브라우저(크롬, 엣지, 사파리 최신 버전)에서 시도해 주세요.'
+      : '브라우저가 PDF를 만들거나 다운로드하지 못했어요. 잠시 뒤 다시 시도하거나, [보고서 인쇄하기]에서 ‘PDF로 저장’을 골라 저장할 수 있어요.';
+    show('red',`⚠ PDF를 만들지 못했어요. ${why} <button class="btn white small" id="btnPdfRetry">다시 시도</button>`);
+    const rb=$('#btnPdfRetry'); if(rb) rb.onclick=()=>saveReportPDF();
+  }finally{ btn.disabled=false; btn.textContent=label0; pdfBusy=false; } }
+
+/* =========================================================
+   교사 설정 · 파일 · 초기화
+   ========================================================= */
+function fillSet(){ $('#stVmin').value=T.vmin; $('#stVmaxOn').checked=T.vmaxOn; $('#stVmax').value=T.vmax; $('#stVmax').disabled=!T.vmaxOn;
+  $('#stLmin').value=T.lmin; $('#stLmax').value=T.lmax; $('#stNeed').value=T.need; $('#stAuto').checked=T.autoAllowed; $('#stUnlock').checked=T.unlock; showSetOpt(); }
+function showSetOpt(){ const o=optimumBasic(); $('#setOpt').innerHTML=o? `현재 조건(${condTxt()}, 길이 ${T.lmin}~${T.lmax}cm 자연수)에서 겉넓이가 가장 작은 상자: <b>${o.boxes.map(t=>t.join('×')).join(', ')}cm</b>, 겉넓이 <b>${o.S}㎠</b> (회전해서 같은 상자는 하나로 셈)` : '⚠ 현재 조건을 만족하는 상자가 없습니다. 조건을 조정해 주세요.'; }
+$('#stVmaxOn').onchange=e=>{ $('#stVmax').disabled=!e.target.checked; };
+$('#btnTeacher').onclick=()=>{ fillSet(); $('#setErr').textContent=''; openModal('#mdTeacher'); };
+$('#btnSetSave').onclick=()=>{ const n=id=>Number($(id).value), e=$('#setErr');
+  const vmin=n('#stVmin'), vmax=n('#stVmax'), lmin=n('#stLmin'), lmax=n('#stLmax'), need=n('#stNeed'), vmaxOn=$('#stVmaxOn').checked;
+  if(![vmin,lmin,lmax,need].every(Number.isInteger)||(vmaxOn&&!Number.isInteger(vmax))){ e.textContent='모든 값은 정수로 입력해 주세요.'; return; }
+  if(vmin<1){ e.textContent='최소 부피는 1 이상이어야 해요.'; return; }
+  if(vmaxOn&&vmax<vmin){ e.textContent='최대 부피는 최소 부피보다 크거나 같아야 해요.'; return; }
+  if(lmin<1||lmax>60||lmin>lmax){ e.textContent='길이 범위는 1~60cm, 최솟값 ≤ 최댓값이어야 해요.'; return; }
+  if(need<0||need>10){ e.textContent='직접 계산 횟수는 0~10이에요.'; return; }
+  Object.assign(T,{vmin,vmax,vmaxOn,lmin,lmax,need,autoAllowed:$('#stAuto').checked,unlock:$('#stUnlock').checked}); saveSet();
+  e.textContent=''; showSetOpt(); toast('설정을 적용했어요. 최적 상자도 다시 계산했어요.'); go(S.step); };
+$('#btnSetDef').onclick=()=>{ T=DEF_SET(); saveSet(); fillSet(); toast('기본 설정으로 되돌렸어요.'); go(S.step); };
+$('#btnFile').onclick=()=>{ $('#fileErr').textContent=''; openModal('#mdFile'); };
+$('#btnExport').onclick=()=>{ const data={app:'snack-box-lab',version:2,savedAt:new Date().toISOString(),settings:T,data:S};
+  const blob=new Blob([JSON.stringify(data,null,1)],{type:'application/json'}), a=document.createElement('a');
+  const d=new Date(), p=x=>String(x).padStart(2,'0');
+  a.href=URL.createObjectURL(blob); a.download=`과자상자_탐구기록_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.json`;
+  document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },3000); toast('탐구 기록 파일을 저장했어요.'); };
+$('#btnImport').onclick=()=>$('#fileIn').click();
+$('#fileIn').onchange=e=>{ const file=e.target.files[0]; if(!file) return; const rd=new FileReader();
+  rd.onload=()=>{ try{ const o=JSON.parse(rd.result); if(!o||o.app!=='snack-box-lab'||!o.data) throw new Error('형식');
+      askConfirm('이 파일의 탐구 기록을 불러올까요?','지금 화면의 기록은 파일의 내용으로 바뀌어요.',()=>{
+        S=merge(DEF(),o.data); sanitize(); saveNow(); $('#mdFile').classList.remove('show'); go(S.step); toast('탐구 기록을 불러왔어요!'); });
+    }catch(err){ $('#fileErr').textContent='과자 상자 디자인 연구소에서 저장한 파일이 아니거나 파일이 손상되었어요.'; } e.target.value=''; };
+  rd.readAsText(file); };
+/* 교사 설정은 기기별로 유지: 학생 파일의 설정은 적용하지 않음 */
+function resetAll(){ S=DEF(); saveNow(); $('#resumeBox').style.display='none'; $('#report').style.display='none'; $('#btnReportView').textContent='🔍 보고서 미리보기'; $('#pdfStatus').style.display='none';
+  [vLab,vDes].forEach(v=>v&&v.setView('iso')); go(1); toast('처음 상태로 되돌렸어요.'); }
+$('#btnReset').onclick=()=>askConfirm('처음부터 다시 시작할까요?','예상, 실험 기록, 답, 최종 상자, 디자인이 모두 지워져요. (교사 설정은 유지돼요) 필요하면 먼저 파일로 저장하세요.',resetAll);
+
+/* =========================================================
+   시작
+   ========================================================= */
+load();
+const vIntro=new BoxView($('#cvIntro'),{spin:true,refDiag:22});
+const introShapes=[[8,10,10],[5,6,27],[20,20,2],[12,8,9]]; let introI=0;
+vIntro.set([{a:8,b:10,c:10}],true);
+setInterval(()=>{ if(!$('#s1').classList.contains('show')) return; introI=(introI+1)%introShapes.length; const [a,b,c]=introShapes[introI]; vIntro.set([{a,b,c}]); vIntro.spin=true; vIntro.kick(); },2800);
+vLab=new BoxView($('#cvLab'),{refDiag:22});
+if(hadSaved) $('#resumeBox').style.display='';
+go(hadSaved?1:S.step);
+</script>
+</body>
+</html>
