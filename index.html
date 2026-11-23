@@ -102,6 +102,44 @@ input[type=range]{width:100%;height:34px;accent-color:var(--mint);cursor:pointer
 .calc{border:2px dashed var(--orange);border-radius:16px;padding:14px;background:#FFFCF7}
 .calc .r{display:grid;grid-template-columns:150px 1fr 120px;gap:8px;align-items:center;margin:8px 0}
 .calc .r label{font-weight:800}
+.fx{margin:4px 0 12px}
+.fx>label{font-weight:800;display:block;margin-bottom:6px}
+.fx textarea{width:100%;min-height:52px;resize:none;overflow:hidden;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;
+  font-size:20px;font-weight:700;line-height:1.45;letter-spacing:.5px;white-space:pre-wrap;word-break:break-all;font-family:inherit}
+.fx textarea:focus{border-color:var(--skyD);outline:3px solid #CFE8FB}
+.fx .keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.fx .key{min-width:52px;min-height:48px;border:2px solid var(--line);background:#fff;border-radius:12px;font-size:22px;font-weight:900;color:var(--ink);
+  touch-action:manipulation;user-select:none;-webkit-user-select:none;padding:0 10px}
+.fx .key:active{background:var(--sky);transform:translateY(1px)}
+.fx .key.op{color:var(--skyD)} .fx .key.eq{color:var(--mintD)}
+.fx .key.ed{font-size:15px;font-weight:800;color:var(--ink2);background:#F6F3EC}
+.fx .sep{flex-basis:100%;height:0}
+.fx .hint{font-size:13px;color:var(--muted);font-weight:700;margin-top:6px}
+.fx .ferr{color:var(--orangeD);font-weight:800;font-size:14.5px;margin-top:6px;min-height:0}
+.ctl .ticks{position:relative;height:15px;font-size:11px;color:var(--muted);font-weight:700;margin-top:-4px}
+.ctl .ticks span{position:absolute;transform:translateX(-50%);top:0}
+.ctl .ticks span:last-child{transform:translateX(-80%)}
+.ctl .ticks span.on{color:var(--ink);font-weight:900}
+table.data tr.editing td{background:var(--orangeL)}
+.minTag{display:inline-block;background:var(--mintD);color:#fff;border-radius:6px;padding:0 6px;font-size:12px;margin-left:4px}
+.volfix{background:var(--mintL);border-radius:12px;padding:8px 12px;font-weight:800;margin:4px 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.volfix .lock{background:var(--mintD);color:#fff;border-radius:8px;padding:1px 8px;font-size:13px}
+.adj{min-height:1.3em;font-size:14.5px;font-weight:700;color:var(--ink2);margin:2px 0 6px}
+.adj .chg{color:var(--orangeD);font-weight:900}
+.flash{animation:flash .9s}
+@keyframes flash{0%{background:var(--yellowL);box-shadow:0 0 0 4px var(--yellow)}100%{background:#fff;box-shadow:none}}
+.combos{background:#FBF8F1;border-radius:14px;padding:10px 12px;margin-top:6px}
+.combos .t{font-weight:800;font-size:14.5px;margin-bottom:6px}
+.combo{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 9px;font-weight:800;font-size:14px;margin:3px;min-height:38px}
+.combo.on{border-color:var(--mint);background:var(--mintL)}
+.combo small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.prog{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;font-weight:900;font-size:18px}
+.prog .pb{flex:1;min-width:160px;height:14px;border-radius:10px;background:#EEE6D8;overflow:hidden}
+.prog .pb i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--skyD));border-radius:10px;transition:width .4s}
+.donebox{background:linear-gradient(135deg,var(--mintL),var(--yellowL));border:3px solid var(--mint);border-radius:16px;padding:12px 16px;margin-top:10px;font-weight:800;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.editbar{background:var(--orangeL);border-radius:12px;padding:8px 12px;font-weight:800;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+details.legacy{margin-top:14px;background:#F6F3EC;border-radius:14px;padding:10px 14px}
+details.legacy summary{cursor:pointer;font-weight:800;color:var(--ink2)}
 .calc .r input{border:2px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;width:100%}
 .calc .r .unit{display:flex;align-items:center;gap:4px;font-weight:800}
 .calc .r .unit input{text-align:right;font-weight:800}
@@ -237,8 +275,9 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
         <p>과자를 충분히 담으면서도 <b>포장재를 최대한 적게</b> 사용하고 싶습니다.</p>
         <p>그런데 포장재를 절약하는 것만큼 <b>소비자들이 편리하게 사용하는 것</b>도 중요하다고 합니다.</p>
         <p><b>여러분이 직접 과자 상자를 설계해 보세요!</b></p>
+        <p class="note sky" style="margin:8px 0">📦 이번 과자 상자는 과자가 딱 맞게 들어가도록 <b>부피가 정확히 1,000㎤</b>로 정해져 있어요. 부피는 같게 하고, 모양을 바꿔 가며 포장재(겉넓이)를 비교해요.</p>
         <div class="pillars">
-          <div class="pillar" style="background:var(--mintL)"><b>① 경제성</b>필요한 부피를 확보하면서 겉넓이를 줄일 수 있나요?</div>
+          <div class="pillar" style="background:var(--mintL)"><b>① 경제성</b>부피 1,000㎤는 그대로 두고 겉넓이를 줄일 수 있나요?</div>
           <div class="pillar" style="background:var(--sky)"><b>② 실용성</b>과자를 담기 알맞고, 손으로 잡거나 쓰기 편한가요?</div>
           <div class="pillar" style="background:var(--orangeL)"><b>③ 디자인</b>과자의 특징이 잘 드러나고 매력적인가요?</div>
         </div>
@@ -246,7 +285,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
       <canvas class="view" id="cvIntro" style="height:250px" aria-label="돌아가는 과자 상자"></canvas>
     </div>
   </div>
-  <div class="bigq">🤔 과자를 충분히 담으면서 포장재를 적게 사용하려면<br>어떤 모양의 상자가 좋을까요?</div>
+  <div class="bigq">🤔 부피가 1,000㎤로 같을 때, 포장재를 적게 사용하려면<br>어떤 모양의 상자가 좋을까요?</div>
   <div class="card">
     <label class="lbl" for="pred" style="margin-top:0">나의 생각과 그렇게 생각한 이유를 써 보세요.</label>
     <textarea id="pred" style="min-height:130px"></textarea>
@@ -290,16 +329,19 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
         <div class="note orange small" id="bigWarn" style="display:none"></div>
       </div>
       <div class="card">
-        <h3>✏️ 직접 계산하기</h3>
+        <h3>✏️ 겉넓이 직접 계산하기</h3>
         <div class="calc" id="calcLab"></div>
         <div class="autobox" id="autoBox"></div>
+        <div id="editBar"></div>
         <div class="row mt"><span class="sp"></span><button class="btn primary big" id="btnSave">＋ 실험 기록에 추가하기</button></div>
       </div>
     </div>
   </div>
   <div class="card">
     <div class="row"><h2 style="margin:0">📋 내 실험 기록</h2><span class="sp"></span><span class="badge g" id="countBadge"></span></div>
+    <div class="prog" id="labProg"></div>
     <div class="tbl-wrap mt"><table class="data" id="tblLab"></table></div>
+    <details class="legacy" id="legacyBox" style="display:none"><summary>📁 이전 탐구 기록 보기 (부피 800㎤ 이상 조건으로 만든 기록 — 읽기 전용)</summary><div id="legacyBody"></div></details>
   </div>
   <div class="navbtm"><button class="btn white" data-go="1">← 이전 단계</button><button class="btn primary big" data-go="3">데이터 분석하러 가기 →</button></div>
 </section>
@@ -311,13 +353,13 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
   <div class="card">
     <div class="row"><h2 style="margin:0">📊 상자 데이터 표</h2><span class="sp"></span>
       <label class="small" for="sortSel" style="font-weight:800">정렬</label>
-      <select class="sel" id="sortSel"><option value="id">저장한 순서</option><option value="v">부피 순</option><option value="s">겉넓이 순</option></select></div>
+      <select class="sel" id="sortSel"><option value="id">저장한 순서</option><option value="s">겉넓이 순</option><option value="m">가장 긴 변 순</option></select></div>
     <div class="tbl-wrap mt"><table class="data" id="tblData"></table></div>
     <p class="muted small" style="margin:8px 0 0" id="condText"></p>
   </div>
   <div class="card">
     <h2>📈 겉넓이 비교 막대그래프</h2>
-    <div class="legend"><span><i class="dot" style="background:#5DB3EA"></i>부피 조건을 만족한 상자</span><span><svg width="14" height="14"><defs><pattern id="hlg" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" fill="#D9D3C7"/><line x1="0" y1="0" x2="0" y2="4" stroke="#fff" stroke-width="1.6"/></pattern></defs><rect width="14" height="14" rx="3" fill="url(#hlg)"/></svg>조건을 만족하지 못한 상자 (최적 후보에서 빠져요)</span></div>
+    <div class="legend"><span><i class="dot" style="background:#5DB3EA"></i>내가 만든 상자</span><span><i class="dot" style="background:#15937A"></i>내 기록 중 겉넓이가 가장 작은 상자 (‘최소’ 표시)</span><span class="muted">모든 상자의 부피는 1,000㎤로 같아요</span></div>
     <div class="chart-box" id="chart"></div>
   </div>
   <div class="card">
@@ -339,7 +381,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
   <div class="card">
     <h2>① 여러 가지 모양의 과자 상자</h2>
     <canvas class="view" id="cvGallery" style="height:300px" aria-label="세 가지 모양의 상자"></canvas>
-    <p class="muted small" style="margin:6px 0 0">세 상자는 같은 비율로 그려져 있어요. 끌어서 함께 돌려 보세요.</p>
+    <p class="muted small" style="margin:6px 0 0">세 상자의 부피는 모두 1,000㎤예요. 같은 비율로 그려져 있으니 끌어서 함께 돌려 보세요.</p>
     <div class="bigq mt" style="font-size:23px;margin-bottom:10px">포장재를 가장 적게 사용하는 상자가<br>실제로도 가장 좋은 과자 상자일까요?</div>
     <label class="lbl" for="s4q" style="margin-top:0">나의 생각</label>
     <textarea id="s4q"></textarea>
@@ -385,7 +427,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
   </div>
   <div class="card" id="finCalcCard" style="display:none">
     <h2>⑥ 최종 계산 검증</h2>
-    <p class="ink2" style="margin-top:0">최종 상자를 확정하기 전에 부피와 겉넓이를 직접 계산해요. (이때는 자동 계산 도우미가 잠시 숨겨져요.)</p>
+    <p class="ink2" style="margin-top:0">최종 상자를 확정하기 전에 겉넓이를 직접 계산해요. 부피는 1,000㎤로 정해져 있어요. (이때는 자동 계산 도우미가 잠시 숨겨져요.)</p>
     <div id="finInfo" style="font-weight:800;margin-bottom:6px"></div>
     <div class="calc" id="calcFin"></div>
     <div class="row mt"><button class="btn white" id="btnFinCancel">취소</button></div>
@@ -394,7 +436,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
     <h2>⑤ 포장재 사용량 비교</h2>
     <div id="finCompare"></div>
     <h3 class="mt">⑦ 최종 선택 이유 작성하기</h3>
-    <label class="ink2" for="reason">여러 상자 중에서 이 상자를 최종적으로 선택한 이유는 무엇인가요?</label>
+    <label class="ink2" for="reason">부피가 같은 여러 상자 중에서 내가 이 상자를 최종적으로 선택한 이유는 무엇인가요?</label>
     <textarea id="reason" class="mt"></textarea>
   </div>
   <div class="navbtm"><button class="btn white" data-go="3">← 이전 단계</button><button class="btn primary big" data-go="5">탐구 결과 정리하기 →</button></div>
@@ -411,7 +453,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
     <div class="grid2 mt">
       <div><h3>④ 최종 선택한 상자의 3D 모형</h3><canvas class="view" id="cvFinal" style="height:300px"></canvas></div>
       <div><h3>⑤ 최종 상자의 가로·세로·높이</h3><div id="r5dims"></div>
-        <h3 class="mt">⑥ 부피와 겉넓이 계산식</h3><div id="r5calc"></div>
+        <h3 class="mt">⑥ 겉넓이 계산식</h3><div id="r5calc"></div>
         <h3 class="mt">⑦ 최종 상자를 선택한 이유</h3><div class="note mint" id="r5reason"></div></div>
     </div>
   </div>
@@ -438,13 +480,10 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
 <div class="modal-bg" id="mdTeacher" role="dialog" aria-modal="true" aria-labelledby="tTitle"><div class="modal">
   <button class="mclose" data-close aria-label="닫기">×</button>
   <h2 id="tTitle">👩‍🏫 교사용 안내</h2>
-  <h3>⚙ 탐구 조건 설정</h3>
+  <h3>⚙ 탐구 조건</h3>
+  <div class="note sky" style="margin-top:0"><b>고정 조건</b>: 부피는 정확히 <b>1,000㎤</b>, 가로·세로·높이는 1~100cm 자연수 (가능한 길이: 1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100). 길이 하나를 바꾸면 나머지 두 길이가 자동으로 맞춰져 부피가 항상 1,000㎤로 유지됩니다.</div>
   <div class="setgrid">
-    <label for="stVmin">최소 부피 (㎤)</label><input type="number" id="stVmin" min="1" step="1">
-    <label class="chk" for="stVmaxOn"><input type="checkbox" id="stVmaxOn"> 최대 부피 설정하기 (㎤)</label><input type="number" id="stVmax" min="1" step="1">
-    <label for="stLmin">길이 최솟값 (cm)</label><input type="number" id="stLmin" min="1" max="60" step="1">
-    <label for="stLmax">길이 최댓값 (cm)</label><input type="number" id="stLmax" min="1" max="60" step="1">
-    <label for="stNeed">자동 계산 도우미를 열기 전 직접 계산할 상자 수</label><input type="number" id="stNeed" min="0" max="10" step="1">
+    <label for="stNeed">자동 계산 도우미를 열기 전 직접 계산해 기록할 서로 다른 상자 수</label><input type="number" id="stNeed" min="0" max="5" step="1">
     <label class="chk" for="stAuto"><input type="checkbox" id="stAuto"> 자동 계산 도우미 허용</label><span></span>
     <label class="chk" for="stUnlock"><input type="checkbox" id="stUnlock"> 수업 시연 모드 (‘최적의 상자 확인하기’ 잠금 해제)</label><span></span>
   </div>
@@ -452,16 +491,16 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
   <div class="note mint mt" id="setOpt"></div>
   <h3>📅 추천 수업 구성</h3>
   <ul>
-    <li><b>1차시 — 상자의 부피와 겉넓이 탐구</b>: 탐구 문제 예상 → 다양한 직육면체 설계 → 부피와 겉넓이 직접 계산 → 실험 데이터 수집 (STEP 1~2)</li>
+    <li><b>1차시 — 부피가 같은 상자의 겉넓이 탐구</b>: 탐구 문제 예상 → 부피 1,000㎤인 직육면체 설계 → 겉넓이 직접 계산 → 서로 다른 상자 5개의 데이터 수집 (STEP 1~2)</li>
     <li><b>2차시 — 가장 경제적인 상자 찾기</b>: 데이터 표와 그래프 분석 → 최소 겉넓이 탐색 → 수학적 관계 발견 (STEP 3)</li>
     <li><b>3차시 — 실제 과자 상자 설계하기</b>: 실생활 조건 탐색 → 사용 편의성 고려 → 나만의 상자 설계 → 최종 계산 검증 (STEP 4)</li>
     <li><b>4차시 — 탐구 결과 정리하기</b>: 처음 예상 돌아보기 → 데이터와 최종 설계 정리 → 탐구 성찰 → 탐구 보고서 인쇄 (STEP 5)</li>
   </ul>
   <h3>💬 교사용 탐구 발문</h3>
   <ul>
-    <li>“부피가 800㎤ 이상인 상자 중 종이를 가장 적게 사용하는 상자는 무엇일까요?”</li>
-    <li>“상자의 길이가 달라지면 부피와 겉넓이는 어떻게 변할까요?”</li>
-    <li>“부피가 비슷한 두 상자의 겉넓이가 다른 이유는 무엇일까요?”</li>
+    <li>“부피가 모두 1,000㎤인데 겉넓이는 왜 서로 다를까요?”</li>
+    <li>“가로를 바꾸면 세로와 높이는 어떻게 달라져야 부피가 그대로일까요?”</li>
+    <li>“세 길이가 비슷한 상자와 한 변만 아주 긴 상자의 겉넓이를 비교하면 어떤가요?”</li>
     <li>“겉넓이가 작은 상자가 언제나 사용하기 편할까요?”</li>
     <li>“실제 과자 상자를 만들 때 수학적 계산 외에 어떤 점을 고려해야 할까요?”</li>
   </ul>
@@ -470,6 +509,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
     <li>이름 등 개인정보를 수집하지 않습니다. 기록은 이 기기의 브라우저(localStorage)에만 저장되며 서버로 전송되지 않습니다.</li>
     <li>[파일 저장·불러오기]로 학생 기록을 JSON 파일로 내보내 두면, 브라우저 기록이 지워져도 복원할 수 있습니다.</li>
     <li>교사 설정은 학생 기록과 따로 저장되어 [처음부터]를 눌러도 유지됩니다.</li>
+    <li>이전 버전(부피 800㎤ 이상 조건)에서 만든 실험 기록과 답은 지우지 않고 ‘이전 탐구 기록’으로 따로 보관해 STEP 2에서 읽기 전용으로 볼 수 있습니다. 부피가 1,000㎤가 아닌 이전 상자는 새 실험 기록으로 세지 않습니다.</li>
   </ul>
 </div></div>
 
@@ -486,9 +526,7 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
 <div class="modal-bg" id="mdMethod" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="modal" style="max-width:720px">
   <button class="mclose" data-close aria-label="닫기">×</button>
   <h2 id="mTitle">📖 계산 방법 살펴보기</h2>
-  <p class="ink2">아래는 <b>가로 2cm, 세로 3cm, 높이 4cm</b>인 상자의 예시예요. 같은 방법으로 내 상자를 계산해 보세요.</p>
-  <h3>부피 = 가로 × 세로 × 높이</h3>
-  <p>1㎤ 쌓기나무를 가로로 2개, 세로로 3줄 놓으면 한 층에 2 × 3 = 6개. 이것을 4층 쌓으면 6 × 4 = <b>24개</b> → 부피는 <b>24㎤</b>예요.</p>
+  <p class="ink2">아래는 <b>가로 2cm, 세로 3cm, 높이 4cm</b>인 상자의 예시예요. 같은 방법으로 내 상자의 겉넓이를 계산해 보세요.</p>
   <h3>겉넓이 = (가로×세로 + 세로×높이 + 가로×높이) × 2</h3>
   <p>직육면체에는 모양과 크기가 같은 면이 <b>2개씩 3쌍</b> 있어요.</p>
   <ul>
@@ -514,35 +552,45 @@ select.sel{border:2px solid var(--line);border-radius:10px;padding:8px;font-weig
    설정 · 수학
    ========================================================= */
 const SET_KEY='snackBoxLab2.settings', KEY='snackBoxLab2.data';
-const DEF_SET=()=>({vmin:800, vmaxOn:false, vmax:2000, lmin:2, lmax:30, need:3, autoAllowed:true, unlock:false});
+const DEF_SET=()=>({need:3, autoAllowed:true, unlock:false});
 let T=DEF_SET();
 const VOL=(a,b,c)=>a*b*c;
 const SA=(a,b,c)=>(a*b+b*c+a*c)*2;
 const isNat=x=>Number.isInteger(x)&&x>=1;
 const clamp=(x,lo,hi)=>Math.min(hi,Math.max(lo,x));
 const keyOf=(a,b,c)=>[a,b,c].sort((x,y)=>x-y).join('×');
-function volCond(a,b,c){ const v=VOL(a,b,c); return v>=T.vmin && (!T.vmaxOn || v<=T.vmax); }
-function inRange(a,b,c){ return [a,b,c].every(x=>isNat(x)&&x>=T.lmin&&x<=T.lmax); }
+/* ---- 고정 조건: 부피는 정확히 1,000㎤, 각 길이는 1~100cm 자연수 ---- */
+const VTARGET=1000, VALID=[1,2,4,5,8,10,20,25,40,50,100], NEED_BOXES=5;
+const DEF_LAB={a:5,b:10,c:20}, DEF_DES={a:10,b:5,c:20};
+const isLen=x=>VALID.includes(x);
+function inRange(a,b,c){ return [a,b,c].every(isLen); }
+function volCond(a,b,c){ return VOL(a,b,c)===VTARGET; }
 function basicOK(a,b,c){ return inRange(a,b,c)&&volCond(a,b,c); }
-function whyBad(a,b,c){ const v=VOL(a,b,c), r=[];
-  if(v<T.vmin) r.push('부피 부족'); if(T.vmaxOn&&v>T.vmax) r.push('부피 초과'); if(!inRange(a,b,c)) r.push('길이 범위 밖'); return r.join(', '); }
-/** 기본 조건 최적 상자 (회전하여 같은 상자는 하나로) */
-function optimumBasic(){
-  let best=Infinity, list=[];
-  for(let a=T.lmin;a<=T.lmax;a++) for(let b=a;b<=T.lmax;b++) for(let c=b;c<=T.lmax;c++){
-    if(!volCond(a,b,c)) continue; const s=SA(a,b,c);
-    if(s<best){best=s;list=[[a,b,c]];} else if(s===best) list.push([a,b,c]); }
-  return list.length? {S:best, boxes:list} : null;
-}
-function nearBasic(n){ const L=[];
-  for(let a=T.lmin;a<=T.lmax;a++) for(let b=a;b<=T.lmax;b++) for(let c=b;c<=T.lmax;c++) if(volCond(a,b,c)) L.push({t:[a,b,c],S:SA(a,b,c),V:VOL(a,b,c)});
-  L.sort((p,q)=>p.S-q.S||p.V-q.V); return L.slice(0,n); }
+function condTxt(){ return '부피 정확히 1,000㎤'; }
+/** 회전하여 같은 상자는 하나로 센 모든 상자 (a≤b≤c) */
+const ALL_SHAPES=(()=>{ const L=[]; VALID.forEach(a=>VALID.forEach(b=>{ if(b<a) return; const c=VTARGET/(a*b); if(Number.isInteger(c)&&c>=b&&isLen(c)) L.push([a,b,c]); })); return L; })();
+function optimumBasic(){ let best=Infinity, list=[];
+  ALL_SHAPES.forEach(t=>{ const s=SA(...t); if(s<best){best=s;list=[t];} else if(s===best) list.push(t); });
+  return {S:best, boxes:list}; }
+function nearBasic(n){ return ALL_SHAPES.map(t=>({t,S:SA(...t),V:VTARGET})).sort((p,q)=>p.S-q.S).slice(0,n); }
+/** 곱이 R인 (x, y) 순서쌍 — 두 값 모두 가능한 길이 */
+function pairsFor(R){ return VALID.filter(x=>R%x===0&&isLen(R/x)).map(x=>[x,R/x]); }
+/** 입력값을 가능한 길이로 맞추기: 늘리는 중이면 위쪽, 줄이는 중이면 아래쪽 값 */
+function snapLen(raw,cur){ if(raw<=1) return 1; if(raw>=100) return 100; if(isLen(raw)) return raw;
+  const lo=VALID.filter(v=>v<raw).pop(), hi=VALID.find(v=>v>raw);
+  if(raw>cur) return hi; if(raw<cur) return lo; return (raw-lo<=hi-raw)?lo:hi; }
+/** 학생이 바꾼 길이(k=v)는 그대로 두고, 나머지 두 길이를 지금 비율에 가장 가깝게 자연수로 맞추기 */
+function adjustDims(d,k,v){ const ks=['a','b','c'].filter(x=>x!==k), p=d[ks[0]], q=d[ks[1]], R=VTARGET/v;
+  let best=null, bs=Infinity;
+  pairsFor(R).forEach(([x,y])=>{ const sc=Math.abs(Math.log((x/y)/(p/q)))+0.6*(Math.abs(Math.log(x/p))+Math.abs(Math.log(y/q)));
+    if(sc<bs-1e-9){ bs=sc; best=[x,y]; } });
+  return {[k]:v,[ks[0]]:best[0],[ks[1]]:best[1]}; }
 /** 학생 조건까지 반영한 최적 상자 (방향이 중요하므로 순서 있는 조합) */
 function optimumMine(){
   let best=Infinity, list=[];
-  for(let a=T.lmin;a<=T.lmax;a++) for(let b=T.lmin;b<=T.lmax;b++) for(let c=T.lmin;c<=T.lmax;c++){
-    if(!volCond(a,b,c)) continue; if(!myConds({a,b,c}).every(x=>x.ok)) continue;
-    const s=SA(a,b,c); if(s<best){best=s;list=[[a,b,c]];} else if(s===best) list.push([a,b,c]); }
+  VALID.forEach(a=>VALID.forEach(b=>{ const c=VTARGET/(a*b); if(!Number.isInteger(c)||!isLen(c)) return;
+    if(!myConds({a,b,c}).every(x=>x.ok)) return;
+    const s=SA(a,b,c); if(s<best){best=s;list=[[a,b,c]];} else if(s===best) list.push([a,b,c]); }));
   return list.length? {S:best, boxes:list} : null;
 }
 const DIMN={a:'가로',b:'세로',c:'높이',max:'가장 긴 변'};
@@ -559,6 +607,50 @@ function myConds(d){
     out.push({t:`${r.memo?r.memo+': ':''}${DIMN[r.dim]} ${r.val}cm ${OPN[r.op]}`, ok}); }); }
   return out;
 }
+/* =========================================================
+   계산식 해석기 (eval 사용 안 함): 숫자 + − × ÷ ( ) = 만 허용
+   ========================================================= */
+const FX_MAP={'*':'×','x':'×','X':'×','·':'×','⋅':'×','/':'÷','-':'−','–':'−','—':'−','＋':'+','－':'−','（':'(','）':')','＝':'=','．':'.'};
+const FX_OK=/[0-9.+−×÷()=]/;
+/** 키보드로 들어온 글자를 허용된 글자로 바꾸고 나머지는 버림 */
+function fxClean(str){ let out=''; for(let ch of String(str||'')){ if(ch>='０'&&ch<='９') ch=String.fromCharCode(ch.charCodeAt(0)-0xFEE0); ch=FX_MAP[ch]||ch; if(FX_OK.test(ch)) out+=ch; } return out; }
+function fxTokens(str){ const t=[]; let i=0;
+  while(i<str.length){ const ch=str[i];
+    if(/[0-9.]/.test(ch)){ let j=i; while(j<str.length&&/[0-9.]/.test(str[j])) j++; const n=str.slice(i,j);
+      if(!/^(\d+(\.\d+)?)$/.test(n)) throw {msg:`‘${n}’은(는) 올바른 수가 아니에요.`}; t.push({k:'n',v:Number(n)}); i=j; continue; }
+    if('+−×÷'.includes(ch)){ t.push({k:'o',v:ch}); i++; continue; }
+    if(ch==='('||ch===')'){ t.push({k:ch}); i++; continue; }
+    throw {msg:`‘${ch}’ 기호는 쓸 수 없어요.`}; }
+  return t; }
+/** 한 덩어리 식 계산: 식 = 항 ((+|−) 항)*, 항 = 인수 ((×|÷) 인수)*, 인수 = 수 | ( 식 ) */
+function fxEvalPart(str){
+  if(!str) throw {msg:'= 기호의 앞이나 뒤에 식이 비어 있어요.'};
+  const t=fxTokens(str); let p=0;
+  const peek=()=>t[p];
+  const factor=()=>{ const x=t[p];
+    if(!x) throw {msg:'계산식이 기호로 끝났어요. 기호 뒤에 수를 써 주세요.'};
+    if(x.k==='n'){ p++; const nx=t[p]; if(nx&&nx.k==='(') throw {msg:'수와 괄호 사이에 × 같은 기호가 필요해요.'}; return x.v; }
+    if(x.k==='('){ p++; if(peek()&&peek().k===')') throw {msg:'빈 괄호 ( ) 가 있어요.'};
+      const v=expr(); if(!peek()||peek().k!==')') throw {msg:'여는 괄호 ( 와 닫는 괄호 ) 의 짝이 맞지 않아요.'}; p++;
+      const nx=t[p]; if(nx&&(nx.k==='n'||nx.k==='(')) throw {msg:'괄호와 수 사이에 × 같은 기호가 필요해요.'}; return v; }
+    if(x.k===')') throw {msg:'닫는 괄호 ) 가 너무 많거나 위치가 맞지 않아요.'};
+    throw {msg:p===0?'계산식이 기호로 시작했어요. 수나 ( 로 시작해 주세요.':'기호가 연달아 있어요. 기호 사이에 수를 써 주세요.'}; };
+  const term=()=>{ let v=factor(); while(peek()&&peek().k==='o'&&(peek().v==='×'||peek().v==='÷')){ const op=t[p++].v, r=factor();
+      if(op==='÷'&&r===0) throw {msg:'0으로 나눌 수 없어요.'}; v= op==='×'? v*r : v/r; } return v; };
+  const expr=()=>{ let v=term(); while(peek()&&peek().k==='o'&&(peek().v==='+'||peek().v==='−')){ const op=t[p++].v, r=term(); v= op==='+'? v+r : v-r; } return v; };
+  const v=expr();
+  if(p<t.length){ throw {msg: t[p].k===')'?'닫는 괄호 ) 가 너무 많거나 위치가 맞지 않아요.':'계산식의 기호 배치를 다시 확인해 보세요.'}; }
+  return v; }
+const fxEq=(a,b)=>Math.abs(a-b)<1e-9*Math.max(1,Math.abs(a),Math.abs(b));
+/** 계산식 검사: {ok, value, msg}. = 로 이어진 각 부분의 값이 모두 같아야 함 */
+function fxCheck(raw){ const str=fxClean(raw);
+  if(!str) return {ok:false,empty:true,msg:'겉넓이 계산식을 먼저 써 주세요.'};
+  const parts=str.split('=');
+  if(parts[parts.length-1]==='' && parts.length>1) return {ok:false,msg:'= 뒤에 계산한 값을 써 주세요. (= 없이 식만 써도 괜찮아요.)'};
+  try{ const vals=parts.map(fxEvalPart);
+    for(let i=1;i<vals.length;i++) if(!fxEq(vals[i],vals[0])) return {ok:false,msg:'= 기호 양쪽의 값이 서로 같지 않아요. 계산 과정을 한 단계씩 다시 확인해 보세요.'};
+    return {ok:true,value:vals[vals.length-1]}; }
+  catch(e){ if(e&&e.msg) return {ok:false,msg:e.msg}; return {ok:false,msg:'계산식을 해석할 수 없어요. 기호와 괄호를 다시 확인해 보세요.'}; } }
 /** 학생 입력 숫자 해석: 쉼표·공백·단위 허용 */
 function parseAns(s){ if(s==null) return NaN; const t=String(s).replace(/[,\s]/g,'').replace(/(㎤|㎠|cm3|cm2|cm|㎝)$/i,''); if(!/^\d+(\.\d+)?$/.test(t)) return NaN; return Number(t); }
 
@@ -665,24 +757,48 @@ function snapshot(list,w,h,opt={}){ const cv=document.createElement('canvas'); c
 /* =========================================================
    상태 · 저장
    ========================================================= */
-const mkCalc=()=>({vf:'',vv:'',sf:'',sv:'',wrong:0,res:null});
+const mkCalc=()=>({sf:'',sv:'',wrong:0,res:null});
 const DEF=()=>({
-  v:2, step:1, pred:'',
-  lab:{a:8,b:6,c:5, calc:mkCalc()}, verified:[], auto:false,
+  v:5, step:1, pred:'',
+  lab:{a:5,b:10,c:20,fk:'a', calc:mkCalc()}, auto:false, editId:null, legacy:null,
   boxes:[], seq:0, sortBy:'id', ans:{q1:'',q2:'',q3:'',q4:''}, optShown:false,
   s4:{q:'', snack:{name:'',feat:'',prio:''}, cA:true, cB:false, grip:{dim:'b',max:8,minOn:false,min:3}, cC:false, shapes:[{dim:'a',op:'>=',val:12,memo:''}],
-      d:{a:10,b:8,c:10}, use:'', fcalc:mkCalc(), finalizing:false, fin:null, reason:''},
+      d:{a:10,b:5,c:20,fk:'a'}, use:'', fcalc:mkCalc(), finalizing:false, fin:null, reason:''},
   s5:{r1:'',r2:'',r3:'',r4:''}
 });
 let S=DEF(), hadSaved=false;
 function merge(d,o){ if(!o||typeof o!=='object') return d; for(const k in o){ if(!(k in d)){ d[k]=o[k]; continue; }
   if(d[k]&&typeof d[k]==='object'&&!Array.isArray(d[k])&&o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])) d[k]=merge(d[k],o[k]); else d[k]=o[k]; } return d; }
+const LEGACY_QS={q1:'부피가 800㎤ 이상인 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?',q2:'부피가 비슷한 상자들의 겉넓이를 비교하면 어떤 특징이 나타나나요?',
+  q3:'상자의 가로·세로·높이와 겉넓이 사이에는 어떤 관계가 있을까요?',q4:'지금까지 만든 상자보다 겉넓이가 더 작은 상자를 만들 수 있을까요?'};
+/** 이전 버전(부피 800㎤ 이상) 기록 → 이전 탐구 기록으로 따로 보관. 아무것도 지우지 않음 */
+function migrate(){
+  if((Number(S.v)||0)>=5) return;
+  const lg={from:S.v||2, at:Date.now(), boxes:Array.isArray(S.boxes)?S.boxes.slice():[], ans:null, fin:null, verified:Array.isArray(S.verified)?S.verified:[]};
+  const keep=[];
+  lg.boxes.forEach(b=>{ if(b&&basicOK(b.a,b.b,b.c)&&!keep.some(x=>keyOf(x.a,x.b,x.c)===keyOf(b.a,b.b,b.c)))
+    keep.push(Object.assign({},b,{v:VTARGET,sa:SA(b.a,b.b,b.c),method:b.auto?'auto':'direct',migrated:true})); });
+  if(S.ans&&Object.values(S.ans).some(x=>String(x||'').trim())) lg.ans=Object.assign({},S.ans);
+  S.ans={q1:'',q2:'',q3:'',q4:''}; S.optShown=false;
+  if(S.s4&&S.s4.fin){ lg.fin=S.s4.fin; if(!basicOK(S.s4.fin.a,S.s4.fin.b,S.s4.fin.c)) S.s4.fin=null; }
+  if(S.s4) S.s4.finalizing=false;
+  S.boxes=keep; delete S.verified;
+  if(lg.boxes.length||lg.ans||lg.fin) S.legacy=lg;
+  S.v=5;
+}
 function sanitize(){
-  S.boxes=(Array.isArray(S.boxes)?S.boxes:[]).filter(b=>b&&isNat(b.a)&&isNat(b.b)&&isNat(b.c));
-  S.verified=Array.isArray(S.verified)?S.verified.filter(x=>typeof x==='string'):[];
+  migrate();
+  const raw=(Array.isArray(S.boxes)?S.boxes:[]).filter(b=>b&&isNat(b.a)&&isNat(b.b)&&isNat(b.c));
+  const bad=raw.filter(b=>!basicOK(b.a,b.b,b.c));
+  if(bad.length){ S.legacy=S.legacy||{from:S.v,at:Date.now(),boxes:[],ans:null,fin:null}; S.legacy.boxes=(S.legacy.boxes||[]).concat(bad); }
+  S.boxes=raw.filter(b=>basicOK(b.a,b.b,b.c)); S.boxes.forEach(b=>{ if(!b.method) b.method=b.auto?'auto':'direct'; });
+  if(S.editId!=null && !S.boxes.some(b=>b.id===S.editId)) S.editId=null;
   if(!Array.isArray(S.s4.shapes)) S.s4.shapes=[];
-  ['a','b','c'].forEach(k=>{ if(!isNat(S.lab[k])) S.lab[k]=6; if(!isNat(S.s4.d[k])) S.s4.d[k]=8; });
-  if(S.s4.fin && !(isNat(S.s4.fin.a)&&isNat(S.s4.fin.b)&&isNat(S.s4.fin.c))) S.s4.fin=null;
+  if(!basicOK(S.lab.a,S.lab.b,S.lab.c)) Object.assign(S.lab,DEF_LAB,{fk:'a'});
+  if(!basicOK(S.s4.d.a,S.s4.d.b,S.s4.d.c)) Object.assign(S.s4.d,DEF_DES,{fk:'a'});
+  if(S.s4.fin && !basicOK(S.s4.fin.a,S.s4.fin.b,S.s4.fin.c)){ S.legacy=S.legacy||{from:S.v,at:Date.now(),boxes:[],ans:null,fin:null}; S.legacy.fin=S.s4.fin; S.s4.fin=null; }
+  if(!S.lab.calc||typeof S.lab.calc!=='object') S.lab.calc=mkCalc();
+  if(!S.s4.fcalc||typeof S.s4.fcalc!=='object') S.s4.fcalc=mkCalc();
   S.step=clamp(parseInt(S.step)||1,1,5);
 }
 function load(){
@@ -709,7 +825,11 @@ function askConfirm(msg,sub,yes){ $('#cfMsg').textContent=msg; $('#cfSub').textC
   $('#cfYes').onclick=()=>{ $('#mdConfirm').classList.remove('show'); yes(); }; $('#cfNo').onclick=()=>$('#mdConfirm').classList.remove('show'); }
 function boxName(n){ let s=''; n++; while(n>0){ const r=(n-1)%26; s=String.fromCharCode(65+r)+s; n=Math.floor((n-1)/26);} return s; }
 function bindText(sel,get,set){ const el=$(sel); el.addEventListener('input',()=>{ set(el.value); save(); }); return ()=>{ el.value=get(); }; }
-const autoAvail=()=>T.autoAllowed && S.verified.length>=T.need;
+const needN=()=>clamp(parseInt(T.need)||0,0,NEED_BOXES);
+/** 직접 계산해서 정확히 기록한 서로 다른 상자 수 (기록을 지우면 다시 계산됨) */
+const directN=()=>new Set(S.boxes.filter(b=>b.method==='direct').map(b=>keyOf(b.a,b.b,b.c))).size;
+const distinctN=()=>new Set(S.boxes.map(b=>keyOf(b.a,b.b,b.c))).size;
+const autoAvail=()=>T.autoAllowed && directN()>=needN();
 const autoOn=()=>autoAvail() && S.auto;
 
 /* =========================================================
@@ -718,7 +838,7 @@ const autoOn=()=>autoAvail() && S.auto;
 const STEP_NAMES=['과자 회사의 고민','상자 디자인 실험실','데이터 분석 연구소','진짜 과자 상자 디자인하기','나의 탐구 결과 정리하기'];
 function stepDone(n){
   if(n===1) return !!S.pred.trim();
-  if(n===2) return S.boxes.length>=5;
+  if(n===2) return distinctN()>=NEED_BOXES;
   if(n===3) return S.optShown;
   if(n===4) return !!S.s4.fin;
   if(n===5) return [S.s5.r1,S.s5.r2,S.s5.r3,S.s5.r4].every(x=>x.trim());
@@ -751,55 +871,137 @@ $('#btnFresh').onclick=()=>askConfirm('처음부터 새로 시작할까요?','�
 /* =========================================================
    길이 조절 컨트롤 (자연수만)
    ========================================================= */
+const DIMS=[['a','가로','var(--ax-a)'],['b','세로','var(--ax-b)'],['c','높이','var(--ax-c)']];
+const NM={a:'가로',b:'세로',c:'높이'};
+const josa=(w,a,b)=>{ const c=w.charCodeAt(w.length-1); return (c>=0xAC00&&c<=0xD7A3&&(c-0xAC00)%28)?a:b; };
+/** 길이 조절: 길이 하나를 바꾸면 나머지 두 길이가 자동으로 맞춰져 부피가 항상 1,000㎤ */
 function dimControls(box, obj, onChange, errEl){
-  box.innerHTML='';
-  [['a','가로','var(--ax-a)'],['b','세로','var(--ax-b)'],['c','높이','var(--ax-c)']].forEach(([k,nm,col])=>{
-    const w=document.createElement('div'); w.className='ctl';
-    w.innerHTML=`<div class="head"><i class="dot" style="background:${col}"></i>${nm}<span class="val"><input class="num-in" type="number" inputmode="numeric" min="${T.lmin}" max="${T.lmax}" step="1" value="${obj[k]}" aria-label="${nm}(cm)"> cm</span></div>
-      <input type="range" min="${T.lmin}" max="${T.lmax}" step="1" value="${obj[k]}" aria-label="${nm} 슬라이더">`;
+  box.innerHTML=''; const refs={};
+  const vf=document.createElement('div'); vf.className='volfix'; box.appendChild(vf);
+  DIMS.forEach(([k,nm,col])=>{
+    const w=document.createElement('div'); w.className='ctl'; w.dataset.k=k;
+    w.innerHTML=`<div class="head"><i class="dot" style="background:${col}"></i>${nm}<span class="val"><input class="num-in" type="number" inputmode="numeric" min="1" max="100" step="1" value="${obj[k]}" aria-label="${nm}(cm)"> cm</span></div>
+      <input type="range" min="0" max="${VALID.length-1}" step="1" value="${VALID.indexOf(obj[k])}" aria-label="${nm} 슬라이더">
+      <div class="ticks" aria-hidden="true">${VALID.map((v,i)=>`<span data-v="${v}" style="left:calc(8px + (100% - 16px) * ${i/(10)})">${v}</span>`).join('')}</div>`;
     box.appendChild(w);
-    const inp=w.querySelector('.num-in'), rg=w.querySelector('input[type=range]');
-    rg.addEventListener('input',()=>{ obj[k]=+rg.value; inp.value=obj[k]; errEl.textContent=''; onChange(); });
-    inp.addEventListener('input',()=>{ const s=inp.value.trim(), v=Number(s);
-      if(s===''){ errEl.textContent=`${nm}에 숫자를 입력해 주세요.`; return; }
-      if(!Number.isInteger(v)){ errEl.textContent=`${nm}는 자연수(1, 2, 3, …)로만 정할 수 있어요.`; return; }
-      if(v<T.lmin||v>T.lmax){ errEl.textContent=`${nm}는 ${T.lmin}cm부터 ${T.lmax}cm까지 정할 수 있어요.`; return; }
-      errEl.textContent=''; obj[k]=v; rg.value=v; onChange(); });
-    inp.addEventListener('blur',()=>{ inp.value=obj[k]; errEl.textContent=''; });
+    refs[k]={w, inp:w.querySelector('.num-in'), rg:w.querySelector('input[type=range]')};
   });
+  const adj=document.createElement('div'); adj.className='adj'; adj.setAttribute('aria-live','polite'); box.appendChild(adj);
+  const cmb=document.createElement('div'); cmb.className='combos'; box.appendChild(cmb);
+  const renderCombos=()=>{ const fk=obj.fk||'a', ks=['a','b','c'].filter(x=>x!==fk), R=VTARGET/obj[fk];
+    const prs=pairsFor(R).filter(([x,y])=>x<=y);
+    const opts=prs.map(([x,y])=>{ const flip=obj[ks[0]]>obj[ks[1]]; const d={[fk]:obj[fk],[ks[0]]:flip?y:x,[ks[1]]:flip?x:y}; return d; });
+    if(opts.length<=1 && obj[ks[0]]===obj[ks[1]]){ cmb.style.display='none'; return; } cmb.style.display='';
+    const cur=keyOf(obj.a,obj.b,obj.c);
+    cmb.innerHTML=`<div class="t">🧩 ${NM[fk]}${josa(NM[fk],'을','를')} ${obj[fk]}cm로 정했을 때 만들 수 있는 상자 (${opts.length}가지)</div>
+      ${opts.map((d,i)=>`<button class="combo ${keyOf(d.a,d.b,d.c)===cur?'on':''}" data-ci="${i}">${d.a} × ${d.b} × ${d.c}<small>가로×세로×높이</small></button>`).join('')}
+      ${obj[ks[0]]!==obj[ks[1]]?`<div class="mt"><button class="btn white small" data-swap>↔ ${NM[ks[0]]}와 ${NM[ks[1]]} 바꾸기</button> <span class="small muted">돌려 놓은 것과 같은 상자예요</span></div>`:''}`;
+    cmb.querySelectorAll('[data-ci]').forEach(b=>b.onclick=()=>{ const old={a:obj.a,b:obj.b,c:obj.c}; Object.assign(obj,opts[+b.dataset.ci]); sync(); showAdj(old,fk,false); onChange(); });
+    const sw=cmb.querySelector('[data-swap]'); if(sw) sw.onclick=()=>{ const old={a:obj.a,b:obj.b,c:obj.c}; const t=obj[ks[0]]; obj[ks[0]]=obj[ks[1]]; obj[ks[1]]=t; sync(); showAdj(old,fk,false); onChange(); };
+  };
+  const sync=()=>{ DIMS.forEach(([k])=>{ refs[k].inp.value=obj[k]; refs[k].rg.value=VALID.indexOf(obj[k]); refs[k].rg.setAttribute('aria-valuetext',obj[k]+'cm'); refs[k].w.querySelectorAll('.ticks span').forEach(t=>t.classList.toggle('on',+t.dataset.v===obj[k])); });
+    vf.innerHTML=`<span class="lock">🔒 고정</span> 부피: 1,000㎤ (고정) <span class="small ink2" style="font-weight:700">· ${obj.a} × ${obj.b} × ${obj.c} = 1,000</span>`;
+    renderCombos(); };
+  const showAdj=(old,k,snap)=>{ const ch=['a','b','c'].filter(x=>x!==k&&old[x]!==obj[x]);
+    let h='';
+    if(snap) h+=`<div>📐 부피 1,000㎤를 유지할 수 있는 길이로 조정했어요. (${NM[k]} ${snap}cm → <b>${obj[k]}cm</b>)</div>`;
+    if(ch.length) h+=`<div>${old[k]!==obj[k]?`${NM[k]} ${old[k]}→${obj[k]}cm로 바꾸니 `:''}${ch.map(x=>`<span class="chg">${NM[x]} ${old[x]}→${obj[x]}cm</span>`).join(', ')}${josa('cm','으로','로')} 바뀌었어요. 부피는 그대로 1,000㎤예요.</div>`;
+    adj.innerHTML=h;
+    ch.forEach(x=>{ refs[x].w.classList.remove('flash'); void refs[x].w.offsetWidth; refs[x].w.classList.add('flash'); }); };
+  const apply=(k,v,snap)=>{ errEl.textContent=''; const old={a:obj.a,b:obj.b,c:obj.c};
+    if(v===obj[k]){ sync(); if(snap) showAdj(old,k,snap); return; }
+    Object.assign(obj,adjustDims(obj,k,v)); obj.fk=k; sync(); showAdj(old,k,snap); onChange(); };
+  DIMS.forEach(([k,nm])=>{ const {inp,rg}=refs[k];
+    rg.addEventListener('input',()=>apply(k,VALID[+rg.value],false));
+    inp.addEventListener('change',()=>{ const t=inp.value.trim(), raw=Number(t);
+      if(t===''||!isFinite(raw)){ errEl.textContent=`${nm}에 숫자를 입력해 주세요.`; inp.value=obj[k]; return; }
+      const v=snapLen(raw,obj[k]); apply(k,v,v!==raw?t:false); });
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter') inp.blur(); });
+  });
+  sync();
+  return {sync};
 }
 function sizeWarn(a,b,c){ const L=Math.max(a,b,c), msgs=[];
-  if(L>=25) msgs.push(`한 변이 ${L}cm로 아주 길어요. 과자 상자로 들고 다니거나 진열하기 불편할 수 있어요.`);
+  if(L>=50) msgs.push(`한 변이 ${L}cm로 아주 길어요. 과자 상자로 들고 다니거나 진열하기 불편할 수 있어요.`);
+  if(Math.min(a,b,c)<=1) msgs.push('한 변이 1cm로 아주 얇아요. 과자가 부서지기 쉬울 수 있어요.');
   return msgs; }
 
 /* =========================================================
    직접 계산 패널
    ========================================================= */
-function calcPanel(box, calc, dims, onCorrect, opts={}){
+/** 계산식 입력창 + 수학 기호 버튼. 숫자는 키보드, 기호·괄호는 버튼으로 커서 위치에 넣음 */
+function formulaInput(wrap, getVal, setVal){
+  wrap.innerHTML=`<label>나의 겉넓이 계산식</label>
+    <textarea rows="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="나의 겉넓이 계산식"></textarea>
+    <div class="keys" role="group" aria-label="수학 기호 입력">
+      ${[['+','＋','더하기'],['−','−','빼기'],['×','×','곱하기'],['÷','÷','나누기'],['(','(','여는 괄호'],[')',')','닫는 괄호'],['=','=','같다']].map(([v,l,a])=>`<button type="button" class="key ${v==='='?'eq':'op'}" data-ins="${v}" aria-label="${a}">${l}</button>`).join('')}
+      <span class="sep"></span>
+      <button type="button" class="key ed" data-ed="bs" aria-label="한 글자 지우기">⌫ 한 글자 지우기</button>
+      <button type="button" class="key ed" data-ed="clr" aria-label="전체 지우기">전체 지우기</button>
+    </div>
+    <div class="hint">숫자는 키보드로 쓰고, 기호와 괄호는 버튼을 눌러 넣어요. 식 중간을 눌러 커서를 옮긴 뒤 고칠 수도 있어요.</div>
+    <div class="ferr" aria-live="polite"></div>`;
+  const ta=wrap.querySelector('textarea'), ferr=wrap.querySelector('.ferr');
+  let sel={s:0,e:0};
+  const grow=()=>{ ta.style.height='auto'; ta.style.height=Math.max(52,ta.scrollHeight+4)+'px'; };
+  const remember=()=>{ sel={s:ta.selectionStart,e:ta.selectionEnd}; };
+  const commit=(val,caret,keepFocus)=>{ ta.value=val; setVal(val); grow(); ferr.textContent='';
+    if(keepFocus) ta.focus({preventScroll:true});
+    try{ ta.setSelectionRange(caret,caret); }catch(e){} sel={s:caret,e:caret}; };
+  ta.value=fxClean(getVal()); if(ta.value!==getVal()) setVal(ta.value); sel={s:ta.value.length,e:ta.value.length};
+  setTimeout(grow,0);
+  ta.addEventListener('input',()=>{ const v=ta.value, c=ta.selectionStart;
+    const cleaned=fxClean(v);
+    if(cleaned!==v){ const before=fxClean(v.slice(0,c)).length; ta.value=cleaned; try{ ta.setSelectionRange(before,before); }catch(e){} }
+    setVal(ta.value); remember(); grow(); ferr.textContent=''; });
+  ta.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); } });
+  ['keyup','click','select','focus','blur'].forEach(ev=>ta.addEventListener(ev,remember));
+  const act=(btn)=>{ const focused=document.activeElement===ta;
+    const s0=focused?ta.selectionStart:sel.s, e0=focused?ta.selectionEnd:sel.e, v=ta.value;
+    const st=Math.min(s0,v.length), en=Math.min(Math.max(e0,st),v.length);
+    if(btn.dataset.ins){ const ch=btn.dataset.ins; commit(v.slice(0,st)+ch+v.slice(en), st+ch.length, focused); }
+    else if(btn.dataset.ed==='bs'){ if(st!==en) commit(v.slice(0,st)+v.slice(en),st,focused); else if(st>0) commit(v.slice(0,st-1)+v.slice(st),st-1,focused); }
+    else if(btn.dataset.ed==='clr'){ commit('',0,focused); }
+  };
+  wrap.querySelectorAll('.keys button').forEach(btn=>{
+    // 버튼을 눌러도 입력창의 포커스·커서가 그대로 유지되도록 기본 동작을 막음
+    btn.addEventListener('mousedown',e=>e.preventDefault());
+    btn.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse'&&e.button!==0) return; e.preventDefault(); act(btn); btn._skip=true; });
+    btn.addEventListener('click',e=>{ if(btn._skip){ btn._skip=false; return; } act(btn); });
+  });
+  return {ta, showErr:m=>{ ferr.textContent=m||''; }};
+}
+function calcPanel(box, calc, dims, onCorrect){
   box.innerHTML=`
-    <div class="r"><label>부피 계산식</label><input type="text" data-f="vf" aria-label="부피 계산식"><span></span></div>
-    <div class="r"><label>내가 계산한 부피</label><span></span><span class="unit"><input type="text" inputmode="numeric" data-f="vv" aria-label="내가 계산한 부피"> ㎤</span></div>
-    <div class="r"><label>겉넓이 계산식</label><input type="text" data-f="sf" aria-label="겉넓이 계산식"><span></span></div>
+    <div class="fx" data-fx></div>
     <div class="r"><label>내가 계산한 겉넓이</label><span></span><span class="unit"><input type="text" inputmode="numeric" data-f="sv" aria-label="내가 계산한 겉넓이"> ㎠</span></div>
     <div class="row mt"><button class="btn primary" data-chk>계산 결과 확인하기</button>
       <button class="btn white small" data-method style="display:none">📖 계산 방법 살펴보기</button></div>
     <div class="fb" data-fb></div>`;
-  box.querySelectorAll('[data-f]').forEach(inp=>{ inp.value=calc[inp.dataset.f]||''; inp.addEventListener('input',()=>{ calc[inp.dataset.f]=inp.value; save(); }); });
+  const fx=formulaInput(box.querySelector('[data-fx]'),()=>calc.sf||'',v=>{ calc.sf=v; calc.res=null; show(); save(); });
+  const svIn=box.querySelector('[data-f=sv]'); svIn.value=calc.sv||'';
+  svIn.addEventListener('input',()=>{ calc.sv=svIn.value; calc.res=null; show(); save(); });
   const fb=box.querySelector('[data-fb]'), mb=box.querySelector('[data-method]');
-  const show=()=>{ mb.style.display=calc.wrong>=2?'':'none';
+  function show(){ mb.style.display=calc.wrong>=2?'':'none';
     if(!calc.res){ fb.textContent=''; fb.className='fb'; return; }
-    const r=calc.res; if(r.v&&r.s){ fb.className='fb ok'; fb.textContent='🎉 부피와 겉넓이를 모두 정확하게 계산했어요!'; }
-    else { fb.className='fb no'; fb.innerHTML=(r.v?'부피 ✔ · ':'')+(r.s?'겉넓이 ✔ · ':'')+'계산 결과를 다시 확인해 보세요.'; } };
-  box.querySelector('[data-chk]').onclick=()=>{ const d=dims(); const vv=parseAns(calc.vv), sv=parseAns(calc.sv);
-    if(calc.vv.trim()===''||calc.sv.trim()===''){ fb.className='fb no'; fb.textContent='부피와 겉넓이를 모두 입력해 주세요.'; return; }
-    if(!isFinite(vv)||!isFinite(sv)){ fb.className='fb no'; fb.textContent='계산 결과는 숫자로 입력해 주세요.'; return; }
-    calc.res={v:vv===VOL(d.a,d.b,d.c), s:sv===SA(d.a,d.b,d.c)};
-    if(!(calc.res.v&&calc.res.s)) calc.wrong++;
-    save(); show(); if(calc.res.v&&calc.res.s) onCorrect(); };
+    if(calc.res.s){ fb.className='fb ok'; fb.textContent='🎉 정확하게 계산했어요!'; }
+    else if(calc.res.mis){ fb.className='fb no'; fb.textContent='계산식의 결과와 ‘내가 계산한 겉넓이’가 같은지 다시 확인해 보세요.'; }
+    else { fb.className='fb no'; fb.textContent='각 면의 넓이를 다시 확인해 보세요.'; } }
+  box.querySelector('[data-chk]').onclick=()=>{ const d=dims(); fx.showErr('');
+    const chk=fxCheck(calc.sf);
+    if(!chk.ok){ if(chk.empty){ fb.className='fb no'; fb.textContent=chk.msg; } else { fx.showErr('✏️ '+chk.msg); fb.className='fb no'; fb.textContent='계산식에 입력 오류가 있어요. 위의 안내를 보고 고쳐 주세요.'; }
+      fx.ta.focus(); return; }
+    const sv=parseAns(calc.sv);
+    if(!String(calc.sv||'').trim()){ fb.className='fb no'; fb.textContent='내가 계산한 겉넓이를 입력해 주세요.'; svIn.focus(); return; }
+    if(!isFinite(sv)){ fb.className='fb no'; fb.textContent='계산 결과는 숫자로 입력해 주세요.'; svIn.focus(); return; }
+    const right=sv===SA(d.a,d.b,d.c), same=fxEq(chk.value,sv);
+    calc.res={s:right&&same, mis:right&&!same};
+    if(!calc.res.s) calc.wrong++;
+    save(); show(); if(calc.res.s) onCorrect(); };
   mb.onclick=()=>openModal('#mdMethod');
   show();
 }
-const calcOK=c=>!!(c.res&&c.res.v&&c.res.s);
+const calcOK=c=>!!(c&&c.res&&c.res.s);
 
 /* =========================================================
    STEP 2
@@ -812,54 +1014,70 @@ function updateLab(){ const d=labDims();
   const w=sizeWarn(d.a,d.b,d.c); $('#bigWarn').style.display=w.length?'':'none'; $('#bigWarn').innerHTML=w.map(x=>'⚠ '+x).join('<br>');
   if($('#netBox').style.display!=='none') $('#netBox').innerHTML=netSVG(d.a,d.b,d.c,labHL);
   renderAutoBox(); }
-function renderCalcLab(){ calcPanel($('#calcLab'), S.lab.calc, labDims, ()=>{ const k=keyOf(S.lab.a,S.lab.b,S.lab.c);
-  if(!S.verified.includes(k)){ S.verified.push(k); save(); const left=T.need-S.verified.length;
-    if(T.autoAllowed && left===0) toast('🎉 서로 다른 상자 '+T.need+'개를 정확히 계산했어요! 자동 계산 도우미를 켤 수 있어요.'); }
-  renderAutoBox(); }); }
-function renderAutoBox(){ const box=$('#autoBox'), d=labDims(), n=S.verified.length;
+function renderCalcLab(){ calcPanel($('#calcLab'), S.lab.calc, labDims, ()=>{ renderAutoBox(); toast('정확하게 계산했어요! [실험 기록에 '+(S.editId!=null?'고친 내용 저장하기':'추가하기')+']를 눌러 기록하세요.'); }); }
+function renderAutoBox(){ const box=$('#autoBox'), d=labDims(), n=directN(), need=needN();
   let h='';
-  if(!T.autoAllowed) h=`<div class="small ink2">🔒 이번 수업에서는 자동 계산 도우미를 쓰지 않아요. 직접 계산해서 확인한 뒤 기록하세요.</div>`;
+  if(!T.autoAllowed) h=`<div class="small ink2">🔒 이번 수업에서는 자동 계산 도우미를 쓰지 않아요. 겉넓이를 직접 계산해서 확인한 뒤 기록하세요.</div>`;
   else if(!autoAvail()) h=`<div class="switch"><input type="checkbox" disabled aria-label="자동 계산 도우미"> 🤖 자동 계산 도우미 <span class="badge g">잠김</span></div>
-      <div class="small ink2 mt">서로 다른 상자 <b>${T.need}개</b>의 부피와 겉넓이를 정확하게 계산하면 열려요. (지금 <b>${Math.min(n,T.need)}/${T.need}</b>, 회전해서 같은 상자는 1개로 세요)</div>`;
+      <div class="small ink2 mt">서로 다른 상자 <b>${need}개</b>의 겉넓이를 직접 정확하게 계산해서 기록하면 열려요. (지금 <b>${Math.min(n,need)}/${need}</b>, 회전해서 같은 상자는 1개로 세요)</div>`;
   else h=`<label class="switch"><input type="checkbox" id="autoSw" ${S.auto?'checked':''}> 🤖 자동 계산 도우미 ${S.auto?'켜짐':'꺼짐'}</label>
-      ${S.auto?`<div class="stats"><div class="stat"><span>부피</span><b>${VOL(d.a,d.b,d.c)}㎤</b></div><div class="stat"><span>겉넓이</span><b>${SA(d.a,d.b,d.c)}㎠</b></div>
-      <div class="stat"><span>부피 조건</span><b style="font-size:16px">${basicOK(d.a,d.b,d.c)?'✅ 만족':'❌ '+whyBad(d.a,d.b,d.c)}</b></div></div>`:'<div class="small ink2 mt">켜면 크기를 바꿀 때마다 부피와 겉넓이가 바로 보여요. 여러 상자를 빠르게 실험할 때 써요.</div>'}`;
-  if(!autoOn()){ const verifiedNow=calcOK(S.lab.calc)||S.verified.includes(keyOf(d.a,d.b,d.c));
-    if(calcOK(S.lab.calc)) h+=`<div class="small mt" style="font-weight:800">부피 조건(${condTxt()}): ${basicOK(d.a,d.b,d.c)?'✅ 만족':'❌ 만족하지 않음 ('+whyBad(d.a,d.b,d.c)+')'}</div>`;
-    else if(verifiedNow) h+=`<div class="small mt ink2">이 상자는 전에 정확히 계산한 적이 있어요. 다시 계산해서 확인해 보세요.</div>`; }
+      ${S.auto?`<div class="stats"><div class="stat"><span>부피</span><b>1,000㎤</b></div><div class="stat"><span>겉넓이</span><b id="autoSA">${SA(d.a,d.b,d.c)}㎠</b></div></div>`:'<div class="small ink2 mt">켜면 길이를 바꿀 때마다 겉넓이가 바로 보여요. 여러 상자를 빠르게 비교할 때 써요.</div>'}`;
   box.innerHTML=h;
   const sw=$('#autoSw'); if(sw) sw.onchange=()=>{ S.auto=sw.checked; save(); renderAutoBox(); };
 }
-function condTxt(){ return `부피 ${T.vmin}㎤ 이상`+(T.vmaxOn?`, ${T.vmax}㎤ 이하`:''); }
 function renderS2(){
-  $('#s2sub').textContent=`조건: ${condTxt()}, 가로·세로·높이는 ${T.lmin}~${T.lmax}cm 자연수`;
-  $('#rangeInfo').textContent=`(${T.lmin}~${T.lmax}cm 자연수)`;
-  ['a','b','c'].forEach(k=>S.lab[k]=clamp(S.lab[k],T.lmin,T.lmax));
+  $('#s2sub').textContent='조건: 부피는 정확히 1,000㎤ · 가로·세로·높이는 1~100cm 자연수 · 서로 다른 모양의 상자 5개 모으기';
+  $('#rangeInfo').textContent='(1~100cm 자연수, 부피 1,000㎤ 고정)';
+  if(!basicOK(S.lab.a,S.lab.b,S.lab.c)) Object.assign(S.lab,DEF_LAB);
   dimControls($('#labCtl'),S.lab,labChanged,$('#labErr'));
-  renderCalcLab(); updateLab(); renderLabTable();
+  renderCalcLab(); updateLab(); renderLabTable(); renderEditBar(); renderLegacy();
 }
-function renderLabTable(){ const t=$('#tblLab'), L=S.boxes;
-  $('#countBadge').textContent=`${L.length}개 저장 (최대 30개)`;
-  if(!L.length){ t.innerHTML='<tr><td class="muted" style="padding:18px">아직 저장한 상자가 없어요. 상자를 만들고 계산한 뒤 [실험 기록에 추가하기]를 눌러요.</td></tr>'; return; }
-  t.innerHTML='<tr><th>상자 이름</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th><th>부피 조건</th><th>내가 쓴 계산식</th><th></th></tr>'+
-    L.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return `<tr class="${ok?'':'bad'}"><td><b>상자 ${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>${VOL(b.a,b.b,b.c)}</td><td><b>${SA(b.a,b.b,b.c)}</b></td>
-      <td>${ok?'<span class="badge">만족</span>':'<span class="badge r">'+whyBad(b.a,b.b,b.c)+'</span>'}</td>
-      <td class="l small">${b.vf||b.sf?`부피: ${esc(b.vf)||'-'}<br>겉넓이: ${esc(b.sf)||'-'}`:(b.auto?'<span class="muted">자동 계산 도우미 사용</span>':'-')}</td>
-      <td><button class="xbtn" data-del="${b.id}" aria-label="상자 ${esc(b.name)} 삭제">✕</button></td></tr>`; }).join('');
+function renderEditBar(){ const eb=$('#editBar'), b=S.boxes.find(x=>x.id===S.editId);
+  if(!b){ S.editId=null; eb.innerHTML=''; $('#btnSave').textContent='＋ 실험 기록에 추가하기'; return; }
+  eb.innerHTML=`<div class="editbar">✏️ 상자 ${esc(b.name)}의 기록을 고치는 중이에요. 길이를 바꾸고 겉넓이를 다시 계산한 뒤 저장하세요. <span class="sp"></span><button class="btn white small" id="btnEditCancel">고치기 취소</button></div>`;
+  $('#btnSave').textContent='✔ 고친 내용 저장하기';
+  $('#btnEditCancel').onclick=()=>{ S.editId=null; S.lab.calc=mkCalc(); save(); renderS2(); toast('고치기를 취소했어요.'); };
+}
+function renderLabTable(){ const t=$('#tblLab'), L=S.boxes, n=distinctN();
+  $('#countBadge').textContent=`${L.length}개 저장`;
+  $('#labProg').innerHTML=`<span>나의 실험 기록: ${n} / ${NEED_BOXES}</span><span class="pb" role="progressbar" aria-valuemin="0" aria-valuemax="${NEED_BOXES}" aria-valuenow="${Math.min(n,NEED_BOXES)}"><i style="width:${Math.min(n,NEED_BOXES)/NEED_BOXES*100}%"></i></span>`+
+    (n>=NEED_BOXES?`<div class="donebox" style="flex-basis:100%">🎉 서로 다른 모양의 상자 5개를 완성했어요! <span class="sp"></span><button class="btn primary" id="btnToS3">STEP 3 데이터 분석하러 가기 →</button>
+      <div class="small ink2" style="flex-basis:100%;font-weight:700">상자를 더 추가하거나, 기록을 고치거나 지워도 괜찮아요.</div></div>`:'');
+  const g3=$('#btnToS3'); if(g3) g3.onclick=()=>go(3);
+  if(!L.length){ t.innerHTML='<tr><td class="muted" style="padding:18px">아직 저장한 상자가 없어요. 상자를 만들고 겉넓이를 계산한 뒤 [실험 기록에 추가하기]를 눌러요.</td></tr>'; return; }
+  t.innerHTML='<tr><th>상자 이름</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th><th>계산 방법</th><th>내가 쓴 겉넓이 계산식</th><th></th></tr>'+
+    L.map(b=>`<tr class="${b.id===S.editId?'editing':''}"><td><b>상자 ${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>1,000</td><td><b>${SA(b.a,b.b,b.c)}</b></td>
+      <td>${b.method==='direct'?'<span class="badge">직접 계산</span>':'<span class="badge g">도우미</span>'}</td>
+      <td class="l small">${b.sf?esc(b.sf):(b.method==='auto'?'<span class="muted">자동 계산 도우미 사용</span>':'-')}</td>
+      <td style="white-space:nowrap"><button class="xbtn" data-edit="${b.id}" aria-label="상자 ${esc(b.name)} 고치기" title="고치기">✏️</button> <button class="xbtn" data-del="${b.id}" aria-label="상자 ${esc(b.name)} 삭제" title="삭제">✕</button></td></tr>`).join('');
   t.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{ const id=+x.dataset.del, bx=S.boxes.find(b=>b.id===id);
-    askConfirm(`상자 ${bx.name}을(를) 지울까요?`,'지운 기록은 되돌릴 수 없어요.',()=>{ S.boxes=S.boxes.filter(b=>b.id!==id); save(); renderLabTable(); renderNav(); }); });
+    askConfirm(`상자 ${bx.name}을(를) 지울까요?`,'지운 기록은 되돌릴 수 없어요.',()=>{ S.boxes=S.boxes.filter(b=>b.id!==id); if(S.editId===id) S.editId=null; save(); renderLabTable(); renderEditBar(); renderAutoBox(); renderNav(); }); });
+  t.querySelectorAll('[data-edit]').forEach(x=>x.onclick=()=>{ const b=S.boxes.find(q=>q.id===+x.dataset.edit); if(!b) return;
+    S.editId=b.id; Object.assign(S.lab,{a:b.a,b:b.b,c:b.c,fk:'a'}); S.lab.calc=mkCalc(); S.lab.calc.sf=b.sf||''; save(); renderS2();
+    $('#labCtl').scrollIntoView({behavior:'smooth',block:'center'}); toast(`상자 ${b.name}의 기록을 고치는 중이에요.`); });
 }
+function renderLegacy(){ const box=$('#legacyBox'), L=S.legacy;
+  if(!L||!((L.boxes&&L.boxes.length)||L.ans||L.fin)){ box.style.display='none'; return; } box.style.display='';
+  let h='<p class="small ink2">이전 조건(부피 800㎤ 이상)으로 만든 기록이에요. 지우지 않고 그대로 보관해요. 부피가 1,000㎤가 아닌 상자는 이번 실험 기록에 세지 않아요.</p>';
+  if(L.boxes&&L.boxes.length) h+='<div class="tbl-wrap"><table class="data"><tr><th>상자</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th></tr>'+
+    L.boxes.map(b=>`<tr><td>${esc(b.name)}</td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>${VOL(b.a,b.b,b.c)}</td><td>${SA(b.a,b.b,b.c)}</td></tr>`).join('')+'</table></div>';
+  if(L.ans) h+=Object.keys(LEGACY_QS).filter(k=>String(L.ans[k]||'').trim()).map(k=>`<p class="small" style="margin:8px 0 2px"><b>${LEGACY_QS[k]}</b></p><div class="note" style="margin:0">${esc(L.ans[k]).replace(/\n/g,'<br>')}</div>`).join('');
+  if(L.fin) h+=`<p class="small mt"><b>이전 최종 상자:</b> ${L.fin.a}×${L.fin.b}×${L.fin.c}cm, 부피 ${VOL(L.fin.a,L.fin.b,L.fin.c)}㎤, 겉넓이 ${SA(L.fin.a,L.fin.b,L.fin.c)}㎠</p>`;
+  $('#legacyBody').innerHTML=h; }
 $('#btnSave').onclick=()=>{ const d=labDims();
-  if($('#labErr').textContent){ toast('길이 입력을 먼저 고쳐 주세요.'); return; }
-  if(!inRange(d.a,d.b,d.c)){ toast(`길이는 ${T.lmin}~${T.lmax}cm 자연수여야 해요.`); return; }
-  const usedAuto=autoOn();
-  if(!usedAuto && !calcOK(S.lab.calc)){ toast('먼저 부피와 겉넓이를 직접 계산하고 [계산 결과 확인하기]로 확인해 주세요.'); $('#calcLab').scrollIntoView({behavior:'smooth',block:'center'}); return; }
-  const dup=S.boxes.find(b=>keyOf(b.a,b.b,b.c)===keyOf(d.a,d.b,d.c));
+  if(!basicOK(d.a,d.b,d.c)){ toast('부피가 정확히 1,000㎤인 상자만 기록할 수 있어요.'); return; }
+  const usedAuto=autoOn(), c=S.lab.calc, direct=calcOK(c);
+  if(!usedAuto && !direct){ toast('먼저 겉넓이를 직접 계산하고 [계산 결과 확인하기]로 확인해 주세요.'); $('#calcLab').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  const k=keyOf(d.a,d.b,d.c), dup=S.boxes.find(b=>b.id!==S.editId && keyOf(b.a,b.b,b.c)===k);
   if(dup){ toast(`상자 ${dup.name}을(를) 돌려 놓은 것과 같은 모양이에요! 세 길이가 같으면 같은 상자예요.`); return; }
-  if(S.boxes.length>=30){ toast('기록은 30개까지 저장할 수 있어요. 필요 없는 상자를 지워 주세요.'); return; }
-  const c=S.lab.calc; const b={id:S.seq,name:boxName(S.seq),a:d.a,b:d.b,c:d.c,vf:usedAuto&&!calcOK(c)?'':c.vf.trim(),sf:usedAuto&&!calcOK(c)?'':c.sf.trim(),auto:usedAuto&&!calcOK(c)};
-  S.seq++; S.boxes.push(b); save(); renderLabTable(); renderNav();
-  toast(`상자 ${b.name}을(를) 기록했어요!`);
+  const before=distinctN(), beforeD=directN();
+  const rec={a:d.a,b:d.b,c:d.c,v:VTARGET,sa:SA(d.a,d.b,d.c),sf:direct?String(c.sf||'').trim():'',method:direct?'direct':'auto',auto:!direct,at:Date.now()};
+  if(S.editId!=null){ const b=S.boxes.find(x=>x.id===S.editId); if(b){ delete b.vf; delete b.migrated; Object.assign(b,rec); toast(`상자 ${b.name}의 기록을 고쳤어요!`); } S.editId=null; }
+  else { if(S.boxes.length>=30){ toast('기록은 30개까지 저장할 수 있어요. 필요 없는 상자를 지워 주세요.'); return; }
+    const b=Object.assign({id:S.seq,name:boxName(S.seq)},rec); S.seq++; S.boxes.push(b); toast(`상자 ${b.name}을(를) 기록했어요!`); }
+  S.lab.calc=mkCalc(); save(); renderCalcLab(); renderLabTable(); renderEditBar(); renderAutoBox(); renderNav();
+  if(before<NEED_BOXES && distinctN()>=NEED_BOXES) setTimeout(()=>toast('🎉 서로 다른 모양의 상자 5개를 완성했어요!'),1400);
+  else if(T.autoAllowed && beforeD<needN() && directN()>=needN()) setTimeout(()=>toast('🎉 서로 다른 상자 '+needN()+'개를 직접 정확히 계산했어요! 자동 계산 도우미를 켤 수 있어요.'),1400);
 };
 $('#btnUnfold').onclick=()=>{ const nb=$('#netBox'), on=nb.style.display==='none'; nb.style.display=on?'':'none';
   $('#btnUnfold').textContent=on?'📦 다시 접기':'📐 상자 펼쳐 보기'; const d=labDims(); if(!on){ labHL=null; vLab.set([{a:d.a,b:d.b,c:d.c}]); } else nb.innerHTML=netSVG(d.a,d.b,d.c,labHL); };
@@ -919,27 +1137,30 @@ $('#netBox').addEventListener('keydown',e=>{ const g=e.target.closest('[data-fac
 /* =========================================================
    STEP 3
    ========================================================= */
-const QS=[{k:'q1',t:'부피가 800㎤ 이상인 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?'},
-  {k:'q2',t:'부피가 비슷한 상자들의 겉넓이를 비교하면 어떤 특징이 나타나나요?'},
-  {k:'q3',t:'상자의 가로·세로·높이와 겉넓이 사이에는 어떤 관계가 있을까요?'},
-  {k:'q4',t:'지금까지 만든 상자보다 겉넓이가 더 작은 상자를 만들 수 있을까요?'}];
-function updQS(){ QS[0].t=`부피가 ${T.vmin}㎤ 이상인 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?`; }
+const QS=[{k:'q1',t:'부피가 모두 1,000㎤인 직육면체의 겉넓이는 서로 같나요?'},
+  {k:'q2',t:'내가 만든 상자 중 겉넓이가 가장 작은 상자는 무엇인가요?'},
+  {k:'q3',t:'가로·세로·높이의 길이에 따라 겉넓이는 어떻게 달라지나요?'},
+  {k:'q4',t:'부피가 같을 때 겉넓이를 작게 만들려면 상자의 모양이 어떠해야 할까요?'}];
+function updQS(){}
 $('#sortSel').onchange=e=>{ S.sortBy=e.target.value; save(); renderS3(); };
-function sortedBoxes(){ const L=S.boxes.slice(); if(S.sortBy==='v') L.sort((p,q)=>VOL(p.a,p.b,p.c)-VOL(q.a,q.b,q.c)); if(S.sortBy==='s') L.sort((p,q)=>SA(p.a,p.b,p.c)-SA(q.a,q.b,q.c)); return L; }
-function myMin(){ const ok=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)); if(!ok.length) return null; return ok.reduce((m,b)=>SA(b.a,b.b,b.c)<SA(m.a,m.b,m.c)?b:m); }
+function sortedBoxes(){ const L=S.boxes.slice(); if(S.sortBy==='m') L.sort((p,q)=>Math.max(p.a,p.b,p.c)-Math.max(q.a,q.b,q.c)); if(S.sortBy==='s') L.sort((p,q)=>SA(p.a,p.b,p.c)-SA(q.a,q.b,q.c)); return L; }
+function myMin(){ const ok=S.boxes; if(!ok.length) return null; return ok.reduce((m,b)=>SA(b.a,b.b,b.c)<SA(m.a,m.b,m.c)?b:m); }
 function dataTable(L,compact){ if(!L.length) return '<tr><td class="muted" style="padding:16px">저장한 상자가 없어요.</td></tr>';
-  return '<tr><th>상자</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th><th>조건 충족</th></tr>'+
-  L.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return `<tr class="${ok?'':'bad'}"><td><b>${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>${VOL(b.a,b.b,b.c)}</td><td><b>${SA(b.a,b.b,b.c)}</b></td><td>${ok?'✅':'❌ '+(compact?'':whyBad(b.a,b.b,b.c))}</td></tr>`; }).join(''); }
+  const mn=Math.min(...L.map(b=>SA(b.a,b.b,b.c)));
+  const fx=compact==='fx';
+  return '<tr><th>상자</th><th>가로</th><th>세로</th><th>높이</th><th>부피(㎤)</th><th>겉넓이(㎠)</th>'+(fx?'<th>나의 겉넓이 계산식</th>':'')+'</tr>'+
+  L.map(b=>{ const s=SA(b.a,b.b,b.c), m=s===mn&&L.length>1; return `<tr class="${m?'best':''}"><td><b>${esc(b.name)}</b></td><td>${b.a}</td><td>${b.b}</td><td>${b.c}</td><td>1,000</td><td><b>${s}</b>${m?'<span class="minTag">최소</span>':''}</td>${fx?`<td class="l small" style="word-break:break-all;white-space:normal">${b.sf?esc(b.sf):(b.method==='auto'?'(자동 계산 도우미 사용)':'-')}</td>`:''}</tr>`; }).join(''); }
 function barChart(L,opt={}){ const n=L.length; if(!n) return '<p class="muted">저장한 상자가 없어요.</p>';
   const bw=opt.bw||Math.max(30,Math.min(64,560/n)), gap=Math.max(8,bw*.4), pl=56,pr=14,pt=30,pb=44,ch=opt.h||270;
-  const W=Math.max(opt.minW||520, pl+pr+n*(bw+gap)+gap), vals=L.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals);
+  const W=Math.max(opt.minW||520, pl+pr+n*(bw+gap)+gap), vals=L.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals)*1.08;
   const st=[50,100,200,250,500,1000,2000].find(s=>mx/s<=6)||5000, top=Math.ceil(mx/st)*st, y=v=>pt+ch-v/top*ch;
-  let g=`<defs><pattern id="hb${opt.id||''}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#D9D3C7"/><line x1="0" y1="0" x2="0" y2="6" stroke="#fff" stroke-width="2"/></pattern></defs>`;
+  const mn=Math.min(...vals); let g='';
   for(let v=0;v<=top;v+=st) g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#EEE8DC"/><text x="${pl-7}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="#8696A5">${v}</text>`;
-  L.forEach((b,i)=>{ const x=pl+gap+i*(bw+gap), v=vals[i], ok=basicOK(b.a,b.b,b.c), yy=y(v);
-    g+=`<g><title>상자 ${esc(b.name)}: ${b.a}×${b.b}×${b.c}, 부피 ${VOL(b.a,b.b,b.c)}㎤, 겉넓이 ${v}㎠${ok?'':' (조건 미충족)'}</title>
-      <path d="M${x},${y(0)} L${x},${yy+4} Q${x},${yy} ${x+4},${yy} L${x+bw-4},${yy} Q${x+bw},${yy} ${x+bw},${yy+4} L${x+bw},${y(0)} Z" fill="${ok?'#5DB3EA':`url(#hb${opt.id||''})`}"/>
+  L.forEach((b,i)=>{ const x=pl+gap+i*(bw+gap), v=vals[i], m=v===mn&&n>1, yy=y(v);
+    g+=`<g><title>상자 ${esc(b.name)}: ${b.a}×${b.b}×${b.c}, 부피 1,000㎤, 겉넓이 ${v}㎠${m?' (가장 작음)':''}</title>
+      <path d="M${x},${y(0)} L${x},${yy+4} Q${x},${yy} ${x+4},${yy} L${x+bw-4},${yy} Q${x+bw},${yy} ${x+bw},${yy+4} L${x+bw},${y(0)} Z" fill="${m?'#15937A':'#5DB3EA'}"/>
       <text x="${x+bw/2}" y="${yy-7}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#24323F">${v}</text>
+      ${m?`<text x="${x+bw/2}" y="${yy-21}" text-anchor="middle" font-size="11.5" font-weight="900" fill="#15937A">최소</text>`:''}
       <text x="${x+bw/2}" y="${pt+ch+18}" text-anchor="middle" font-size="13" font-weight="700" fill="#526273">${esc(b.name)}</text></g>`; });
   g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#526273" stroke-width="1.5"/>`;
   g+=`<text x="${pl+(W-pl-pr)/2}" y="${pt+ch+38}" text-anchor="middle" font-size="13" fill="#526273" font-weight="700">상자 이름</text>`;
@@ -949,37 +1170,35 @@ function renderQuestions(){ updQS(); const box=$('#questions'); box.innerHTML=''
   QS.forEach((q,i)=>{ const d=document.createElement('div'); d.className='q';
     d.innerHTML=`<div class="qt"><b>질문 ${i+1}.</b>${q.t}</div><textarea aria-label="질문 ${i+1} 답"></textarea>`;
     box.appendChild(d); const ta=d.querySelector('textarea'); ta.value=S.ans[q.k]; ta.addEventListener('input',()=>{ S.ans[q.k]=ta.value; save(); }); }); }
-function renderS3(){ const few=$('#fewNotice'), okN=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)).length;
-  if(S.boxes.length<5){ few.style.display=''; few.innerHTML=`지금 저장한 상자는 <b>${S.boxes.length}개</b>예요. 비교하려면 상자를 <b>5개 이상</b> 모아 오면 좋아요. <button class="btn white small" data-goto="2">실험실로 돌아가기</button>`; few.querySelector('[data-goto]').onclick=()=>go(2); } else few.style.display='none';
-  $('#sortSel').value=S.sortBy; $('#tblData').innerHTML=dataTable(sortedBoxes());
-  $('#condText').textContent=`조건: ${condTxt()}, 길이 ${T.lmin}~${T.lmax}cm 자연수. 조건을 만족하지 못한 상자(❌)는 최적의 상자 후보에서 빠져요. 겉넓이를 비교할 때는 부피 조건도 함께 살펴보세요.`;
+function renderS3(){ const few=$('#fewNotice'), n=distinctN();
+  if(n<NEED_BOXES){ few.style.display=''; few.innerHTML=`지금 저장한 상자는 <b>${n}개</b>예요. 비교하려면 서로 다른 모양의 상자를 <b>5개</b> 모아 오세요. <button class="btn white small" data-goto="2">실험실로 돌아가기</button>`; few.querySelector('[data-goto]').onclick=()=>go(2); } else few.style.display='none';
+  $('#sortSel').value=S.sortBy==='v'?'id':S.sortBy; $('#tblData').innerHTML=dataTable(sortedBoxes());
+  $('#condText').textContent='모든 상자의 부피는 1,000㎤로 같아요. 초록색으로 표시된 상자가 내 기록 중 겉넓이가 가장 작은 상자예요.';
   $('#chart').innerHTML=barChart(sortedBoxes(),{id:'m'});
   renderQuestions(); renderOpt(); }
-$('#btnOpt').onclick=()=>{ const miss=[], okN=S.boxes.filter(b=>basicOK(b.a,b.b,b.c)).length;
-  if(S.boxes.length<5) miss.push(`상자 5개 이상 기록하기 (지금 ${S.boxes.length}개)`);
-  if(okN<2) miss.push(`조건을 만족하는 상자 2개 이상 기록하기 (지금 ${okN}개)`);
+$('#btnOpt').onclick=()=>{ const miss=[], n=distinctN();
+  if(n<NEED_BOXES) miss.push(`서로 다른 상자 5개 기록하기 (지금 ${n}개)`);
   QS.forEach((q,i)=>{ if(S.ans[q.k].trim().length<2) miss.push(`질문 ${i+1}에 답하기`); });
   if(miss.length&&!T.unlock){ $('#optErr').innerHTML='먼저 탐구를 마쳐 주세요: '+miss.join(', '); return; }
   $('#optErr').textContent=''; S.optShown=true; save(); renderNav(); renderOpt(true); };
 let vOpt=null;
 function renderOpt(scroll){ const box=$('#optBox'); if(!S.optShown){ box.style.display='none'; return; } box.style.display='';
   const o=optimumBasic(), mm=myMin();
-  if(!o){ box.innerHTML='<div class="note red">지금 설정된 조건을 만족하는 상자가 없어요. 선생님께 조건을 확인해 달라고 하세요.</div>'; return; }
   const ob=o.boxes[0], diff=mm? SA(mm.a,mm.b,mm.c)-o.S : null;
-  const near=nearBasic(6);
+  const near=nearBasic(8);
   box.innerHTML=`<h2>🏆 최적의 상자 확인</h2>
     <div class="cmp2">
-      <div class="cmpbox"><div class="k">📒 내 기록 중 겉넓이가 가장 작은 상자 (조건 충족 상자 중)</div>
-        ${mm?`<div class="v">${SA(mm.a,mm.b,mm.c)}㎠</div><div>상자 ${esc(mm.name)} · ${mm.a}×${mm.b}×${mm.c}cm · 부피 ${VOL(mm.a,mm.b,mm.c)}㎤</div>`:'<div class="v">-</div><div>조건을 만족하는 상자가 아직 없어요.</div>'}</div>
-      <div class="cmpbox win"><div class="k">🎯 설정된 조건 전체에서 실제 최솟값</div><div class="v">${o.S}㎠</div>
-        <div>${o.boxes.map(t=>t.join('×')+'cm').join(', ')} · 부피 ${VOL(...ob)}㎤</div></div>
+      <div class="cmpbox"><div class="k">📒 내 기록 중 겉넓이가 가장 작은 상자</div>
+        ${mm?`<div class="v">${SA(mm.a,mm.b,mm.c)}㎠</div><div>상자 ${esc(mm.name)} · ${mm.a}×${mm.b}×${mm.c}cm · 부피 1,000㎤</div>`:'<div class="v">-</div><div>아직 기록한 상자가 없어요.</div>'}</div>
+      <div class="cmpbox win"><div class="k">🎯 부피가 1,000㎤인 직육면체 중 겉넓이가 가장 작은 상자</div><div class="v">${o.S}㎠</div>
+        <div>${o.boxes.map(t=>t.join('×')+'cm').join(', ')} · 부피 1,000㎤ · 겉넓이 ${o.S}㎠</div></div>
     </div>
-    <div class="note ${diff===0?'mint':'orange'}">${mm? (diff===0?'🎉 내가 이미 최적의 상자를 찾았어요!':`내 기록의 최소 겉넓이는 실제 최솟값보다 <b>${diff}㎠</b> 더 커요.`):''}
-      회전해서 같아지는 상자(예: ${ob.join('×')}와 ${[ob[2],ob[0],ob[1]].join('×')})는 같은 상자로 봐요.</div>
+    <div class="note ${diff===0?'mint':'orange'}">${mm? (diff===0?'🎉 내가 이미 최적의 상자를 찾았어요!':`내 기록의 가장 작은 겉넓이는 최적의 상자보다 <b>${diff}㎠</b> 더 커요.`):''}
+      회전해서 같아지는 상자는 같은 상자로 봐요.</div>
     <div class="grid2"><div><canvas class="view" id="cvOpt" style="height:280px"></canvas></div>
-      <div><h3>겉넓이가 작은 상자 순위 (조건 만족)</h3><div class="tbl-wrap"><table class="data"><tr><th>순위</th><th>세 길이(cm)</th><th>부피(㎤)</th><th>겉넓이(㎠)</th></tr>
-        ${near.map((x,i)=>`<tr class="${x.S===o.S?'best':''}"><td>${i+1}</td><td>${x.t.join(' × ')}</td><td>${x.V}</td><td>${x.S}</td></tr>`).join('')}</table></div>
-        <p class="small ink2">🔎 순위가 높은 상자들의 세 길이를 비교해 보세요. 어떤 공통점이 있나요? 부피가 조건보다 훨씬 커지면 겉넓이는 어떻게 되나요?</p></div></div>`;
+      <div><h3>부피가 1,000㎤인 상자의 겉넓이 순위</h3><div class="tbl-wrap"><table class="data"><tr><th>순위</th><th>세 길이(cm)</th><th>부피(㎤)</th><th>겉넓이(㎠)</th></tr>
+        ${near.map((x,i)=>`<tr class="${x.S===o.S?'best':''}"><td>${i+1}</td><td>${x.t.join(' × ')}</td><td>1,000</td><td>${x.S}</td></tr>`).join('')}</table></div>
+        <p class="small ink2">🔎 순위가 높은 상자와 낮은 상자의 세 길이를 비교해 보세요.</p></div></div>`;
   if(!vOpt||vOpt.c!==$('#cvOpt')) vOpt=new BoxView($('#cvOpt'),{refDiag:20});
   vOpt.set([{a:ob[0],b:ob[1],c:ob[2]}],true); setTimeout(()=>vOpt.resize(),30);
   if(scroll) setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),60); }
@@ -999,9 +1218,9 @@ function renderConds(){ const s=S.s4; $('#cA').checked=s.cA; $('#cB').checked=s.
   gc.innerHTML=`<div class="small ink2">상자를 손으로 감싸 쥘 때 손에 닿는 폭을 정해요. 어느 방향으로 잡을지 고르세요.</div>
     <div class="condrow">잡는 방향: <select class="sel" id="gDim"><option value="a">가로 폭을 감싸 잡기</option><option value="b">세로 폭을 감싸 잡기</option><option value="c">높이 쪽을 감싸 잡기</option></select>
       <span id="gNow" class="badge s"></span></div>
-    <div class="condrow">손에 닿는 폭 <input class="num-in" type="number" id="gMax" min="1" max="60" step="1" value="${g.max}" aria-label="최대 폭"> cm 이하
+    <div class="condrow">손에 닿는 폭 <input class="num-in" type="number" id="gMax" min="1" max="100" step="1" value="${g.max}" aria-label="최대 폭"> cm 이하
       <label class="chk small" style="margin-left:8px"><input type="checkbox" id="gMinOn" ${g.minOn?'checked':''}> 그리고</label>
-      <input class="num-in" type="number" id="gMin" min="1" max="60" step="1" value="${g.min}" ${g.minOn?'':'disabled'} aria-label="최소 폭"> cm 이상</div>
+      <input class="num-in" type="number" id="gMin" min="1" max="100" step="1" value="${g.min}" ${g.minOn?'':'disabled'} aria-label="최소 폭"> cm 이상</div>
     <div class="small muted">잡기 편한 정도는 사람마다 달라서 웹앱이 정답이나 점수로 판단하지 않아요. 내가 정한 폭 조건을 만족하는지만 알려 줘요. 3D 상자를 돌려 보며 직접 예상해 보세요.</div>`;
   $('#gDim').value=g.dim;
   $('#gDim').onchange=e=>{ g.dim=e.target.value; save(); updateDes(); };
@@ -1013,7 +1232,7 @@ function renderConds(){ const s=S.s4; $('#cA').checked=s.cA; $('#cB').checked=s.
     ${s.shapes.map((r,i)=>`<div class="condrow" data-i="${i}">
       <input type="text" data-k="memo" value="${esc(r.memo)}" maxlength="20" style="width:150px" aria-label="조건 이름">
       <select class="sel" data-k="dim"><option value="a">가로</option><option value="b">세로</option><option value="c">높이</option><option value="max">가장 긴 변</option></select>
-      <span>을(를)</span><input class="num-in" type="number" data-k="val" min="1" max="60" step="1" value="${r.val}" aria-label="길이">cm
+      <span>을(를)</span><input class="num-in" type="number" data-k="val" min="1" max="100" step="1" value="${r.val}" aria-label="길이">cm
       <select class="sel" data-k="op"><option value=">=">이상</option><option value="<=">이하</option><option value="=">과 같게</option></select>
       <button class="xbtn" data-rm="${i}" aria-label="조건 삭제">✕</button></div>`).join('')}
     <button class="btn white small" id="addShape" ${s.shapes.length>=4?'disabled':''}>＋ 조건 추가</button>
@@ -1030,25 +1249,24 @@ function updateDes(){ const d=S.s4.d, s=S.s4;
   vDes.set([{a:d.a,b:d.b,c:d.c}]);
   const g=$('#gNow'); if(g) g.textContent=`지금 손에 닿는 폭: ${d[s.grip.dim]}cm`;
   const live=$('#desLive'), hide=s.finalizing;
-  live.innerHTML=`<div style="font-weight:800">📦 상자 크기: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm</div>`+
+  live.innerHTML=`<div style="font-weight:800">📦 상자 크기: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm · 부피 1,000㎤ (고정)</div>`+
     (hide?'<div class="small ink2 mt">🙈 최종 계산 검증 중에는 자동 계산 도우미가 숨겨져요.</div>':
-     autoOn()?`<div class="stats"><div class="stat"><span>부피</span><b>${VOL(d.a,d.b,d.c)}㎤</b></div><div class="stat"><span>겉넓이</span><b>${SA(d.a,d.b,d.c)}㎠</b></div><div class="stat"><span>🤖 자동 계산</span><b style="font-size:15px">켜짐</b></div></div>`:
-     `<div class="small ink2 mt">${autoAvail()?'STEP 2에서 자동 계산 도우미를 켜면 부피와 겉넓이가 바로 보여요.':'부피와 겉넓이는 직접 계산해요. (자동 계산 도우미는 STEP 2에서 상자 '+T.need+'개를 정확히 계산하면 열려요)'}</div>`);
-  const conds=[{t:condTxt(),ok:volCond(d.a,d.b,d.c)}].concat(myConds(d));
+     autoOn()?`<div class="stats"><div class="stat"><span>겉넓이</span><b>${SA(d.a,d.b,d.c)}㎠</b></div><div class="stat"><span>🤖 자동 계산</span><b style="font-size:15px">켜짐</b></div></div>`:
+     `<div class="small ink2 mt">${autoAvail()?'STEP 2에서 자동 계산 도우미를 켜면 겉넓이가 바로 보여요.':'겉넓이는 직접 계산해요. (자동 계산 도우미는 STEP 2에서 상자 '+needN()+'개를 직접 계산해 기록하면 열려요)'}</div>`);
+  const conds=[{t:condTxt(),ok:basicOK(d.a,d.b,d.c)}].concat(myConds(d));
   $('#desConds').innerHTML=conds.map((c,i)=>`<li class="${c.ok?'ok':'no'}">${c.ok?'✅':'❌'} ${i===0?'<b>기본</b> ':'<b>내 조건</b> '}${esc(c.t)}</li>`).join('');
   const w=sizeWarn(d.a,d.b,d.c); $('#desErr').innerHTML=w.map(x=>'⚠ '+x).join('<br>');
 }
-$('#loadRec').onchange=e=>{ const b=S.boxes.find(x=>x.id==e.target.value); if(!b) return; ['a','b','c'].forEach(k=>S.s4.d[k]=clamp(b[k],T.lmin,T.lmax)); e.target.value=''; desChanged(); dimControls($('#desCtl'),S.s4.d,desChanged,$('#desErr')); toast(`상자 ${b.name}을(를) 불러왔어요.`); };
+$('#loadRec').onchange=e=>{ const b=S.boxes.find(x=>x.id==e.target.value); if(!b) return; Object.assign(S.s4.d,{a:b.a,b:b.b,c:b.c,fk:'a'}); e.target.value=''; desChanged(); dimControls($('#desCtl'),S.s4.d,desChanged,$('#desErr')); toast(`상자 ${b.name}을(를) 불러왔어요.`); };
 $('#btnChoose').onclick=()=>{ const d=S.s4.d;
-  if(!inRange(d.a,d.b,d.c)){ toast(`길이는 ${T.lmin}~${T.lmax}cm 자연수여야 해요.`); return; }
-  if(!volCond(d.a,d.b,d.c)){ toast(`이 상자는 기본 조건(${condTxt()})을 만족하지 않아서 최종 상자로 고를 수 없어요.`); return; }
+  if(!basicOK(d.a,d.b,d.c)){ toast('부피가 정확히 1,000㎤인 상자만 최종 상자로 고를 수 있어요.'); return; }
   const bad=myConds(d).filter(c=>!c.ok);
   const start=()=>{ S.s4.finalizing=true; S.s4.fcalc=mkCalc(); save(); updateDes(); renderFinCalc(); $('#finCalcCard').scrollIntoView({behavior:'smooth',block:'start'}); };
   if(bad.length) askConfirm('내가 정한 조건 중 만족하지 않는 것이 있어요.', bad.map(c=>'❌ '+c.t).join(' / ')+' — 그래도 이 상자로 계속할까요?', start); else start(); };
 function renderFinCalc(){ const card=$('#finCalcCard'); if(!S.s4.finalizing){ card.style.display='none'; return; } card.style.display='';
-  const d=S.s4.d; $('#finInfo').textContent=`최종 후보 상자: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm`;
+  const d=S.s4.d; $('#finInfo').textContent=`최종 후보 상자: 가로 ${d.a}cm × 세로 ${d.b}cm × 높이 ${d.c}cm · 부피 1,000㎤ (고정)`;
   calcPanel($('#calcFin'), S.s4.fcalc, ()=>S.s4.d, ()=>{ const c=S.s4.fcalc;
-    S.s4.fin={a:d.a,b:d.b,c:d.c,vf:c.vf.trim(),sf:c.sf.trim(),vv:VOL(d.a,d.b,d.c),sv:SA(d.a,d.b,d.c),conds:myConds(d),at:Date.now()};
+    S.s4.fin={a:d.a,b:d.b,c:d.c,sf:String(c.sf||'').trim(),vv:VTARGET,sv:SA(d.a,d.b,d.c),conds:myConds(d),at:Date.now()};
     S.s4.finalizing=false; save(); renderNav(); toast('🎉 최종 상자가 확정되었어요!');
     setTimeout(()=>{ $('#finCalcCard').style.display='none'; renderFin(); updateDes(); $('#finCard').scrollIntoView({behavior:'smooth',block:'start'}); },700); }); }
 $('#btnFinCancel').onclick=()=>{ S.s4.finalizing=false; save(); renderFinCalc(); updateDes(); };
@@ -1057,23 +1275,23 @@ function renderFin(){ const f=S.s4.fin, card=$('#finCard'); if(!f){ card.style.d
   const changed=['a','b','c'].some(k=>f[k]!==S.s4.d[k]);
   $('#finCompare').innerHTML=`${changed?'<div class="note orange">설계 화면의 상자가 확정한 최종 상자와 달라요. 최종 상자를 바꾸려면 [이 상자로 최종 선택하기]를 다시 눌러요.</div>':''}
     <div class="final"><div style="font-size:20px;font-weight:900">✅ 확정된 나의 최종 상자: ${f.a}cm × ${f.b}cm × ${f.c}cm</div>
-      <div class="stats"><div class="stat"><span>부피</span><b>${f.vv}㎤</b></div><div class="stat"><span>나의 상자 겉넓이</span><b>${mS}㎠</b></div><div class="stat"><span>기본 조건</span><b style="font-size:16px">✅ ${condTxt()}</b></div></div></div>
+      <div class="stats"><div class="stat"><span>부피</span><b>1,000㎤ (고정)</b></div><div class="stat"><span>나의 상자 겉넓이</span><b>${mS}㎠</b></div><div class="stat"><span>가장 작은 겉넓이(${o.S}㎠)와의 차이</span><b>${mS-o.S}㎠</b></div></div></div>
     <div class="cmp2 mt">
-      <div class="cmpbox"><div class="k">기본 조건에서 가장 경제적인 상자</div>
-        ${o?`<div class="v">${o.S}㎠</div><div>${o.boxes.map(t=>t.join('×')).join(', ')}cm (${condTxt()}, 자연수 길이만 고려)</div><div class="mt"><b>나의 상자와의 차이: ${mS-o.S}㎠</b> ${mS===o.S?'— 같아요!':''}</div>`:'<div>조건을 만족하는 상자가 없어요.</div>'}</div>
+      <div class="cmpbox"><div class="k">부피가 1,000㎤인 상자 중 겉넓이가 가장 작은 상자</div>
+        <div class="v">${o.S}㎠</div><div>${o.boxes.map(t=>t.join('×')).join(', ')}cm</div><div class="mt"><b>나의 상자와의 차이: ${mS-o.S}㎠</b> ${mS===o.S?'— 같아요!':''}</div></div>
       <div class="cmpbox ${my&&my.S===mS?'win':''}"><div class="k">내가 정한 조건에서 가장 경제적인 상자</div>
         ${!(S.s4.cB||S.s4.cC)?'<div class="small ink2 mt">내가 추가한 조건(B·C)이 없어서 기본 조건과 같아요.</div>':
           my?`<div class="v">${my.S}㎠</div><div>${my.boxes.slice(0,3).map(t=>`가로 ${t[0]}×세로 ${t[1]}×높이 ${t[2]}`).join(', ')}${my.boxes.length>3?` 외 ${my.boxes.length-3}가지`:''}</div><div class="mt"><b>나의 상자와의 차이: ${mS-my.S}㎠</b></div>`:
           '<div class="small mt">⚠ 내가 정한 조건을 모두 만족하는 상자가 없어요. 조건을 다시 살펴보세요.</div>'}</div></div>
     <h3 class="mt">내가 선택한 조건의 충족 여부</h3>
     <ul class="conds">${S.s4.cA?`<li class="ok">🎯 A. 포장재 절약을 중요하게 생각함 (겉넓이 ${mS}㎠)</li>`:''}${conds.length?conds.map(c=>`<li class="${c.ok?'ok':'no'}">${c.ok?'✅':'❌'} ${esc(c.t)}</li>`).join(''):'<li>추가 조건 없음</li>'}</ul>
-    <p class="small ink2">💡 가장 좋은 상자는 겉넓이만으로 정해지지 않아요. 내 과자와 사용하는 사람을 생각해 왜 이 상자를 골랐는지 설명해 보세요.</p>`;
+    <p class="small ink2">💡 꼭 겉넓이가 가장 작은 상자를 고르지 않아도 괜찮아요. 내 과자와 사용하는 사람을 생각해 왜 이 상자를 골랐는지 설명해 보세요.</p>`;
   fillS4[4](); }
 function renderS4(){ fillS4.forEach(f=>f());
   if(!vGal) vGal=new BoxView($('#cvGallery'),{names:true,labels:false,refDiag:20});
-  vGal.set([{a:9,b:9,c:10,name:'정육면체에 가까운 상자',sub:'9 × 9 × 10cm'},{a:5,b:6,c:27,name:'길쭉한 상자',sub:'5 × 6 × 27cm'},{a:20,b:20,c:2,name:'넓고 납작한 상자',sub:'20 × 20 × 2cm'}],true);
+  vGal.set([{a:10,b:10,c:10,name:'정육면체 상자',sub:'10 × 10 × 10cm'},{a:4,b:5,c:50,name:'길쭉한 상자',sub:'4 × 5 × 50cm'},{a:20,b:25,c:2,name:'넓고 납작한 상자',sub:'20 × 25 × 2cm'}],true);
   if(!vDes) vDes=new BoxView($('#cvDesign'),{refDiag:24});
-  ['a','b','c'].forEach(k=>S.s4.d[k]=clamp(S.s4.d[k],T.lmin,T.lmax));
+  if(!basicOK(S.s4.d.a,S.s4.d.b,S.s4.d.c)) Object.assign(S.s4.d,DEF_DES);
   $('#loadRec').innerHTML='<option value="">선택하세요</option>'+S.boxes.map(b=>`<option value="${b.id}">상자 ${esc(b.name)} (${b.a}×${b.b}×${b.c})</option>`).join('');
   renderConds(); dimControls($('#desCtl'),S.s4.d,desChanged,$('#desErr')); updateDes(); renderFinCalc(); renderFin(); }
 
@@ -1084,37 +1302,40 @@ let vFin=null;
 const fillS5=[['#rf1','r1'],['#rf2','r2'],['#rf3','r3'],['#rf4','r4']].map(([id,k])=>bindText(id,()=>S.s5[k],v=>{S.s5[k]=v; if(k[0]==='r') renderNav(); refreshReportSoon();}));
 function renderS5(){ fillS5.forEach(f=>f());
   $('#r5pred').innerHTML=S.pred.trim()?esc(S.pred).replace(/\n/g,'<br>'):'<span class="muted">STEP 1에서 쓴 생각이 없어요.</span>';
-  $('#r5tbl').innerHTML=dataTable(S.boxes); $('#r5chart').innerHTML=barChart(S.boxes,{id:'r5'});
+  $('#r5tbl').innerHTML=dataTable(S.boxes,'fx'); $('#r5chart').innerHTML=barChart(S.boxes,{id:'r5'});
   const f=S.s4.fin;
   if(!vFin) vFin=new BoxView($('#cvFinal'),{refDiag:24});
   if(f){ vFin.set([{a:f.a,b:f.b,c:f.c}]);
     $('#r5dims').innerHTML=`<div class="stats"><div class="stat"><span>가로</span><b>${f.a}cm</b></div><div class="stat"><span>세로</span><b>${f.b}cm</b></div><div class="stat"><span>높이</span><b>${f.c}cm</b></div></div>`;
-    $('#r5calc').innerHTML=`<div class="note sky" style="margin:4px 0">부피: ${esc(f.vf)||'(식 없음)'} = <b>${f.vv}㎤</b><br>겉넓이: ${esc(f.sf)||'(식 없음)'} = <b>${f.sv}㎠</b></div>`;
+    $('#r5calc').innerHTML=`<div class="note sky" style="margin:4px 0">부피: <b>1,000㎤</b> (고정)<br>겉넓이: ${esc(f.sf)||'(식 없음)'} = <b>${f.sv}㎠</b><br><span class="small">가장 작은 겉넓이(${optimumBasic().S}㎠)와의 차이: ${f.sv-optimumBasic().S}㎠</span></div>`;
     $('#r5reason').innerHTML=S.s4.reason.trim()?esc(S.s4.reason).replace(/\n/g,'<br>'):'<span class="muted">STEP 4 ⑦에서 선택 이유를 써 주세요.</span>';
   } else { vFin.set([]); $('#r5dims').innerHTML='<div class="note">아직 최종 상자를 확정하지 않았어요. <button class="btn white small" data-goto4>STEP 4로 가기</button></div>'; const g4=$('[data-goto4]'); if(g4) g4.onclick=()=>go(4); $('#r5calc').innerHTML=''; $('#r5reason').textContent='-'; }
   if($('#report').style.display!=='none') $('#report').innerHTML=reportHTML();
 }
+const TOPIC='부피가 같은 직육면체의 겉넓이는 어떻게 달라질까?';
 function reportHTML(){ const f=S.s4.fin, line=t=>`<div class="ans">${esc(t)||'&nbsp;'}</div>`;
   const img=f? snapshot([{a:f.a,b:f.b,c:f.c}],320,230,{refDiag:24}):'';
-  const o=optimumBasic();
-  return `<div class="rp"><h1>📦 나의 과자 상자 수학 탐구 보고서</h1><div class="sub">과자를 충분히 담으면서 포장재를 절약하는 상자를 만들어라!</div>
+  const o=optimumBasic(), mm=myMin();
+  return `<div class="rp"><h1>📦 나의 과자 상자 수학 탐구 보고서</h1><div class="sub">부피 1,000㎤를 담으면서 포장재를 절약하는 상자를 만들어라!</div>
     <div class="namebox"><div>날짜: ${new Date().toLocaleDateString('ko-KR')}</div><div>이름: <span></span></div></div>
-    <div class="blk"><h3>1. 탐구 주제</h3><p><b>과자를 충분히 담으면서 포장재를 가장 적게 사용하고, 손으로 잡기도 편한 상자를 만들 수 있을까?</b></p><p class="small">조건: ${condTxt()}, 가로·세로·높이 ${T.lmin}~${T.lmax}cm 자연수</p></div>
-    <div class="blk"><h3>2. 처음 예상한 내용과 이유</h3>${line(S.pred)}</div>
-    <div class="blk"><h3>3. 실험 데이터</h3>${S.boxes.length?`<div class="two"><table class="data">${dataTable(S.boxes,true)}</table><div>${barChart(S.boxes,{h:180,bw:24,minW:300,id:'rp'})}</div></div>`:'<p>저장한 상자가 없어요.</p>'}
-      ${o?`<p class="small">설정된 조건에서 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠</p>`:''}</div>
-    <div class="blk"><h3>4. 최종 상자 설계</h3><div class="two"><div>
+    <div class="blk"><h3>1. 탐구 주제</h3><p><b>${TOPIC}</b></p><p class="small">조건: 부피 정확히 1,000㎤, 가로·세로·높이 1~100cm 자연수</p></div>
+    <div class="blk"><h3>2. 처음 예상</h3>${line(S.pred)}</div>
+    <div class="blk"><h3>3. 내가 만든 상자 ${S.boxes.length}개의 데이터</h3>${S.boxes.length?`<table class="data">${dataTable(S.boxes,'fx')}</table>`:'<p>저장한 상자가 없어요.</p>'}</div>
+    <div class="blk"><h3>4. 겉넓이 비교 그래프</h3>${S.boxes.length?barChart(S.boxes,{h:180,bw:26,minW:320,id:'rp'}):'<p>저장한 상자가 없어요.</p>'}</div>
+    <div class="blk"><h3>5. 겉넓이가 가장 작은 상자에 대한 탐구 결과</h3>
+      ${mm?`<p>내 기록 중 겉넓이가 가장 작은 상자: 상자 ${esc(mm.name)} (${mm.a}×${mm.b}×${mm.c}cm, ${SA(mm.a,mm.b,mm.c)}㎠)</p>`:''}
+      ${S.optShown?`<p>부피가 1,000㎤인 직육면체 중 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠</p>`:''}
+      ${QS.map((q,i)=>`<p class="qlab">질문 ${i+1}. ${q.t}</p>${line(S.ans[q.k])}`).join('')}</div>
+    <div class="blk"><h3>6. 최종 선택한 과자 상자</h3><div class="two"><div>
       ${f?`<p><b>과자 이름:</b> ${esc(S.s4.snack.name)||'-'}</p><p><b>상자 크기:</b> 가로 ${f.a}cm × 세로 ${f.b}cm × 높이 ${f.c}cm</p>
-      <p><b>부피와 겉넓이 계산식</b></p><p>부피: ${esc(f.vf)||'-'} = ${f.vv}㎤</p><p>겉넓이: ${esc(f.sf)||'-'} = ${f.sv}㎠</p>
-      ${o?`<p class="small">기본 조건 최소 겉넓이(${o.S}㎠)와의 차이: ${f.sv-o.S}㎠</p>`:''}
-      <p class="qlab">사용 편의성 예상</p><p class="small">${esc(S.s4.use)||'-'}</p><p class="qlab">내가 정한 조건</p>${(f.conds&&f.conds.length)?f.conds.map(c=>`<p class="small">${c.ok?'✅':'❌'} ${esc(c.t)}</p>`).join(''):'<p class="small">추가 조건 없음</p>'}`:'<p>아직 최종 상자를 확정하지 않았어요.</p>'}
+      <p><b>부피:</b> 1,000㎤ (고정)</p><p><b>겉넓이:</b> ${esc(f.sf)||'-'} = ${f.sv}㎠</p>
+      <p class="small">가장 작은 겉넓이(${o.S}㎠)와의 차이: ${f.sv-o.S}㎠</p>
+      <p class="qlab">사용 편의성 예상</p><p class="small">${esc(S.s4.use)||'-'}</p><p class="qlab">내가 정한 조건</p>${(f.conds&&f.conds.length)?f.conds.map(c=>`<p class="small">${c.ok?'✅':'❌'} ${esc(c.t)}</p>`).join(''):'<p class="small">추가 조건 없음</p>'}
+      <p class="qlab">내 상자를 실제로 사용할 때 예상되는 점</p><p class="small">${esc(S.s5.r4)||'-'}</p>`:'<p>아직 최종 상자를 확정하지 않았어요.</p>'}
       </div><div>${img?`<img src="${img}" alt="최종 상자 3D 모형">`:''}</div></div></div>
-    <div class="blk"><h3>5. 최종 선택 이유</h3>${line(S.s4.reason)}</div>
-    <div class="blk"><h3>6. 탐구 성찰</h3>
-      <p class="qlab">탐구를 통해 새롭게 발견한 수학적 사실</p>${line(S.s5.r1)}
-      <p class="qlab">실제로 사용하기 좋은 상자를 만들기 위해 고려한 점</p>${line(S.s5.r2)}
-      <p class="qlab">처음 예상과 비교했을 때 달라진 생각</p>${line(S.s5.r3)}
-      <p class="qlab">내 상자를 실제로 사용할 때 예상되는 점</p>${line(S.s5.r4)}</div>
+    <div class="blk"><h3>7. 선택 이유</h3>${line(S.s4.reason)}<p class="qlab">실제로 사용하기 좋은 상자를 만들기 위해 고려한 점</p>${line(S.s5.r2)}</div>
+    <div class="blk"><h3>8. 발견한 수학적 사실</h3>${line(S.s5.r1)}</div>
+    <div class="blk"><h3>9. 처음 예상과 달라진 생각</h3>${line(S.s5.r3)}</div>
   </div>`; }
 $('#btnReportView').onclick=()=>{ const r=$('#report'), on=r.style.display==='none'; r.style.display=on?'':'none'; $('#btnReportView').textContent=on?'🔼 미리보기 닫기':'🔍 보고서 미리보기'; if(on){ r.innerHTML=reportHTML(); r.scrollIntoView({behavior:'smooth',block:'start'}); } };
 $('#btnReportPdf').onclick=()=>saveReportPDF();
@@ -1173,14 +1394,14 @@ function layoutReport(){
       ctx.strokeStyle=C.line; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(M,y+rh); ctx.lineTo(M+CW,y+rh); ctx.stroke(); y+=rh; });
     y+=3; };
   const chart=(list)=>{ const H=74; ensure(H+4); const x0=M+12, x1=M+CW-2, top=y+8, bot=y+H-14, ch=bot-top;
-    const vals=list.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals), st=[50,100,200,250,500,1000,2000].find(s=>mx/s<=6)||5000, tp=Math.ceil(mx/st)*st, Y=v=>bot-v/tp*ch;
-    font(2.8,700); ctx.textAlign='left'; ctx.fillStyle='#5DB3EA'; ctx.fillRect(M,y,3.2,3.2); ctx.fillStyle=C.ink2; ctx.fillText('부피 조건 만족',M+4.5,y+2.8);
-    ctx.fillStyle='#D9D3C7'; ctx.fillRect(M+32,y,3.2,3.2); ctx.strokeStyle='#fff'; ctx.lineWidth=0.4; ctx.beginPath(); ctx.moveTo(M+32,y+3.2); ctx.lineTo(M+35.2,y); ctx.stroke(); ctx.fillStyle=C.ink2; ctx.fillText('조건 미충족 (최적 후보에서 제외)',M+36.5,y+2.8);
+    const vals=list.map(b=>SA(b.a,b.b,b.c)), mx=Math.max(...vals)*1.06, st=[50,100,200,250,500,1000,2000].find(s=>mx/s<=6)||5000, tp=Math.ceil(mx/st)*st, Y=v=>bot-v/tp*ch;
+    const mnv=Math.min(...vals);
+    font(2.8,700); ctx.textAlign='left'; ctx.fillStyle='#5DB3EA'; ctx.fillRect(M,y,3.2,3.2); ctx.fillStyle=C.ink2; ctx.fillText('내가 만든 상자 (부피 모두 1,000㎤)',M+4.5,y+2.8);
+    ctx.fillStyle='#15937A'; ctx.fillRect(M+56,y,3.2,3.2); ctx.fillStyle=C.ink2; ctx.fillText('겉넓이가 가장 작은 상자',M+60.5,y+2.8);
     for(let v=0;v<=tp;v+=st){ ctx.strokeStyle='#EEE8DC'; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(x0,Y(v)); ctx.lineTo(x1,Y(v)); ctx.stroke(); font(2.6,500); ctx.fillStyle=C.muted; ctx.textAlign='right'; ctx.fillText(String(v),x0-1.5,Y(v)+0.9); }
     const n=list.length, slot=(x1-x0)/n, bw=Math.min(14,slot*0.62);
-    list.forEach((b,i)=>{ const cx=x0+slot*(i+0.5), v=vals[i], ok=basicOK(b.a,b.b,b.c), yy=Y(v);
-      ctx.fillStyle=ok?'#5DB3EA':'#D9D3C7'; rr(cx-bw/2,yy,bw,bot-yy,Math.min(1,bw/4)); ctx.fill();
-      if(!ok){ ctx.save(); rr(cx-bw/2,yy,bw,bot-yy,0); ctx.clip(); ctx.strokeStyle='#fff'; ctx.lineWidth=0.5; for(let k=-ch;k<bw+ch;k+=2){ ctx.beginPath(); ctx.moveTo(cx-bw/2+k,bot); ctx.lineTo(cx-bw/2+k+ch,bot-ch); ctx.stroke(); } ctx.restore(); }
+    list.forEach((b,i)=>{ const cx=x0+slot*(i+0.5), v=vals[i], m=v===mnv&&n>1, yy=Y(v);
+      ctx.fillStyle=m?'#15937A':'#5DB3EA'; rr(cx-bw/2,yy,bw,bot-yy,Math.min(1,bw/4)); ctx.fill();
       font(Math.min(2.8,slot*0.32),800); ctx.fillStyle=C.ink; ctx.textAlign='center'; ctx.fillText(String(v),cx,yy-1.2);
       font(Math.min(2.9,slot*0.4),700); ctx.fillStyle=C.ink2; ctx.fillText(String(b.name),cx,bot+4); });
     ctx.strokeStyle=C.ink2; ctx.lineWidth=0.35; ctx.beginPath(); ctx.moveTo(x0,bot); ctx.lineTo(x1,bot); ctx.stroke();
@@ -1198,20 +1419,27 @@ function layoutReport(){
   ctx.textAlign='right'; ctx.fillText('이름:                         ',PW-M-4,y+23.5); ctx.strokeStyle=C.ink2; ctx.lineWidth=0.25; ctx.beginPath(); ctx.moveTo(PW-M-38,y+24); ctx.lineTo(PW-M-4,y+24); ctx.stroke();
   y+=31;
   /* ----- 내용 ----- */
-  const f=S.s4.fin, o=optimumBasic();
+  const f=S.s4.fin, o=optimumBasic(), mm=myMin();
   heading(1,'탐구 주제');
-  text('과자를 충분히 담으면서 포장재를 가장 적게 사용하고, 손으로 잡기도 편한 상자를 만들 수 있을까?',{weight:800});
-  text(`탐구 조건: ${condTxt()}, 가로·세로·높이는 ${T.lmin}~${T.lmax}cm 자연수`,{size:3.2,color:C.ink2}); y+=1;
-  heading(2,'처음 예상한 내용과 이유'); answer(S.pred);
-  heading(3,'내가 실험한 상자들의 데이터',30);
-  if(S.boxes.length){
-    table(['상자','가로(cm)','세로(cm)','높이(cm)','부피(㎤)','겉넓이(㎠)','조건 충족'],
-      S.boxes.map(b=>{ const ok=basicOK(b.a,b.b,b.c); return [b.name,b.a,b.b,b.c,VOL(b.a,b.b,b.c),SA(b.a,b.b,b.c),ok?'만족':'미충족('+whyBad(b.a,b.b,b.c)+')']; }),
-      [1,1,1,1,1.2,1.2,2.2], i=>basicOK(S.boxes[i].a,S.boxes[i].b,S.boxes[i].c)?{}:{color:C.muted});
-    label('겉넓이 비교 그래프',80); chart(S.boxes);
-    if(o) text(`설정된 조건에서 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠`,{size:3.2,color:C.ink2});
+  text(TOPIC,{weight:800});
+  text('탐구 조건: 부피는 정확히 1,000㎤, 가로·세로·높이는 1~100cm 자연수',{size:3.2,color:C.ink2}); y+=1;
+  heading(2,'처음 예상'); answer(S.pred);
+  heading(3,`내가 만든 상자 ${S.boxes.length}개의 데이터`,30);
+  if(S.boxes.length){ const mn=Math.min(...S.boxes.map(b=>SA(b.a,b.b,b.c)));
+    table(['상자','가로(cm)','세로(cm)','높이(cm)','부피(㎤)','겉넓이(㎠)'],
+      S.boxes.map(b=>{ const s=SA(b.a,b.b,b.c); return [b.name,b.a,b.b,b.c,'1,000',s===mn&&S.boxes.length>1?s+' (최소)':s]; }),
+      [1,1,1,1,1.2,1.4], i=>SA(S.boxes[i].a,S.boxes[i].b,S.boxes[i].c)===mn&&S.boxes.length>1?{bg:C.mintL,bold:true}:{});
+    label('상자별로 내가 작성한 겉넓이 계산식');
+    S.boxes.forEach(b=>text(`상자 ${b.name} (${b.a}×${b.b}×${b.c}): ${b.sf? b.sf : (b.method==='auto'?'(자동 계산 도우미 사용)':'-')}`,{indent:2,size:3.4}));
+    y+=1;
   } else text('(아직 저장한 상자가 없어요)',{color:C.muted});
-  heading(4,'최종 선택한 상자',70);
+  heading(4,'겉넓이 비교 그래프',78);
+  if(S.boxes.length) chart(S.boxes); else text('(아직 저장한 상자가 없어요)',{color:C.muted});
+  heading(5,'겉넓이가 가장 작은 상자에 대한 탐구 결과');
+  if(mm) text(`내 기록 중 겉넓이가 가장 작은 상자: 상자 ${mm.name} (${mm.a}×${mm.b}×${mm.c}cm, ${SA(mm.a,mm.b,mm.c)}㎠)`,{weight:700});
+  if(S.optShown) text(`부피가 1,000㎤인 직육면체 중 겉넓이가 가장 작은 상자: ${o.boxes.map(t=>t.join('×')).join(', ')}cm, ${o.S}㎠`,{weight:700,color:C.mintD});
+  y+=1; QS.forEach((q,i)=>{ label(`질문 ${i+1}. ${q.t}`); answer(S.ans[q.k]); });
+  heading(6,'최종 선택한 과자 상자',70);
   if(f){
     const IH=60, IW=78; ensure(IH+2); const iy=y;
     ctx.fillStyle='#EEF7FF'; rr(M,iy,IW,IH,3); ctx.fill();
@@ -1220,19 +1448,18 @@ function layoutReport(){
       wrapLines(ctx,v,w).forEach((l,i)=>{ ctx.fillText(l,x,yy+5+i*(big?6:5)); yy+= i? (big?6:5):0; }); yy+=big?12:10.5; };
     if(S.s4.snack.name.trim()) kv('과자 이름',S.s4.snack.name.trim());
     kv('가로 · 세로 · 높이',`${f.a}cm × ${f.b}cm × ${f.c}cm`,true);
-    kv('부피',`${f.vv}㎤`); kv('겉넓이',`${f.sv}㎠${o?`  (최소 ${o.S}㎠와 차이 ${f.sv-o.S}㎠)`:''}`);
+    kv('부피','1,000㎤ (고정)'); kv('겉넓이',`${f.sv}㎠  (가장 작은 ${o.S}㎠와 차이 ${f.sv-o.S}㎠)`);
     y=Math.max(iy+IH,yy-4)+4;
-    label('내가 작성한 계산식');
-    text(`부피: ${f.vf||'(식을 쓰지 않았어요)'} = ${f.vv}㎤`,{indent:2}); text(`겉넓이: ${f.sf||'(식을 쓰지 않았어요)'} = ${f.sv}㎠`,{indent:2}); y+=1;
+    label('내가 작성한 겉넓이 계산식');
+    text(`겉넓이: ${f.sf||'(식을 쓰지 않았어요)'} = ${f.sv}㎠`,{indent:2}); y+=1;
     if(f.conds&&f.conds.length){ label('내가 정한 조건'); f.conds.forEach(c=>text(`${c.ok?'[만족]':'[불만족]'} ${c.t}`,{indent:2,size:3.3,color:c.ok?C.mintD:C.red})); y+=1; }
     label('사용 편의성 예상 (3D 상자를 보고)'); answer(S.s4.use);
+    label('내 상자를 실제로 사용할 때 예상되는 점'); answer(S.s5.r4);
   } else text('(아직 최종 상자를 확정하지 않았어요)',{color:C.muted});
-  heading(5,'최종 상자를 선택한 이유'); answer(S.s4.reason);
-  heading(6,'탐구를 통해 발견한 수학적 사실'); answer(S.s5.r1);
-  heading(7,'탐구 후 달라진 생각과 성찰');
-  label('처음 예상과 비교했을 때 달라진 생각'); answer(S.s5.r3);
+  heading(7,'선택 이유'); answer(S.s4.reason);
   label('실제로 사용하기 좋은 상자를 만들기 위해 고려한 점'); answer(S.s5.r2);
-  label('내 상자를 실제로 사용할 때 예상되는 점'); answer(S.s5.r4);
+  heading(8,'발견한 수학적 사실'); answer(S.s5.r1);
+  heading(9,'처음 예상과 달라진 생각'); answer(S.s5.r3);
   /* ----- 쪽 번호 ----- */
   pages.forEach((cv,i)=>{ const c=cv.getContext('2d'); c.setTransform(cv.width/PW,0,0,cv.height/PH,0,0);
     c.font=`600 2.9px ${RFONT}`; c.fillStyle=C.muted; c.textAlign='left'; c.fillText('과자 상자 디자인 연구소',M,PH-9);
@@ -1288,20 +1515,13 @@ async function saveReportPDF(){ if(pdfBusy) return; pdfBusy=true;
 /* =========================================================
    교사 설정 · 파일 · 초기화
    ========================================================= */
-function fillSet(){ $('#stVmin').value=T.vmin; $('#stVmaxOn').checked=T.vmaxOn; $('#stVmax').value=T.vmax; $('#stVmax').disabled=!T.vmaxOn;
-  $('#stLmin').value=T.lmin; $('#stLmax').value=T.lmax; $('#stNeed').value=T.need; $('#stAuto').checked=T.autoAllowed; $('#stUnlock').checked=T.unlock; showSetOpt(); }
-function showSetOpt(){ const o=optimumBasic(); $('#setOpt').innerHTML=o? `현재 조건(${condTxt()}, 길이 ${T.lmin}~${T.lmax}cm 자연수)에서 겉넓이가 가장 작은 상자: <b>${o.boxes.map(t=>t.join('×')).join(', ')}cm</b>, 겉넓이 <b>${o.S}㎠</b> (회전해서 같은 상자는 하나로 셈)` : '⚠ 현재 조건을 만족하는 상자가 없습니다. 조건을 조정해 주세요.'; }
-$('#stVmaxOn').onchange=e=>{ $('#stVmax').disabled=!e.target.checked; };
+function fillSet(){ $('#stNeed').value=needN(); $('#stAuto').checked=T.autoAllowed; $('#stUnlock').checked=T.unlock; showSetOpt(); }
+function showSetOpt(){ const o=optimumBasic(); $('#setOpt').innerHTML=`부피가 1,000㎤인 직육면체는 회전해서 같은 상자를 하나로 세면 모두 <b>${ALL_SHAPES.length}가지</b>예요. 겉넓이가 가장 작은 상자: <b>${o.boxes.map(t=>t.join('×')).join(', ')}cm</b>, 겉넓이 <b>${o.S}㎠</b>`; }
 $('#btnTeacher').onclick=()=>{ fillSet(); $('#setErr').textContent=''; openModal('#mdTeacher'); };
-$('#btnSetSave').onclick=()=>{ const n=id=>Number($(id).value), e=$('#setErr');
-  const vmin=n('#stVmin'), vmax=n('#stVmax'), lmin=n('#stLmin'), lmax=n('#stLmax'), need=n('#stNeed'), vmaxOn=$('#stVmaxOn').checked;
-  if(![vmin,lmin,lmax,need].every(Number.isInteger)||(vmaxOn&&!Number.isInteger(vmax))){ e.textContent='모든 값은 정수로 입력해 주세요.'; return; }
-  if(vmin<1){ e.textContent='최소 부피는 1 이상이어야 해요.'; return; }
-  if(vmaxOn&&vmax<vmin){ e.textContent='최대 부피는 최소 부피보다 크거나 같아야 해요.'; return; }
-  if(lmin<1||lmax>60||lmin>lmax){ e.textContent='길이 범위는 1~60cm, 최솟값 ≤ 최댓값이어야 해요.'; return; }
-  if(need<0||need>10){ e.textContent='직접 계산 횟수는 0~10이에요.'; return; }
-  Object.assign(T,{vmin,vmax,vmaxOn,lmin,lmax,need,autoAllowed:$('#stAuto').checked,unlock:$('#stUnlock').checked}); saveSet();
-  e.textContent=''; showSetOpt(); toast('설정을 적용했어요. 최적 상자도 다시 계산했어요.'); go(S.step); };
+$('#btnSetSave').onclick=()=>{ const e=$('#setErr'), need=Number($('#stNeed').value);
+  if(!Number.isInteger(need)||need<0||need>NEED_BOXES){ e.textContent='직접 계산할 상자 수는 0~5 사이의 정수예요.'; return; }
+  Object.assign(T,{need,autoAllowed:$('#stAuto').checked,unlock:$('#stUnlock').checked}); saveSet();
+  e.textContent=''; showSetOpt(); toast('설정을 적용했어요.'); go(S.step); };
 $('#btnSetDef').onclick=()=>{ T=DEF_SET(); saveSet(); fillSet(); toast('기본 설정으로 되돌렸어요.'); go(S.step); };
 $('#btnFile').onclick=()=>{ $('#fileErr').textContent=''; openModal('#mdFile'); };
 $('#btnExport').onclick=()=>{ const data={app:'snack-box-lab',version:2,savedAt:new Date().toISOString(),settings:T,data:S};
